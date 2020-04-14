@@ -11,3 +11,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.loginf-form {
+  max-width: 400px;
+  position: relative;
+  padding-block-start: 77px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.loginf-form {
+    display: inline-flexbox;
+    align-items: center;
+}
+.container1 {
+  padding: 136px;
+  /*align-items: center;*/
+  height: 100%;
+}
