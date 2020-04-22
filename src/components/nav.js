@@ -19,6 +19,10 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import { useTranslation } from 'react-i18next';
 
 const drawerWidth = 240;
 
@@ -33,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   appBarShift: {
+    backgroundColor:"rgba(235, 87, 87, 0.71)",
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
     transition: theme.transitions.create(['margin', 'width'], {
@@ -83,6 +88,12 @@ export default function NavComponent() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [age, setAge] = React.useState('');
+  const {t, i18n} = useTranslation();
+
+  const handleChange = (event) => {
+    i18n.changeLanguage(event.target.value);
+  };
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -101,7 +112,7 @@ export default function NavComponent() {
           [classes.appBarShift]: open,
         })}
       >
-        <Toolbar>
+        <Toolbar style={{backgroundColor:"rgba(235, 87, 87, 0.71)"}}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -112,7 +123,7 @@ export default function NavComponent() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Persistent drawer
+            
           </Typography>
         </Toolbar>
       </AppBar>
@@ -130,6 +141,21 @@ export default function NavComponent() {
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </div>
+        <Divider />
+
+        <InputLabel id="demo-simple-select-label">Language</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={age}
+          onChange={handleChange}
+        >
+          <MenuItem value={'en'}>en</MenuItem>
+          <MenuItem value={'ch'}>ch</MenuItem>
+          <MenuItem value={'ko'}>ko</MenuItem>
+          <MenuItem value={'po'}>po</MenuItem>
+        </Select>
+
         <Divider />
         <List>
           {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (

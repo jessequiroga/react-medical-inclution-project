@@ -1,97 +1,92 @@
-import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../App.css';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { Component } from 'react';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import FormControl from '@material-ui/core/FormControl';
-import clsx from 'clsx';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import Input from '@material-ui/core/Input';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import IconButton from '@material-ui/core/IconButton';
-import InputLabel from '@material-ui/core/InputLabel';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  margin: {
-    margin: theme.spacing(1),
-  },
-  withoutLabel: {
-    marginTop: theme.spacing(3),
-  },
-  textField: {
-    width: '25ch',
-  },
-}));
-
-function Login() {
-
-  const classes = useStyles();
-  const [values, setValues] = React.useState({
-    password: '',
-    showPassword: false,
-  });
+import 'bootstrap/dist/css/bootstrap.css';
+import axios from "axios"
 
 
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
+class Login extends Component {
+  constructor(props) {
+    super(props);
+    //this.signIn = this.signIn.bind(this);
+this.handleUsernameChange = this.handleUsernameChange.bind(this);
+this.handlePasswordChange = this.handlePasswordChange.bind(this);
 
-  const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
-  };
+    this.state = {
+      username: '',
+      pwd: ''
+    };
+    
+  }
 
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
+  handleUsernameChange = event => {
+    this.setState({
+      username: event.target.value
+    })
+  }
 
+  handlePasswordChange = event => {
+    this.setState({
+      pwd: event.target.value
+    })
+  }
+
+  handleSubmit = () =>{
+    const data = {
+      username: this.state.username,
+      pwd: this.state.pwd
+    }
+    console.log(data)
+
+   axios.post('http://localhost:3000/user/login', data)
+   .then(res => console.log(res.data));
+
+    window.location = '/welcome';
+  }
+  
+render(){
   return (
-    <form className="container1">
-    <nav style={{backgroundColor:"rgb(241, 136, 136)",
-                 borderColor:"rgb(241, 136, 136)", padding:"11px",
-                 borderRadius:"5px", color:"white",
-                 fontSize:"29px",
-                 marginBottom: "10px" }}>Sign In</nav>
-
-
-    <TextField id="standard-basic" fullWidth label="User Name" />
-    
-
-    
-    <FormControl  className={clsx(classes.margin, classes.textField)}>
-          <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
-          <Input fullWidth
-            id="standard-adornment-password"
-            type={values.showPassword ? 'text' : 'password'}
-            value={values.password}
-            onChange={handleChange('password')}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                >
-                  {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-        </FormControl>
-       
-
-    
-
-    <button type="submit" className="btn btn-primary btn-block">Submit</button>
-    <p className="forgot-password text-right">
-        Forgot <a href="#">password?</a>
-    </p>
-</form>
+    <div className="login container">
+      <form onSubmit={this.handleSubmit}>
+      <br/><br/><br/><br/><br/><br/><br/><br/>
+    <Card style={{width:"626px", marginLeft:"auto", marginRight:"auto"}}>
+    <CardHeader title="Sign in" subheader="to continue to MIP" style={{backgroundColor: "#eb5757b5"}} />
+                  <CardContent >
+                    <TextField
+                      label="Enter your email"
+                      fullWidth
+                      autoFocus
+                      required
+                      type="text"
+                      value ={this.state.username}
+                      onChange={this.handleUsernameChange}
+                    />
+                    <br/><br/>
+                    <TextField
+                      label="Enter your password"
+                      fullWidth
+                      required
+                      type="password"
+                      value ={this.state.pwd}
+                      onChange={this.handlePasswordChange}
+                      
+                    />
+                  </CardContent>
+                  <br/>
+                    <Button color="primary" variant="contained" onClick={this.handleSubmit}>
+                      Sign in
+                    </Button>
+                    <br/><br/>
+                  
+   
+  </Card>
+  </form>
+  </div>
   );
+}
 }
 
 export default Login;

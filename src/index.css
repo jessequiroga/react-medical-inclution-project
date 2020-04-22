@@ -25,7 +25,24 @@ code {
     align-items: center;
 }
 .container1 {
-  padding: 136px;
-  /*align-items: center;*/
+  
+  align-items: center;
   height: 100%;
+
+  position: fixed;
+  background-size: cover;
+  background-position: center;
+
+}
+
+.login {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 168px;
+  background-image: url(./img/img-stone.jpg);
+  align-items: center;
+  height: 1365px;
+  background-size: cover;
+  background-position: center;
+
 }
