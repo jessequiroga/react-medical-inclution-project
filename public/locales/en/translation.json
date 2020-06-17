@@ -152,7 +152,8 @@
         "Back":"Back",
         "Next":"Next",
         "hadsurgery":"Have you ever had surgery?",
-        "selectPlaceSymptom":"Select the place where you are experiencing the symptom."
+        "selectPlaceSymptom":"Select the place where you are experiencing the symptom.",
+        "yearStopSmooking":"Year when you stopped smoking "
     }
     
 }

@@ -12,8 +12,8 @@ class Login extends Component {
   constructor(props) {
     super(props);
     //this.signIn = this.signIn.bind(this);
-this.handleUsernameChange = this.handleUsernameChange.bind(this);
-this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.handleUsernameChange = this.handleUsernameChange.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
 
     this.state = {
       username: '',
@@ -41,10 +41,12 @@ this.handlePasswordChange = this.handlePasswordChange.bind(this);
     }
     console.log(data)
 
-   axios.post('http://localhost:3000/user/login', data)
-   .then(res => console.log(res.data));
-
-    window.location = '/welcome';
+   axios.post('http://localhost:3001/user/login', data)
+   .then(res => {
+     console.log(res.data)
+     window.location = '/homepage';
+    });
+   
   }
   
 render(){

@@ -38,11 +38,17 @@ code {
 .login {
   margin-left: auto;
   margin-right: auto;
-  padding: 168px;
-  background-image: url(./img/img-stone.jpg);
+  /*padding: 168px;*/
+  /*background-image: url(./img/img-stone.jpg);*/
   align-items: center;
-  height: 1365px;
+  /*height: 1365px;*/
   background-size: cover;
   background-position: center;
 
+}
+
+.makeStyles-paper-449 {
+  color: rgb(0, 0, 0) !important;
+  padding: 16px;
+  text-align: center;
 }

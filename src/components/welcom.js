@@ -1,15 +1,22 @@
 import React from 'react';
 import Nav from "./nav.js";
+import Layout from  "./layout";
+import Footer from "./footer"
 import '../App.css';
 import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
 
+
 function Welcome() {
   const {t, i18n} = useTranslation();
+  
+
+  
     return (
+      
       <div className="container">
-          <Nav />
-          <div className="">
+       <Layout />
+        
           <Button style={{margin: "14px", backgroundColor:"skyblue", minHeight:"90px"}} variant="contained" color="primary" disableElevation> {t('InternalMedcine')}</Button>
           <Button style={{margin: "14px", backgroundColor:"skyblue", minHeight:"90px"}} variant="contained" color="primary" disableElevation> {t('Cardiology')}</Button>
           <Button style={{margin: "14px", backgroundColor:"skyblue", minHeight:"90px"}} variant="contained" color="primary" disableElevation> {t('Gastroenterology')}</Button>
@@ -26,8 +33,9 @@ function Welcome() {
           <Button style={{margin: "14px", backgroundColor:"skyblue", minHeight:"90px"}} variant="contained" color="primary" disableElevation> {t('Dermatology')}</Button>
           <Button style={{margin: "14px", backgroundColor:"skyblue", minHeight:"90px"}} variant="contained" color="primary" disableElevation> {t('Obstetricgynecology')}</Button>
           
-          </div>
+        <Footer />
       </div>
+     
     );
   }
   
