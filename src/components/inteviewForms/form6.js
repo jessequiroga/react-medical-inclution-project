@@ -13,7 +13,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import GridList from '@material-ui/core/GridList';
-import FormLabel from '@material-ui/core/FormLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
@@ -52,14 +52,40 @@ const CenteredGrid = () => {
     const [frequency, setFrequency] = React.useState('');
     const [frequencyDuration, setFrequencyDuration] = React.useState('');
     const [CheckDrink, setCheckDrink] = React.useState({
-        checkedA: true,
-        checkedB: true,
-        checkedF: true,
-        checkedG: true,
+        beer: false,
+        wisky: false,
+        japsake: false,
+        wine: false,
+        others: false
     });
+    const [beerfrequency, setBeerFrequency] = React.useState('');
+    const [wiskyfrequency, setWiskyFrequency] = React.useState('');
+    const [japsakefrequency, setJapsakeFrequency] = React.useState('');
+    const [winefrequency, setWineFrequency] = React.useState('');
+    const [othersfrequency, setOthersFrequency] = React.useState('');
 
     const handleChangeCheckDrink = (event) => {
         setCheckDrink({ ...CheckDrink, [event.target.name]: event.target.checked });
+    };
+
+    const updateBeerFrequency = (event) => {
+        setBeerFrequency(event.target.value);
+    };
+
+    const updateWiskyFrequency = (event) => {
+        setWiskyFrequency(event.target.value);
+    };
+
+    const updateJapsakeFrequency = (event) => {
+        setJapsakeFrequency(event.target.value);
+    };
+
+    const updateWineFrequency = (event) => {
+        setWineFrequency(event.target.value);
+    };
+
+    const updateOthersFrequency = (event) => {
+        setOthersFrequency(event.target.value);
     };
 
     const handleChange = (event) => {
@@ -102,7 +128,7 @@ const CenteredGrid = () => {
 
                     <div >
                         {(smokeregularly === 'Yes') || (smokeregularly === 'Yes1') ? (
-                            <Grid container spacing={3} style={{ padding: 20 }} style={{ marginTop: -22, marginLeft: 18, marginRigh: 18, marginBottom: 18, paddingTop: 12, paddingBottom: 12, border: 'solid', borderTopWidth: 1, borderLeftWidth: 1, borderRightWidth: 1, borderBottomWidth: 1, backgroundColor: '#0000001a', borderRadius: 5, borderColor: 'black' }}>
+                            <Grid className="shadow" container spacing={3} style={{ padding: 20 }} style={{paddingLeft:16, marginTop: -22, marginRigh: 18, marginBottom: 18, paddingTop: 12, paddingBottom: 12, border: 'solid', borderTopWidth: 1, borderLeftWidth: 1, borderRightWidth: 1, borderBottomWidth: 1, backgroundColor: '#0000001a', borderRadius: 5, borderColor: 'black' }}>
                                 <Grid item xs={6}>
                                     <FormControl fullWidth className={classes.formControl}>
                                         <InputLabel id="demo-simple-select-label">{t('internalMedcine.Cigaretteconsumption')} /喫煙量</InputLabel>
@@ -118,7 +144,8 @@ const CenteredGrid = () => {
                                             <MenuItem value={4}>4</MenuItem>
                                             <MenuItem value={5}>5</MenuItem>
                                         </Select>
-                                        <nav>{t('internalMedcine.cigarettesDay')} 本/日</nav>
+                                        <FormHelperText>{t('internalMedcine.cigarettesDay')} 本/日</FormHelperText>
+                                       
                                     </FormControl>
                                 </Grid>
 
@@ -137,8 +164,8 @@ const CenteredGrid = () => {
                                             <MenuItem value={4}>4</MenuItem>
                                             <MenuItem value={5}>5</MenuItem>
                                         </Select>
-                                        <nav>{t('internalMedcine.NoofYear')} /年</nav>
-                                    </FormControl>
+                                        <FormHelperText>{t('internalMedcine.NoofYear')} /年</FormHelperText>
+                                        </FormControl>
                                 </Grid>
                                 <Grid item xs={8}>
                                     <FormControl fullWidth className=''>
@@ -180,20 +207,159 @@ const CenteredGrid = () => {
 
                     <div >
                         {(drinkregularly === 'Yes') || (drinkregularly === 'Yes1') ? (
-                            <Grid container spacing={3} style={{ padding: 20 }} style={{ marginTop: -22, marginLeft: 18, marginRigh: 18, marginBottom: 18, paddingTop: 12, paddingBottom: 12, border: 'solid', borderTopWidth: 1, borderLeftWidth: 1, borderRightWidth: 1, borderBottomWidth: 1, backgroundColor: '#0000001a', borderRadius: 5, borderColor: 'black' }}>
-                                <Grid item xs={6}>
-                                    <FormControlLabel
-                                        control={
-                                            <Checkbox
-                                                checked={CheckDrink.checkedB}
-                                                onChange={handleChangeCheckDrink}
-                                                name="checkedB"
-                                                color="primary"
-                                            />
-                                        }
-                                        label="Primary"
-                                    />
-                                </Grid>
+                            <Grid container spacing={3} style={{ padding: 20 }} style={{ paddingLeft:16, marginTop: -22,  marginRigh: 18, marginBottom: 18, paddingTop: 12, paddingBottom: 12, border: 'solid', borderTopWidth: 1, borderLeftWidth: 1, borderRightWidth: 1, borderBottomWidth: 1, backgroundColor: '#0000001a', borderRadius: 5, borderColor: 'black' }}>
+                                
+                                    <Grid container item xs={3}>
+                                        <FormControlLabel
+                                            control={
+                                                <Checkbox
+                                                    checked={CheckDrink.beer}
+                                                    onChange={handleChangeCheckDrink}
+                                                    name="beer"
+                                                />
+                                            }
+                                            label={t('internalMedcine.Beer')}
+                                        />
+                                    </Grid>
+                                    <Grid container item xs={3}>
+                                        <FormControl fullWidth className={classes.formControl} style={{ marginTop: -13, marginLeft: -146 }}>
+                                            <InputLabel id="demo-simple-select-label">ml /Day/日</InputLabel>
+                                            <Select
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                value={beerfrequency}
+                                                onChange={updateBeerFrequency}
+                                            >
+                                                <MenuItem value={1}>1</MenuItem>
+                                                <MenuItem value={2}>2</MenuItem>
+                                                <MenuItem value={3}>3</MenuItem>
+                                                <MenuItem value={4}>4</MenuItem>
+                                                <MenuItem value={5}>5</MenuItem>
+                                            </Select>
+                                            </FormControl>
+                                    </Grid>
+                               
+
+                               
+                                    <Grid container item xs={3}>
+                                        <FormControlLabel
+                                            control={
+                                                <Checkbox
+                                                    checked={CheckDrink.wisky}
+                                                    onChange={handleChangeCheckDrink}
+                                                    name="wisky"
+                                                />
+                                            }
+                                            label={t('internalMedcine.Whisky')}
+                                        />
+                                    </Grid>
+                                    <Grid container item xs={3}>
+                                        <FormControl fullWidth className={classes.formControl} style={{ marginTop: -13, marginLeft: -130 }}>
+                                            <InputLabel id="demo-simple-select-label">ml /Day/日</InputLabel>
+                                            <Select
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                value={wiskyfrequency}
+                                                onChange={updateWiskyFrequency}
+                                            >
+                                                <MenuItem value={1}>1</MenuItem>
+                                                <MenuItem value={2}>2</MenuItem>
+                                                <MenuItem value={3}>3</MenuItem>
+                                                <MenuItem value={4}>4</MenuItem>
+                                                <MenuItem value={5}>5</MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                    </Grid>
+
+                                    <Grid container item xs={3}>
+                                        <FormControlLabel
+                                            control={
+                                                <Checkbox
+                                                    checked={CheckDrink.japsake}
+                                                    onChange={handleChangeCheckDrink}
+                                                    name="japsake"
+                                                />
+                                            }
+                                            label={t('internalMedcine.Japanesesake')}
+                                        />
+                                    </Grid>
+                                    <Grid container item xs={3}>
+                                        <FormControl fullWidth className={classes.formControl} style={{ marginTop: -13, marginLeft: -68 }}>
+                                            <InputLabel id="demo-simple-select-label">ml /Day/日</InputLabel>
+                                            <Select
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                value={japsakefrequency}
+                                                onChange={updateJapsakeFrequency}
+                                            >
+                                                <MenuItem value={1}>1</MenuItem>
+                                                <MenuItem value={2}>2</MenuItem>
+                                                <MenuItem value={3}>3</MenuItem>
+                                                <MenuItem value={4}>4</MenuItem>
+                                                <MenuItem value={5}>5</MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                    </Grid>
+
+                                    <Grid container item xs={3}>
+                                        <FormControlLabel
+                                            control={
+                                                <Checkbox
+                                                    checked={CheckDrink.wine}
+                                                    onChange={handleChangeCheckDrink}
+                                                    name="wine"
+                                                />
+                                            }
+                                            label={t('internalMedcine.Wine')}
+                                        />
+                                    </Grid>
+                                    <Grid container item xs={3}>
+                                        <FormControl fullWidth className={classes.formControl} style={{ marginTop: -13, marginLeft: -146 }}>
+                                            <InputLabel id="demo-simple-select-label">ml /Day/日</InputLabel>
+                                            <Select
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                value={winefrequency}
+                                                onChange={updateWineFrequency}
+                                            >
+                                                <MenuItem value={1}>1</MenuItem>
+                                                <MenuItem value={2}>2</MenuItem>
+                                                <MenuItem value={3}>3</MenuItem>
+                                                <MenuItem value={4}>4</MenuItem>
+                                                <MenuItem value={5}>5</MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                    </Grid>
+
+                                    <Grid container item xs={3}>
+                                        <FormControlLabel
+                                            control={
+                                                <Checkbox
+                                                    checked={CheckDrink.others}
+                                                    onChange={handleChangeCheckDrink}
+                                                    name="others"
+                                                />
+                                            }
+                                            label={t('internalMedcine.Other')}
+                                        />
+                                    </Grid>
+                                    <Grid container item xs={3}>
+                                        <FormControl fullWidth className={classes.formControl} style={{ marginTop: -13, marginLeft: -146 }}>
+                                            <InputLabel id="demo-simple-select-label">ml /Day/日</InputLabel>
+                                            <Select
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                value={othersfrequency}
+                                                onChange={updateOthersFrequency}
+                                            >
+                                                <MenuItem value={1}>1</MenuItem>
+                                                <MenuItem value={2}>2</MenuItem>
+                                                <MenuItem value={3}>3</MenuItem>
+                                                <MenuItem value={4}>4</MenuItem>
+                                                <MenuItem value={5}>5</MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                    </Grid>
 
                             </Grid>
                         ) : (
