@@ -15,6 +15,7 @@ import GTranslateIcon from '@material-ui/icons/GTranslate';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -61,6 +62,7 @@ const useStyles = makeStyles((theme) => ({
 export default function PrimarySearchAppBar() {
   const menu = React.createRef();
   const classes = useStyles();
+  const { t, i18n } = useTranslation();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -84,6 +86,10 @@ export default function PrimarySearchAppBar() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const changelanguage = (lang) => () =>{
+    i18n.changeLanguage(lang);
+  }
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -95,8 +101,10 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={changelanguage('en')}>En</MenuItem>
+      <MenuItem onClick={changelanguage('ch')}>Ch</MenuItem>
+      <MenuItem onClick={changelanguage('ko')}>ko</MenuItem>
+      <MenuItem onClick={changelanguage('po')}>po</MenuItem>
     </Menu>
   );
 

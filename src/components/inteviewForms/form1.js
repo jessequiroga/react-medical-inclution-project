@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useContext }  from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -13,6 +13,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
+import { MedContext } from '../internalMedContext'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -44,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CenteredGrid = () => {
     const { t, i18n } = useTranslation();
-    const problemtoday = [
+    const problemtodays = [
         {name: t('internalMedcine.Fever') + "/発熱", value:"Fever"},
         {name: t('internalMedcine.Cough')+"/咳", value:"Cough"},
         {name: t('internalMedcine.Runnynose') +"/鼻水", value:"Runnynose"},
@@ -87,16 +88,16 @@ const CenteredGrid = () => {
        ]
     
 
-   
+    const [values, setValues] = useContext(MedContext);
     const classes = useStyles();
     const [checkedProblemtoday, setCheckedProblemtoday] = React.useState([]);
     const [checkedStool, setCheckedStool] = React.useState([]);
     const [frequency, setFrequency] = React.useState('');
 
     const handleToggleProblemtoday = (object) => () => {
-        const currentIndex = checkedProblemtoday.indexOf(object.value);
-        const newChecked = [...checkedProblemtoday];
-
+        const currentIndex = values.problemtoday.indexOf(object.value);
+        const newChecked = [...values.problemtoday];
+        
         if (currentIndex === -1) {
             newChecked.push(object.value);
         } else {
@@ -104,12 +105,12 @@ const CenteredGrid = () => {
         }
 
         setCheckedProblemtoday(newChecked);
-
+        setValues({...values, problemtoday:newChecked})
     };
 
     const handleToggleStool = (object) => () => {
-        const currentIndex = checkedStool.indexOf(object.value);
-        const newChecked = [...checkedStool];
+        const currentIndex = values.stools.indexOf(object.value);
+        const newChecked = [...values.stools];
 
         if (currentIndex === -1) {
             newChecked.push(object.value);
@@ -118,7 +119,7 @@ const CenteredGrid = () => {
         }
 
         setCheckedStool(newChecked);
-
+        setValues({...values, stools:newChecked})
     };
 
     const updateFrequency = (event) => {
@@ -136,7 +137,7 @@ const CenteredGrid = () => {
                     
                     <Grid container spacing={3} style={{ padding: 20 }}>
                     <GridList container style={{height:370, padding: 20 }} cellHeight={10} className={classes.gridList} cols={3}>
-                        {problemtoday.map((value) => {
+                        {problemtodays.map((value) => {
                             const labelId = `checkbox-list-label-${value.name}`;
 
                             return (
@@ -144,7 +145,7 @@ const CenteredGrid = () => {
                                     <ListItemIcon>
                                         <Checkbox
                                             edge="start"
-                                            checked={checkedProblemtoday.indexOf(value.value) !== -1}
+                                            checked={values.problemtoday.indexOf(value.value) !== -1}
                                             tabIndex={-1}
                                             disableRipple
                                             inputProps={{ 'aria-labelledby': labelId }}
@@ -170,7 +171,7 @@ const CenteredGrid = () => {
                                     <ListItemIcon>
                                         <Checkbox
                                             edge="start"
-                                            checked={checkedStool.indexOf(value.value) !== -1}
+                                            checked={values.stools.indexOf(value.value) !== -1}
                                             tabIndex={-1}
                                             disableRipple
                                             inputProps={{ 'aria-labelledby': labelId }}

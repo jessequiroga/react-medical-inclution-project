@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CenteredGrid = () => {
-
+    
     const foodAlergie = [
         { name: 'Fish Roe/魚卵', value: 'Fish Roe' },
         { name: 'Shellfish /貝類', value: 'Shellfish' },
@@ -70,22 +70,22 @@ const CenteredGrid = () => {
         {name:"anesthetic /麻酔薬", value:"antibiotics"}
        ];
 
-    const value = useContext(MedContext);
+    const [values, setValues] = useContext(MedContext);
     const { t, i18n } = useTranslation();
     const classes = useStyles();
 
     const [name, setName] = useState('')
     const [height, setHeight] = useState('')
     const [weight, setWeight] = useState('')
-    const [date, setDate] = useState(new Date())
+    const [date, setDate] = useState('')
     const [sex, setSex] = useState('');
 
     const [checkedFood, setCheckedFood] = React.useState([]);
     const [checkedMedecine, setCheckedMedecine] = React.useState([]);
 
     const handleToggleFood = (value) => () => {
-        const currentIndex = checkedFood.indexOf(value.value);
-        const newChecked = [...checkedFood];
+        const currentIndex = values.allergis.foods.indexOf(value.value);
+        const newChecked = [...values.allergis.foods];
 
         if (currentIndex === -1) {
             newChecked.push(value.value);
@@ -93,12 +93,14 @@ const CenteredGrid = () => {
             newChecked.splice(currentIndex, 1);
         }
 
-        setCheckedFood(newChecked);
-
+        setCheckedFood({allergis:{...values.allergis, foods:newChecked}});
+        setValues({...values, allergis:{...values.allergis, foods:newChecked}})
     };
+
+    
     const handleToggleMedecin = (value) => () => {
-        const currentIndex = checkedMedecine.indexOf(value.value);
-        const newChecked = [...checkedMedecine];
+        const currentIndex = values.allergis.medcine.indexOf(value.value);
+        const newChecked = [...values.allergis.medcine];
 
         if (currentIndex === -1) {
             newChecked.push(value.value);
@@ -106,39 +108,37 @@ const CenteredGrid = () => {
             newChecked.splice(currentIndex, 1);
         }
 
-        setCheckedMedecine(newChecked);
-
+        setCheckedMedecine({allergis:{...values.allergis, medcine:newChecked}});
+        setValues({...values, allergis:{...values.allergis, medcine:newChecked}})
     };
     //console.log(checkedFood)
-    //console.log(checkedMedecine)
+   // console.log(checkedMedecine)
 
     const updateName = (e) => {
         setName(e.target.value);
-    }
+        setValues({...values, name:e.target.value})
+       }
+console.log(values)
 
     const updateHeight = (e) => {
         setHeight(e.target.value);
+        setValues({...values, height:e.target.value})
     }
 
     const updateWeight = (e) => {
         setWeight(e.target.value);
+        setValues({...values, weight:e.target.value})
     }
 
     const updateDate = (date) => {
         setDate(date)
+        setValues({...values, DateOfBirth:date})
     }
 
     const updateSex = (event) => {
         setSex(event.target.value);
+        setValues({...values, sex:event.target.value})
     };
-
-
-    /*const handleInputChange = event => {
-        setValues({ ...name, [name]: event.target.value });
-      };
-      const handleDateChange = (date) => {
-        setValues({ ...date, date});
-    };*/
 
 
     return (
@@ -155,6 +155,7 @@ const CenteredGrid = () => {
                             id="name"
                             type="text"
                             values={name}
+                            defaultValue={values.name}
                             onChange={updateName}
                         />
                     </FormControl>
@@ -166,8 +167,8 @@ const CenteredGrid = () => {
                                 margin="normal"
                                 id="date-picker-dialog"
                                 label={t('internalMedcine.Dateofbirth')}
-                                format="MM/dd/yyyy"
-                                value={date}
+                                format="yyyy/MM/dd"
+                                value={values.DateOfBirth}
                                 onChange={updateDate}
                                 KeyboardButtonProps={{
                                     'aria-label': 'change date',
@@ -184,6 +185,7 @@ const CenteredGrid = () => {
                                 id="height"
                                 type="number"
                                 values={height}
+                                defaultValue={values.height}
                                 onChange={updateHeight}
                             />
                         </FormControl>
@@ -198,6 +200,7 @@ const CenteredGrid = () => {
                                 id="weight"
                                 type="number"
                                 values={weight}
+                                defaultValue={values.weight}
                                 onChange={updateWeight}
                             />
                         </FormControl>
@@ -206,11 +209,11 @@ const CenteredGrid = () => {
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
-                            value={sex}
+                            value={values.sex}
                             onChange={updateSex}
                         >
-                            <MenuItem value={10}>{t('internalMedcine.Male')}</MenuItem>
-                            <MenuItem value={20}>{t('internalMedcine.Female')}</MenuItem>
+                            <MenuItem value="Male">{t('internalMedcine.Male')}</MenuItem>
+                            <MenuItem value="Female">{t('internalMedcine.Female')}</MenuItem>
                         </Select>
                     </FormControl>
                 </Grid>
@@ -231,7 +234,7 @@ const CenteredGrid = () => {
                                     <ListItemIcon className={classes.ListItemIcon}>
                                         <Checkbox
                                             edge="start"
-                                            checked={checkedFood.indexOf(value.value) !== -1}
+                                            checked={values.allergis.foods.indexOf(value.value) !== -1}
                                             tabIndex={-1}
                                             disableRipple
                                             inputProps={{ 'aria-labelledby': labelId }}
@@ -256,7 +259,7 @@ const CenteredGrid = () => {
                                     <ListItemIcon>
                                         <Checkbox
                                             edge="start"
-                                            checked={checkedMedecine.indexOf(value.value) !== -1}
+                                            checked={values.allergis.medcine.indexOf(value.value) !== -1}
                                             tabIndex={-1}
                                             disableRipple
                                             inputProps={{ 'aria-labelledby': labelId }}

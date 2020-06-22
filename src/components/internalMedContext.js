@@ -4,13 +4,65 @@ export const MedContext = createContext();
 
 export const InternalMedContext = props => {
     const [values, setValues] = useState({
-        name:"sdfg",
-        date: new Date(),
+        name : '',
+        DateOfBirth : new Date,
+        height : '',
+        weight : '',
+        sex : '',
+        allergis : {
+            foods : [],
+            medcine : [],
+        },
+ 
+        problemtoday : [],
+        stools : [],
+        stoolfrequency : '',
+       
+        symptomoccur : [],
+        symptomlike : [],
+        scale1to10 : '',
+        symptomstart : new Date,
+        symtomstarttime : '',
+        onMedication : '',
+        onmedications: [],
+        
+        doctorcare: '',
+        doctorCare : [],
+
+        hadsurgerys: [],
+        hadsurgery: '',
+        
+        
+        smokeregularly : '',
+        smokeday : {
+            amount : '',
+            duration : '',
+            yearStop : '',
+        },
+        drinkregularly: '',
+        drinkeday: {
+            beer : '',
+            nobeer : '',
+            japsake : '',
+            nojapsake : '',
+            wisky : '',
+            nowisky : '',
+            wine : '',
+            nowine : '',
+            other : '',
+        },
+        pregnant : '',
+        breastfeeding : '',
+        medicalexpenses : '',
+        haveinterpreter : '',
+        otherssss : '',
+
+        bodyPart : []
     });
-    const [selectedDate, setSelectedDate] = React.useState(new Date());
+   
 
     return(
-        <MedContext.Provider value={'hey'}>
+        <MedContext.Provider value={[values, setValues]}>
             {props.children}
         </MedContext.Provider>
     );

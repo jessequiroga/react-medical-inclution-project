@@ -13,6 +13,7 @@ import Form3 from './inteviewForms/form3'
 import Form4 from './inteviewForms/form4'
 import Form5 from './inteviewForms/form5'
 import Form6 from './inteviewForms/form6'
+import Form7 from './inteviewForms/form7'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { InternalMedContext } from './internalMedContext';
@@ -64,7 +65,7 @@ function GetStepContent({ activeStep, name, setValues }) {
         case 5:
             return <Form6 />;
         case 6:
-            return 'This is the bit I really care about!';
+            return <Form7 />;;
         default:
             return 'Unknown step';
     }
@@ -91,11 +92,12 @@ export default function HorizontalLinearStepper() {
         return skipped.has(step);
     };
 
-    const handleNext = () => {
+    const handleNext = (e) => {
+        e.preventDefault();
         let newSkipped = skipped;
         if (isStepSkipped(activeStep)) {
             newSkipped = new Set(newSkipped.values());
-            newSkipped.delete(activeStep);
+            //newSkipped.delete(activeStep);
         }
 
         setActiveStep((prevActiveStep) => prevActiveStep + 1);

@@ -8,11 +8,7 @@ import { Grid } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import { useTranslation } from 'react-i18next';
 import Input from '@material-ui/core/Input';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
-import GridList from '@material-ui/core/GridList';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -207,7 +203,7 @@ const CenteredGrid = () => {
 
                     <div >
                         {(drinkregularly === 'Yes') || (drinkregularly === 'Yes1') ? (
-                            <Grid container spacing={3} style={{ padding: 20 }} style={{ paddingLeft:16, marginTop: -22,  marginRigh: 18, marginBottom: 18, paddingTop: 12, paddingBottom: 12, border: 'solid', borderTopWidth: 1, borderLeftWidth: 1, borderRightWidth: 1, borderBottomWidth: 1, backgroundColor: '#0000001a', borderRadius: 5, borderColor: 'black' }}>
+                            <Grid className="shadow" container spacing={3} style={{ padding: 20 }} style={{ paddingLeft:16, marginTop: -22,  marginRigh: 18, marginBottom: 18, paddingTop: 12, paddingBottom: 12, border: 'solid', borderTopWidth: 1, borderLeftWidth: 1, borderRightWidth: 1, borderBottomWidth: 1, backgroundColor: '#0000001a', borderRadius: 5, borderColor: 'black' }}>
                                 
                                     <Grid container item xs={3}>
                                         <FormControlLabel
