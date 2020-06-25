@@ -124,6 +124,7 @@ const CenteredGrid = () => {
 
     const updateFrequency = (event) => {
         setFrequency(event.target.value);
+        setValues({...values, stoolfrequency:event.target.value});
     };
 
     return (
@@ -189,7 +190,7 @@ const CenteredGrid = () => {
                         <Select 
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
-                            value={frequency}
+                            value={values.stoolfrequency}
                             onChange={updateFrequency}
                         >
                             <MenuItem value={1}>1</MenuItem>

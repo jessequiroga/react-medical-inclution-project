@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -13,6 +13,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
+import { MedContext } from '../internalMedContext'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -41,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CenteredGrid = () => {
     const { t, i18n } = useTranslation();
+    const [values, setValues] = useContext(MedContext);
     const [year, setYear] = useState('')
     const classes = useStyles();
     const [smokeregularly, setSmokeregularly] = React.useState('No');
@@ -61,47 +63,62 @@ const CenteredGrid = () => {
     const [othersfrequency, setOthersFrequency] = React.useState('');
 
     const handleChangeCheckDrink = (event) => {
-        setCheckDrink({ ...CheckDrink, [event.target.name]: event.target.checked });
+        const variable = event.target.name;
+        //setCheckDrink({ ...CheckDrink, [event.target.name]: event.target.checked });
+        setValues({...values, drinkeday:{...values.drinkeday, [event.target.name]:event.target.checked}})
+        console.log([event.target.name])
     };
 
     const updateBeerFrequency = (event) => {
         setBeerFrequency(event.target.value);
+        setValues({...values, drinkeday:{...values.drinkeday, nobeer:event.target.value}})
     };
 
     const updateWiskyFrequency = (event) => {
         setWiskyFrequency(event.target.value);
+        setValues({...values, drinkeday:{...values.drinkeday, nowisky:event.target.value}})
     };
 
     const updateJapsakeFrequency = (event) => {
         setJapsakeFrequency(event.target.value);
+        setValues({...values, drinkeday:{...values.drinkeday, nojapsake:event.target.value}})
     };
 
     const updateWineFrequency = (event) => {
         setWineFrequency(event.target.value);
+        setValues({...values, drinkeday:{...values.drinkeday, nowine:event.target.value}})
     };
 
     const updateOthersFrequency = (event) => {
         setOthersFrequency(event.target.value);
+        setValues({...values, drinkeday:{...values.drinkeday, noOther:event.target.value}})
     };
 
     const handleChange = (event) => {
         setSmokeregularly(event.target.value);
+        setValues({...values, smokeregularly:event.target.value})
     };
 
     const handleChangeDrink = (event) => {
         setDrinkregularly(event.target.value);
+        setValues({...values, drinkregularly:event.target.value})
     };
 
     const updateFrequency = (event) => {
         setFrequency(event.target.value);
+        setValues({...values, smokeday:{...values.smokeday, amount:event.target.value}})
     };
 
     const updateFrequencyDuration = (event) => {
         setFrequencyDuration(event.target.value);
+        setValues({...values, smokeday:{...values.smokeday, duration:event.target.value}})
     };
-    const updateYear = (e) => {
-        setYear(e.target.value);
+    const updateYear = (event) => {
+        setYear(event.target.value);
+        setValues({...values, smokeday:{...values.smokeday, yearStop:event.target.value}})
     }
+console.log(values)
+
     return (
         <div className={classes.root}>
             <Grid container spacing={3} style={{ padding: 20 }}>
@@ -112,10 +129,10 @@ const CenteredGrid = () => {
                 <Grid item xs={12}>
                     <FormControl component="fieldset">
 
-                        <RadioGroup row aria-label="gender" name="gender1" value={smokeregularly} onChange={handleChange}>
+                        <RadioGroup row aria-label="gender" name="gender1" value={values.smokeregularly} onChange={handleChange}>
                             <FormControlLabel value="Yes" control={<Radio />} label={t('internalMedcine.yes')} />
                             <FormControlLabel value="No" control={<Radio />} label={t('internalMedcine.No')} />
-                            <FormControlLabel value="Yes1" control={<Radio />} label={t('internalMedcine.Usedtosmoke')} />
+                            <FormControlLabel value="YesUseTo" control={<Radio />} label={t('internalMedcine.Usedtosmoke')} />
                         </RadioGroup>
                     </FormControl>
                 </Grid>
@@ -123,7 +140,7 @@ const CenteredGrid = () => {
                 <Grid item xs={12} >
 
                     <div >
-                        {(smokeregularly === 'Yes') || (smokeregularly === 'Yes1') ? (
+                        {(values.smokeregularly === 'Yes') || (values.smokeregularly === 'YesUseTo') ? (
                             <Grid className="shadow" container spacing={3} style={{ padding: 20 }} style={{paddingLeft:16, marginTop: -22, marginRigh: 18, marginBottom: 18, paddingTop: 12, paddingBottom: 12, border: 'solid', borderTopWidth: 1, borderLeftWidth: 1, borderRightWidth: 1, borderBottomWidth: 1, backgroundColor: '#0000001a', borderRadius: 5, borderColor: 'black' }}>
                                 <Grid item xs={6}>
                                     <FormControl fullWidth className={classes.formControl}>
@@ -131,7 +148,7 @@ const CenteredGrid = () => {
                                         <Select
                                             labelId="demo-simple-select-label"
                                             id="demo-simple-select"
-                                            value={frequency}
+                                            value={values.smokeday.amount}
                                             onChange={updateFrequency}
                                         >
                                             <MenuItem value={1}>1</MenuItem>
@@ -151,7 +168,7 @@ const CenteredGrid = () => {
                                         <Select
                                             labelId="demo-simple-select-label"
                                             id="demo-simple-select"
-                                            value={frequencyDuration}
+                                            value={values.smokeday.duration}
                                             onChange={updateFrequencyDuration}
                                         >
                                             <MenuItem value={1}>1</MenuItem>
@@ -168,8 +185,9 @@ const CenteredGrid = () => {
                                         <InputLabel htmlFor="name">{t('internalMedcine.yearStopSmooking')} /喫煙をやめた年</InputLabel>
                                         <Input
                                             id="name"
-                                            type="text"
-                                            values={year}
+                                            type="number"
+                                            values={values.smokeday.yearStop}
+                                            defaultValue={values.smokeday.yearStop}
                                             onChange={updateYear}
                                         />
                                     </FormControl>
@@ -191,10 +209,10 @@ const CenteredGrid = () => {
                 <Grid item xs={12}>
                     <FormControl component="fieldset">
 
-                        <RadioGroup row aria-label="gender" name="gender" value={drinkregularly} onChange={handleChangeDrink}>
+                        <RadioGroup row aria-label="gender" name="gender" value={values.drinkregularly} onChange={handleChangeDrink}>
                             <FormControlLabel value="Yes" control={<Radio />} label={t('internalMedcine.yes')} />
                             <FormControlLabel value="No" control={<Radio />} label={t('internalMedcine.No')} />
-                            <FormControlLabel value="Yes1" control={<Radio />} label={t('internalMedcine.Usedtosmoke')} />
+                            <FormControlLabel value="YesUseToSmook" control={<Radio />} label={t('internalMedcine.Usedtosmoke')} />
                         </RadioGroup>
                     </FormControl>
                 </Grid>
@@ -202,14 +220,14 @@ const CenteredGrid = () => {
                 <Grid item xs={12} >
 
                     <div >
-                        {(drinkregularly === 'Yes') || (drinkregularly === 'Yes1') ? (
+                        {(values.drinkregularly === 'Yes') || (values.drinkregularly === 'YesUseToSmook') ? (
                             <Grid className="shadow" container spacing={3} style={{ padding: 20 }} style={{ paddingLeft:16, marginTop: -22,  marginRigh: 18, marginBottom: 18, paddingTop: 12, paddingBottom: 12, border: 'solid', borderTopWidth: 1, borderLeftWidth: 1, borderRightWidth: 1, borderBottomWidth: 1, backgroundColor: '#0000001a', borderRadius: 5, borderColor: 'black' }}>
                                 
                                     <Grid container item xs={3}>
                                         <FormControlLabel
                                             control={
                                                 <Checkbox
-                                                    checked={CheckDrink.beer}
+                                                    checked={values.drinkeday.beer}
                                                     onChange={handleChangeCheckDrink}
                                                     name="beer"
                                                 />
@@ -223,7 +241,7 @@ const CenteredGrid = () => {
                                             <Select
                                                 labelId="demo-simple-select-label"
                                                 id="demo-simple-select"
-                                                value={beerfrequency}
+                                                value={values.drinkeday.nobeer}
                                                 onChange={updateBeerFrequency}
                                             >
                                                 <MenuItem value={1}>1</MenuItem>
@@ -241,7 +259,7 @@ const CenteredGrid = () => {
                                         <FormControlLabel
                                             control={
                                                 <Checkbox
-                                                    checked={CheckDrink.wisky}
+                                                    checked={values.drinkeday.wisky}
                                                     onChange={handleChangeCheckDrink}
                                                     name="wisky"
                                                 />
@@ -255,7 +273,7 @@ const CenteredGrid = () => {
                                             <Select
                                                 labelId="demo-simple-select-label"
                                                 id="demo-simple-select"
-                                                value={wiskyfrequency}
+                                                value={values.drinkeday.nowisky}
                                                 onChange={updateWiskyFrequency}
                                             >
                                                 <MenuItem value={1}>1</MenuItem>
@@ -271,7 +289,7 @@ const CenteredGrid = () => {
                                         <FormControlLabel
                                             control={
                                                 <Checkbox
-                                                    checked={CheckDrink.japsake}
+                                                    checked={values.drinkeday.japsake}
                                                     onChange={handleChangeCheckDrink}
                                                     name="japsake"
                                                 />
@@ -285,7 +303,7 @@ const CenteredGrid = () => {
                                             <Select
                                                 labelId="demo-simple-select-label"
                                                 id="demo-simple-select"
-                                                value={japsakefrequency}
+                                                value={values.drinkeday.nojapsake}
                                                 onChange={updateJapsakeFrequency}
                                             >
                                                 <MenuItem value={1}>1</MenuItem>
@@ -301,7 +319,7 @@ const CenteredGrid = () => {
                                         <FormControlLabel
                                             control={
                                                 <Checkbox
-                                                    checked={CheckDrink.wine}
+                                                    checked={values.drinkeday.wine}
                                                     onChange={handleChangeCheckDrink}
                                                     name="wine"
                                                 />
@@ -315,7 +333,7 @@ const CenteredGrid = () => {
                                             <Select
                                                 labelId="demo-simple-select-label"
                                                 id="demo-simple-select"
-                                                value={winefrequency}
+                                                value={values.drinkeday.nowine}
                                                 onChange={updateWineFrequency}
                                             >
                                                 <MenuItem value={1}>1</MenuItem>
@@ -331,9 +349,9 @@ const CenteredGrid = () => {
                                         <FormControlLabel
                                             control={
                                                 <Checkbox
-                                                    checked={CheckDrink.others}
+                                                    checked={values.drinkeday.other}
                                                     onChange={handleChangeCheckDrink}
-                                                    name="others"
+                                                    name="other"
                                                 />
                                             }
                                             label={t('internalMedcine.Other')}
@@ -345,7 +363,7 @@ const CenteredGrid = () => {
                                             <Select
                                                 labelId="demo-simple-select-label"
                                                 id="demo-simple-select"
-                                                value={othersfrequency}
+                                                value={values.drinkeday.noOther}
                                                 onChange={updateOthersFrequency}
                                             >
                                                 <MenuItem value={1}>1</MenuItem>

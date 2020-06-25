@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -13,6 +13,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import GridList from '@material-ui/core/GridList';
 import FormLabel from '@material-ui/core/FormLabel';
+import { MedContext } from '../internalMedContext'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -88,18 +89,19 @@ const CenteredGrid = () => {
         {name: t('internalMedcine.Syphilis') +"/ 梅毒", value:"Syphilis"}
        ]
 
+    const [values, setValues] = useContext(MedContext);
     const classes = useStyles();
-    const [medication, setMedication] = React.useState('No');
+    const [medication, setMedication] = React.useState('');
     const [medicationType, setMedicationType] = React.useState([]);
-    const [doctorcares, setDoctorcares] = React.useState('No');
+    const [doctorcares, setDoctorcares] = React.useState('');
     const [doctorcaresType, setDoctorcaresType] = React.useState([]);
-    const [hadsurgery, setHadsurgerys] = React.useState('No');
+    const [hadsurgery, setHadsurgerys] = React.useState('');
     const [hadsurgerysType, setHadsurgerysType] = React.useState([]);
     
 
     const handleToggleHadsurgerysType = (object) => () => {
-        const currentIndex = hadsurgerysType.indexOf(object.value);
-        const newChecked = [...hadsurgerysType];
+        const currentIndex = values.hadsurgerys.indexOf(object.value);
+        const newChecked = [...values.hadsurgerys];
 
         if (currentIndex === -1) {
             newChecked.push(object.value);
@@ -108,17 +110,18 @@ const CenteredGrid = () => {
         }
 
         setHadsurgerysType(newChecked);
-
+        setValues({...values, hadsurgerys:newChecked})
     };
 
     const handleChangeHadsurgerys = (event) => {
         setHadsurgerys(event.target.value);
+        setValues({...values, hadsurgery:event.target.value})
     };
 
 
     const handleToggleMedicationType = (object) => () => {
-        const currentIndex = medicationType.indexOf(object.value);
-        const newChecked = [...medicationType];
+        const currentIndex = values.onmedications.indexOf(object.value);
+        const newChecked = [...values.onmedications];
 
         if (currentIndex === -1) {
             newChecked.push(object.value);
@@ -127,16 +130,17 @@ const CenteredGrid = () => {
         }
 
         setMedicationType(newChecked);
-
+        setValues({...values, onmedications:newChecked})
     };
 
     const handleChange = (event) => {
         setMedication(event.target.value);
+        setValues({...values, onMedication:event.target.value})
     };
 
     const handleToggleDoctorcaresType = (object) => () => {
-        const currentIndex = doctorcaresType.indexOf(object.value);
-        const newChecked = [...doctorcaresType];
+        const currentIndex = values.doctorCare.indexOf(object.value);
+        const newChecked = [...values.doctorCare];
 
         if (currentIndex === -1) {
             newChecked.push(object.value);
@@ -145,11 +149,12 @@ const CenteredGrid = () => {
         }
 
         setDoctorcaresType(newChecked);
-
+        setValues({...values, doctorCare:newChecked})
     };
 
     const handleChangeDoctorcare = (event) => {
         setDoctorcares(event.target.value);
+        setValues({...values, doctorcare:event.target.value})
     };
 
 
@@ -159,11 +164,11 @@ const CenteredGrid = () => {
                 <Grid item xs={12}>
                     <Paper className={classes.paper}><strong><h5>{t('internalMedcine.symptomoccur')}? <br />/症状はどのような性質を持っていますか</h5></strong></Paper>
                 </Grid>
-                
+
                 <Grid item xs={12}>
                 <FormControl component="fieldset">
                     
-                    <RadioGroup row aria-label="gender" name="gender1" value={medication} onChange={handleChange}>
+                    <RadioGroup row aria-label="gender" name="gender1" value={values.onMedication} onChange={handleChange}>
                         <FormControlLabel value="Yes" control={<Radio />} label="Yes" />
                         <FormControlLabel value="No" control={<Radio />} label="No" />
                     </RadioGroup>
@@ -172,7 +177,7 @@ const CenteredGrid = () => {
 
                 <Grid>
                 <div>
-                    {medication === 'Yes' ? (
+                    {values.onMedication === 'Yes' ? (
                         <div>
                         <FormLabel style={{marginLeft:-148, fontSize:18}}><strong>{t('internalMedcine.currentlyonmedicationyesno')}</strong></FormLabel>
                         <GridList style={{ height: 120, padding: 20 }} cellHeight={10} className={classes.gridList} cols={3}>
@@ -184,7 +189,7 @@ const CenteredGrid = () => {
                                     <ListItemIcon>
                                         <Checkbox
                                             edge="start"
-                                            checked={medicationType.indexOf(value.value) !== -1}
+                                            checked={values.onmedications.indexOf(value.value) !== -1}
                                             tabIndex={-1}
                                             disableRipple
                                             inputProps={{ 'aria-labelledby': labelId }}
@@ -209,7 +214,7 @@ const CenteredGrid = () => {
                 <Grid item xs={12}>
                 <FormControl component="fieldset">
                     
-                    <RadioGroup row aria-label="gender" name="gender1" value={doctorcares} onChange={handleChangeDoctorcare}>
+                    <RadioGroup row aria-label="gender" name="gender1" value={values.doctorcare} onChange={handleChangeDoctorcare}>
                         <FormControlLabel value="Yes" control={<Radio />} label="Yes" />
                         <FormControlLabel value="No" control={<Radio />} label="No" />
                     </RadioGroup>
@@ -217,7 +222,7 @@ const CenteredGrid = () => {
                 </Grid>
                 <Grid>
                 <div>
-                    {doctorcares === 'Yes' ? (
+                    {values.doctorcare === 'Yes' ? (
                         <Grid container item xs={12}>
                         <FormLabel container style={{marginTop:-25, lineHeight:2, fontSize:18}}><strong>{t('internalMedcine.currentlyonmedicationyesno')} <br/>/「はい」に☑した人は、疾患名リストから選択し、治療していた医療機関名を書いてください。</strong></FormLabel>
                         <GridList style={{ height: 200, padding: 20 }} cellHeight={10} className={classes.gridList} cols={3}>
@@ -229,7 +234,7 @@ const CenteredGrid = () => {
                                     <ListItemIcon>
                                         <Checkbox
                                             edge="start"
-                                            checked={doctorcaresType.indexOf(value.value) !== -1}
+                                            checked={values.doctorCare.indexOf(value.value) !== -1}
                                             tabIndex={-1}
                                             disableRipple
                                             inputProps={{ 'aria-labelledby': labelId }}
@@ -254,7 +259,7 @@ const CenteredGrid = () => {
                 <Grid item xs={12}>
                 <FormControl component="fieldset">
                     
-                    <RadioGroup row aria-label="gender" name="gender1" value={hadsurgery} onChange={handleChangeHadsurgerys}>
+                    <RadioGroup row aria-label="gender" name="gender1" value={values.hadsurgery} onChange={handleChangeHadsurgerys}>
                         <FormControlLabel value="Yes" control={<Radio />} label="Yes" />
                         <FormControlLabel value="No" control={<Radio />} label="No" />
                     </RadioGroup>
@@ -262,7 +267,7 @@ const CenteredGrid = () => {
                 </Grid>
                 <Grid>
                 <div>
-                    {hadsurgery === 'Yes' ? (
+                    {values.hadsurgery === 'Yes' ? (
                         <div>
                             <FormLabel style={{marginLeft:-148, fontSize:18}}><strong>{t('internalMedcine.currentlyonmedicationyesno')}</strong></FormLabel>
                         <GridList style={{ height: 233, padding: 20 }} cellHeight={10} className={classes.gridList} cols={3}>
@@ -273,7 +278,7 @@ const CenteredGrid = () => {
                                     <ListItemIcon>
                                         <Checkbox
                                             edge="start"
-                                            checked={hadsurgerysType.indexOf(value.value) !== -1}
+                                            checked={values.hadsurgerys.indexOf(value.value) !== -1}
                                             tabIndex={-1}
                                             disableRipple
                                             inputProps={{ 'aria-labelledby': labelId }}

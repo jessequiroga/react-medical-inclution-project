@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -18,6 +18,7 @@ import {
     KeyboardDatePicker,
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
+import { MedContext } from '../internalMedContext'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -63,7 +64,7 @@ const CenteredGrid = () => {
         { name: t('internalMedcine.Other') + "/ その他", value: "Other" },
     ]
 
-
+    const [values, setValues] = useContext(MedContext);
     const classes = useStyles();
     const [checkedSymptomoccurs, setCheckedSymptomoccurs] = React.useState([]);
     const [checkedSymptomlikes, setCheckedSymptomlikes] = React.useState([]);
@@ -72,8 +73,8 @@ const CenteredGrid = () => {
     const [time, setTime] = useState(new Date())
 
     const handleToggleSymptomlikes = (object) => () => {
-        const currentIndex = checkedSymptomlikes.indexOf(object.value);
-        const newChecked = [...checkedSymptomlikes];
+        const currentIndex = values.symptomlike.indexOf(object.value);
+        const newChecked = [...values.symptomlike];
 
         if (currentIndex === -1) {
             newChecked.push(object.value);
@@ -82,12 +83,12 @@ const CenteredGrid = () => {
         }
 
         setCheckedSymptomlikes(newChecked);
-
+        setValues({...values, symptomlike:newChecked})
     };
 
     const handleToggleSymptomoccurs = (object) => () => {
-        const currentIndex = checkedSymptomoccurs.indexOf(object.value);
-        const newChecked = [...checkedSymptomoccurs];
+        const currentIndex = values.symptomoccur.indexOf(object.value);
+        const newChecked = [...values.symptomoccur];
 
         if (currentIndex === -1) {
             newChecked.push(object.value);
@@ -96,17 +97,20 @@ const CenteredGrid = () => {
         }
 
         setCheckedSymptomoccurs(newChecked);
-
+        setValues({...values, symptomoccur:newChecked})
     };
     const updateFrequency = (event) => {
         setFrequency(event.target.value);
+        setValues({...values, scale1to10:event.target.value});
     };
 
     const updateDate = (date) => {
         setDate(date)
+        setValues({...values, symptomstart:date})
     }
     const updateTime = (time) => {
         setTime(time)
+        setValues({...values, symtomstarttime:time})
     }
 
     return (
@@ -127,7 +131,7 @@ const CenteredGrid = () => {
                                     <ListItemIcon>
                                         <Checkbox
                                             edge="start"
-                                            checked={checkedSymptomoccurs.indexOf(value.value) !== -1}
+                                            checked={values.symptomoccur.indexOf(value.value) !== -1}
                                             tabIndex={-1}
                                             disableRipple
                                             inputProps={{ 'aria-labelledby': labelId }}
@@ -153,7 +157,7 @@ const CenteredGrid = () => {
                                     <ListItemIcon>
                                         <Checkbox
                                             edge="start"
-                                            checked={checkedSymptomlikes.indexOf(value.value) !== -1}
+                                            checked={values.symptomlike.indexOf(value.value) !== -1}
                                             tabIndex={-1}
                                             disableRipple
                                             inputProps={{ 'aria-labelledby': labelId }}
@@ -176,7 +180,7 @@ const CenteredGrid = () => {
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={frequency}
+                                value={values.scale1to10}
                                 onChange={updateFrequency}
                             >
                                 <MenuItem value={1}>1</MenuItem>
@@ -204,7 +208,7 @@ const CenteredGrid = () => {
                                     id="date-picker-dialog"
                                     label={t('internalMedcine.Dateofbirth')}
                                     format="MM/dd/yyyy"
-                                    value={date}
+                                    value={values.symptomstart}
                                     onChange={updateDate}
                                     KeyboardButtonProps={{
                                         'aria-label': 'change date',
@@ -216,7 +220,7 @@ const CenteredGrid = () => {
                                     margin="normal"
                                     id="time-picker"
                                     label="Time picker"
-                                    value={time}
+                                    value={values.symtomstarttime}
                                     onChange={updateTime}
                                     KeyboardButtonProps={{
                                         'aria-label': 'change time',

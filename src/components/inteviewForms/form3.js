@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -9,6 +9,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import GridList from '@material-ui/core/GridList';
+import { MedContext } from '../internalMedContext'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -66,13 +67,14 @@ const CenteredGrid = () => {
         { name: "28- knee(right) /膝(右)", value: "kneeR" },
         { name: "29- knee(left) /膝(左)", value: "kneeL" }
     ];
+    const [values, setValues] = useContext(MedContext);
 
     const [checkedBodyParts, setCheckedBodyParts] = React.useState([]);
     const classes = useStyles();
 
     const handleToggleBodyParts = (object) => () => {
-        const currentIndex = checkedBodyParts.indexOf(object.value);
-        const newChecked = [...checkedBodyParts];
+        const currentIndex = values.bodyPart.indexOf(object.value);
+        const newChecked = [...values.bodyPart];
 
         if (currentIndex === -1) {
             newChecked.push(object.value);
@@ -81,7 +83,7 @@ const CenteredGrid = () => {
         }
 
         setCheckedBodyParts(newChecked);
-
+        setValues({...values, bodyPart:newChecked})
     };
 
     //console.log(checkedBodyParts)
@@ -107,7 +109,7 @@ const CenteredGrid = () => {
                                         <ListItemIcon>
                                             <Checkbox
                                                 edge="start"
-                                                checked={checkedBodyParts.indexOf(value.value) !== -1}
+                                                checked={values.bodyPart.indexOf(value.value) !== -1}
                                                 tabIndex={-1}
                                                 disableRipple
                                                 inputProps={{ 'aria-labelledby': labelId }}
