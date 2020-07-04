@@ -47,6 +47,7 @@ function Homepage() {
           <Button className={classes.button} variant="contained" color="primary" disableElevation> {t('Urology')}</Button>
           <Button className={classes.button} variant="contained" color="primary" disableElevation> {t('Dermatology')}</Button>
           <Button className={classes.button} variant="contained" color="primary" disableElevation> {t('Obstetricgynecology')}</Button>
+          <Link to="/dialect"><Button className={classes.button} variant="contained" color="primary" disableElevation> {t('dialect')}</Button></Link>
           
         </div>
         <Footer />
