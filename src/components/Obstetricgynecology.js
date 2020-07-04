@@ -7,16 +7,16 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Nav from './nav';
 import { useTranslation } from 'react-i18next';
-import Form2 from './inteviewForms/form2'
-import Form1 from './inteviewForms/form1'
-import Form3 from './inteviewForms/form3'
-import Form4 from './inteviewForms/form4'
-import Form5 from './inteviewForms/form5'
-import Form6 from './inteviewForms/form6'
-import Form7 from './inteviewForms/form7'
+import Form2 from './ObstetricgynecologyForms/form2'
+import Form1 from './ObstetricgynecologyForms/form1'
+import Form3 from './ObstetricgynecologyForms/form3'
+import Form4 from './ObstetricgynecologyForms/form4'
+import Form5 from './ObstetricgynecologyForms/form5'
+import Form6 from './ObstetricgynecologyForms/form6'
+import Form7 from './ObstetricgynecologyForms/form7'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
-import { InternalMedContext, MedContext } from './internalMedContext';
+import { ObstetricgynecologyContext, ObstetricContext } from './ObstetricgynecologyContext';
 import axios from "axios"
 
 
@@ -48,15 +48,9 @@ function GetStepContent({ activeStep, name, setValues }) {
 
     switch (activeStep) {
         case 0:
-            return <Form2
-                name={name}
-                //onChange={(value) =>setValues(value)}
-                setValues={setValues}
-            //setSelectedDate={setSelectedDate}
-            // selectedDate={selectedDate}
-            />;
+            return <Form1　/>;
         case 1:
-            return <Form1 />;
+            return <Form2 />;
         case 2:
             return <Form3 />;
         case 3:
@@ -79,7 +73,7 @@ export default function HorizontalLinearStepper() {
     const [skipped, setSkipped] = React.useState(new Set());
     const steps = getSteps();
     const [values, setValues] = React.useState({});
-    const [datas, setDatas] = useContext(MedContext);
+    const [datas, setDatas] = useContext(ObstetricContext);
     const [selectedDate, setSelectedDate] = React.useState(new Date());
 
 

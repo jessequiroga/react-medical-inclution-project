@@ -54,10 +54,10 @@ export const InternalMedContext = props => {
             noOther : '',
         },
         pregnant : '',
-        breastfeeding : '',
-        medicalexpenses : '',
-        haveinterpreter : '',
-        otherssss : '',
+        breastfeeding : false,
+        medicalexpenses : false,
+        haveinterpreter : false,
+        otherssss : false,
 
         bodyPart : []
     });

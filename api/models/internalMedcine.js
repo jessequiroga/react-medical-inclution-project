@@ -9,26 +9,26 @@ var InternalMedcin = new mongoose.Schema({
         weight : Number,
         sex : String,
         allergis : {
-            foods : [String],
-            medcine : [String],
+            foods : [],
+            medcine : [],
         },
  
-        problemtoday : [String],
-        stools : [String],
+        problemtoday : [],
+        stools : [],
         stoolfrequency : String,
        
-        symptomoccur : [String],
-        symptomlike : [String],
+        symptomoccur : [],
+        symptomlike : [],
         scale1to10 : Number,
         symptomstart : Date,
         symtomstarttime : String,
         onMedication : String,
-        onmedications: [String],
+        onmedications: [],
         
         doctorcare: String,
-        doctorCare : [String],
+        doctorCare : [],
 
-        hadsurgerys: [String],
+        hadsurgerys: [],
         hadsurgery: String,
         
         
@@ -48,7 +48,8 @@ var InternalMedcin = new mongoose.Schema({
             nowisky : Number,
             wine : {type: Boolean},
             nowine : Number,
-            other : Number,
+            other : {type: Boolean},
+            noOther : Number
         },
         pregnant : String,
         breastfeeding : {type: Boolean},
@@ -56,7 +57,7 @@ var InternalMedcin = new mongoose.Schema({
         haveinterpreter :{type: Boolean},
         otherssss : {type: Boolean},
 
-        bodyPart : [String]
+        bodyPart : []
         
     });
 
