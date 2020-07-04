@@ -8,14 +8,12 @@ import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import GTranslateIcon from '@material-ui/icons/GTranslate';
-import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { useTranslation } from 'react-i18next';
+import { Button } from '@material-ui/core';
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -147,7 +145,7 @@ export default function PrimarySearchAppBar() {
         <Toolbar>
           
           <Typography className={classes.title} variant="h4" noWrap>
-            MIP
+          <Link to="/homepage" ><Button style={{fontSize:32, color: "white"}}>MIP</Button></Link> 
           </Typography>
           
           <div className={classes.grow} />

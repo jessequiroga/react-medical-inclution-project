@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { useTranslation } from 'react-i18next';
-import HumanImage from '../img/human-image.png';
+import HumanImage from '../img/human-image1.png';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -41,31 +41,31 @@ const CenteredGrid = () => {
     const { t, i18n } = useTranslation();
     const bodyParts = [
         { name: "1- Head /頭", value: "head" },
-        { name: "3- Eye(right) /目(右)", value: "eyeR" },
-        { name: "4- Eye(left) /目(左)", value: "eyeL1" },
-        { name: "5- Ear(right) /耳(右)", value: "earR" },
-        { name: "6- Ear(left) /耳(左)", value: "earL" },
-        { name: "7- Nose /鼻", value: "nose" },
-        { name: "9- Mouth /口", value: "mouth" },
-        { name: "10- Throat /のど", value: "throat" },
-        { name: "11- Neck /首", value: "eaneckrL" },
-        { name: "12- Sholder /肩", value: "sholder" },
-        { name: "13- Back /背", value: "back" },
-        { name: "14- Chest /胸", value: "chest" },
-        { name: "16- Abdoment /腹", value: "abdoment" },
-        { name: "17- Groin /陰部･性器", value: "groin" },
-        { name: "18- Arm(right) /腕(右)", value: "armR" },
-        { name: "19- Arm(left) /腕(左)", value: "armL" },
-        { name: "20- Hand(right) /手(右)", value: "handR" },
-        { name: "21- Hand(left) /手(左)", value: "handL" },
-        { name: "22- Waist /腰", value: "waist" },
-        { name: "23- Buttocks /尻", value: "buttocks" },
-        { name: "24- Leg(right) /脚(右)", value: "legR" },
-        { name: "25- Leg(left) /脚(左)", value: "legL" },
-        { name: "26- Foot(right) /足(右)", value: "footR" },
-        { name: "27 Ffoot(left) /足(左)", value: "footL" },
-        { name: "28- knee(right) /膝(右)", value: "kneeR" },
-        { name: "29- knee(left) /膝(左)", value: "kneeL" }
+        { name: "2- Eye(right) /目(右)", value: "eyeR" },
+        { name: "3- Eye(left) /目(左)", value: "eyeL1" },
+        { name: "4- Ear(right) /耳(右)", value: "earR" },
+        { name: "5- Ear(left) /耳(左)", value: "earL" },
+        { name: "6- Nose /鼻", value: "nose" },
+        { name: "7- Mouth /口", value: "mouth" },
+        { name: "8- Throat /のど", value: "throat" },
+        { name: "9- Neck /首", value: "eaneckrL" },
+        { name: "10- Sholder /肩", value: "sholder" },
+        { name: "11- Back /背", value: "back" },
+        { name: "12- Chest /胸", value: "chest" },
+        { name: "13- Abdoment /腹", value: "abdoment" },
+        { name: "14- Groin /陰部･性器", value: "groin" },
+        { name: "15- Arm(right) /腕(右)", value: "armR" },
+        { name: "16- Arm(left) /腕(左)", value: "armL" },
+        { name: "17- Hand(right) /手(右)", value: "handR" },
+        { name: "18- Hand(left) /手(左)", value: "handL" },
+        { name: "19- Waist /腰", value: "waist" },
+        { name: "20- Buttocks /尻", value: "buttocks" },
+        { name: "21- Leg(right) /脚(右)", value: "legR" },
+        { name: "22- Leg(left) /脚(左)", value: "legL" },
+        { name: "23- Foot(right) /足(右)", value: "footR" },
+        { name: "24- Foot(left) /足(左)", value: "footL" },
+        { name: "25- knee(right) /膝(右)", value: "kneeR" },
+        { name: "26- knee(left) /膝(左)", value: "kneeL" }
     ];
     const [values, setValues] = useContext(MedContext);
 

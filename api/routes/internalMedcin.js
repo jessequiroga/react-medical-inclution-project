@@ -11,12 +11,12 @@ router.get('/', async (req, res) => {
     }
 });
 
-/*router.post('/', async (req, res) =>{
+router.post('/', async (req, res) =>{
     try {
         let internalMedcineData = req.body
        let internalMedcine = new InternalMedcine(internalMedcineData)
-        res.send(internalMedcine);
-       /* internalMedcine.save((error, registeredInfo) =>{
+        //res.send(internalMedcine);
+       internalMedcine.save((error, registeredInfo) =>{
             if(error){
                 console.log(error)
             } else {
@@ -26,9 +26,9 @@ router.get('/', async (req, res) => {
     } catch (error) {
         
     }
-})*/
+})
 
-router.post('/', async (req, res) => {
+/*router.post('/', async (req, res) => {
     const newinternalMedcine = new InternalMedcine({
         name: req.body.name,
         DateOfBirth: req.body.DateOfBirth,
@@ -36,7 +36,7 @@ router.post('/', async (req, res) => {
         weight: req.body.weight,
         allergis:{
         foods: req.body.foods,
-        medecines: req.body.medcine,
+        medcine: req.body.medcine,
                  },
         sex: req.body.sex,
         problemtoday: req.body.problemtoday,
@@ -86,7 +86,7 @@ router.post('/', async (req, res) => {
     } catch (err) {
         res.json({ message: err });
     }
-})
+})*/
 
 
 

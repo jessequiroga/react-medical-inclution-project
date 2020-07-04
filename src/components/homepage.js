@@ -33,6 +33,7 @@ function Homepage() {
         <div className={classes.content} style={{}}>
         
            <Link to="/internalMedcine"><Button  className={classes.button} variant="contained" color="primary" disableElevation > {t('InternalMedcine')}</Button></Link>
+           <Link to="/obstetricgynecology"><Button className={classes.button} variant="contained" color="primary" disableElevation> {t('Obstetricgynecology')}</Button></Link>
           <Button className={classes.button} variant="contained" color="primary" disableElevation> {t('Cardiology')}</Button>
           <Button className={classes.button} variant="contained" color="primary" disableElevation> {t('Gastroenterology')}</Button>
           <Button className={classes.button} variant="contained" color="primary" disableElevation> {t('Psychiatry')}</Button>
@@ -47,8 +48,7 @@ function Homepage() {
           <Button className={classes.button} variant="contained" color="primary" disableElevation> {t('Urology')}</Button>
           <Button className={classes.button} variant="contained" color="primary" disableElevation> {t('Dermatology')}</Button>
           <Button className={classes.button} variant="contained" color="primary" disableElevation> {t('Obstetricgynecology')}</Button>
-          <Link to="/dialect"><Button className={classes.button} variant="contained" color="primary" disableElevation> {t('dialect')}</Button></Link>
-          
+              <Link to="/dialect"><Button className={classes.button} variant="contained" color="primary" disableElevation> {t('dialect')}</Button></Link>
         </div>
         <Footer />
         
