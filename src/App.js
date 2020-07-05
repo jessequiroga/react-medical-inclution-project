@@ -13,7 +13,8 @@ import Wakayama from "./components/wakayama";
 import BasicSentences from "./components/basicSentences";
 import Obstetricgynecology from "./components/Obstetricgynecology";
 import {BrowserRouter as Router, Route} from 'react-router-dom';
-import { InternalMedContext} from './components/internalMedContext';
+import { InternalMedContext } from './components/internalMedContext';
+import { BasicSentContext } from './components/basicSentContext';
 import {ObstetricgynecologyContext} from "./components/ObstetricgynecologyContext"
 
 function App() {
@@ -30,6 +31,9 @@ function App() {
       <ObstetricgynecologyContext>
       <Route path="/obstetricgynecology" component={Obstetricgynecology} />
       </ObstetricgynecologyContext>
+      <BasicSentContext>
+      <Route path="/basicSentences" component={BasicSentences} />
+      </BasicSentContext>
       <Route path="/dialect" component={Dialect} />
       <Route path="/wakayama" component={Wakayama} />
       <Route path="/basicSentences" component={BasicSentences} />

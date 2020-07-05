@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Nav from "./nav.js";
 import Footer from "./footer";
@@ -10,6 +10,9 @@ import { Link } from 'react-router-dom'
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
+import { SentContext } from './basicSentContext';
+import axios from "axios"
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -40,56 +43,71 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function Wakayama() {
-    const classes = useStyles();
-    const { t, i18n } = useTranslation();
 
-    return (
-        <div className="container">
-            <Nav />
-            <div>
-                <AppBar position="static" style={{ backgroundColor: "#F9B1B1", }}>
-                    <Toolbar>
+function BasicSentences() {
+    const [values, setValues] = React.useState({});
+    axios.get('http://localhost:3001/dialectSentences').then((response) => {
+        console.log(response);
+    }) .catch((error) => {
+            console.log(error);
+        });
 
-                        <Typography className={classes.title} variant="h6" noWrap style={{ paddingLeft: "10px", color: "black" }}>
-                            Basic sentences
-                         </Typography>
-                    </Toolbar>
-                </AppBar>
-            </div>
-            <div className={classes.content} style={{}}>
-                <TextField className={classes.textFiled} id="outlined-basic" variant="outlined" defaultValue="Hello World" style={{ width: "80%", paddingTop: "10px", paddingLeft: "10px", borderRadius: "15px"}} />
-                <Button className={classes.button} variant="contained" color="primary" disableElevation> {t('search')}</Button>
-                <div style={{ border: "1px solid #6CAFED", width: "95%", height: "311px", margin: "26px" }}>
-                    <AppBar position="static" style={{ backgroundColor: "#6CAFED", height: "50px",}}>
+        const classes = useStyles();
+        const { t, i18n } = useTranslation();
+
+        return (
+            <div className="container">
+                <Nav />
+                <div>
+                    <AppBar position="static" style={{ backgroundColor: "#F9B1B1", }}>
                         <Toolbar>
-                            <Typography className={classes.title} variant="h6" noWrap style={{ marginTop: "-15px", color: "white" }}>
-                                Index of phrases
-                            </Typography>
+                            <Typography className={classes.title} variant="h6" noWrap style={{ paddingLeft: "10px", color: "black" }}>
+                                Basic sentences
+                         </Typography>
                         </Toolbar>
                     </AppBar>
-                    <div>
-                        <div className={classes.div1}>
-                            <Link href="#" onClick={alert("дв")}>
-                                дв
-                            </Link>
-                            <a href="https://www.weblio.jp/category/dialect/wkybj/aa">b</a>&nbsp;<br></br>
-                            <a href="https://www.weblio.jp/category/dialect/wkybj/aa">c</a>&nbsp;
-                        </div>
-                        <div className={classes.div2}>
+                </div>
+                <div className={classes.content} style={{}}>
+                    <TextField className={classes.textFiled} id="outlined-basic" variant="outlined" defaultValue="Hello World" style={{ width: "80%", paddingTop: "10px", paddingLeft: "10px", borderRadius: "15px" }} />
+                    <Button className={classes.button} variant="contained" color="primary" disableElevation> {t('search')}</Button>
+                    <div style={{ border: "1px solid #6CAFED", width: "95%", height: "311px", margin: "26px" }}>
+                        <AppBar position="static" style={{ backgroundColor: "#6CAFED", height: "50px", }}>
+                            <Toolbar>
+                                <Typography className={classes.title} variant="h6" noWrap style={{ marginTop: "-15px", color: "white" }}>
+                                    Index of phrases
+                            </Typography>
+                            </Toolbar>
+                        </AppBar>
+                        <div>
+                            <div className={classes.div1}>
+                                <a href="https://www.weblio.jp/category/dialect/wkybj/aa">a</a>&nbsp;
                             <a href="https://www.weblio.jp/category/dialect/wkybj/aa">a</a>&nbsp;
+                            <a href="https://www.weblio.jp/category/dialect/wkybj/aa">a</a>&nbsp;
+                            <a href="https://www.weblio.jp/category/dialect/wkybj/aa">a</a>&nbsp;
+                            <a href="https://www.weblio.jp/category/dialect/wkybj/aa">a</a>&nbsp;&nbsp;
                             <a href="https://www.weblio.jp/category/dialect/wkybj/aa">b</a>&nbsp;
+                            <a href="https://www.weblio.jp/category/dialect/wkybj/aa">b</a>&nbsp;
+                            <a href="https://www.weblio.jp/category/dialect/wkybj/aa">b</a>&nbsp;
+                            <a href="https://www.weblio.jp/category/dialect/wkybj/aa">b</a>&nbsp;
+                            <a href="https://www.weblio.jp/category/dialect/wkybj/aa">b</a>&nbsp;<br></br>
+                                <a href="https://www.weblio.jp/category/dialect/wkybj/aa">c</a>&nbsp;
+                        </div>
+                            <div className={classes.div2}>
+                                <a href="https://www.weblio.jp/category/dialect/wkybj/aa">a</a>&nbsp;
+                            <a href="https://www.weblio.jp/category/dialect/wkybj/aa">a</a>&nbsp;
+                            <a href="https://www.weblio.jp/category/dialect/wkybj/aa">a</a>&nbsp;
+                            <a href="https://www.weblio.jp/category/dialect/wkybj/aa">a</a>&nbsp;
+                            <a href="https://www.weblio.jp/category/dialect/wkybj/aa">a</a>&nbsp;<br></br>
+                                <a href="https://www.weblio.jp/category/dialect/wkybj/aa">b</a>&nbsp;
+                        </div>
                         </div>
                     </div>
+                    <Link to="/wakayama"><Button className={classes.button} variant="contained" color="primary" disableElevation style={{ float: "right", backgroundColor: "#B4C0CB", marginRight: "20px" }} > {t('back')}</Button></Link>
                 </div>
-                <Link to="/wakayama"><Button className={classes.button} variant="contained" color="primary" disableElevation style={{ float: "right", backgroundColor: "#B4C0CB", marginRight: "20px"}} > {t('back')}</Button></Link>
+                <Footer />
+
             </div>
-            <Footer/>
+        );
+   }
 
-        </div>
-    );
-}
-
-export default Wakayama;
-
-
+export default BasicSentences;
