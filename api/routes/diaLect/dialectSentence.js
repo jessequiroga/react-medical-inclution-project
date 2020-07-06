@@ -1,7 +1,7 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
-const DialectSentences = require('../models/dialectSentences');
+const DialectSentences = require('../models/diaLect/dialectSentences');
 
 router.get('/', async (req, res) => {
     try {
