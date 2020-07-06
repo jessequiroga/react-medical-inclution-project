@@ -1,13 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\api",
     "\\api\\models",
     "\\api\\routes",
-    "\\public",
-    "\\src",
     "\\src\\components"
   ],
-  "SelectedNode": "\\api\\.env",
+  "SelectedNode": "\\api",
   "PreviewInSolutionExplorer": false
 }
