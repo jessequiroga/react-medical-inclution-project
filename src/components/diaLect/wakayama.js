@@ -1,8 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Nav from "./nav.js";
-import Footer from "./footer";
-import '../App.css';
+import Nav from "../nav.js";
+import Footer from "../footer";
+import '../../App.css';
 import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom'

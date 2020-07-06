@@ -1,8 +1,8 @@
-import React, { useState, useContext } from 'react';
+﻿import React, { useState, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Nav from "./nav.js";
-import Footer from "./footer";
-import '../App.css';
+import Nav from "../nav.js";
+import Footer from "../footer";
+import '../../App.css';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { useTranslation } from 'react-i18next';
@@ -11,7 +11,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import { SentContext } from './basicSentContext';
+//import { SentContext } from './basicSentContext';
 import axios from "axios"
 
 const useStyles = makeStyles((theme) => ({
@@ -45,15 +45,21 @@ const useStyles = makeStyles((theme) => ({
 
 
 function BasicSentences() {
-    const [values, setValues] = React.useState({});
-    axios.get('http://localhost:3001/dialectSentences').then((response) => {
-        console.log(response);
-    }) .catch((error) => {
-            console.log(error);
-        });
 
-        const classes = useStyles();
-        const { t, i18n } = useTranslation();
+    const classes = useStyles();
+    const { t, i18n } = useTranslation();
+    const [values, setValues] = useState({
+    letter : '',
+    count : '',
+    remark : ''
+});
+     const [letter, setLetter] = useState('');
+
+axios.get('http://localhost:3001/dialectSentences').then((response) => {
+    console.log(response);
+}) .catch((error) => {
+        console.log(error);
+    });
 
         return (
             <div className="container">
@@ -67,7 +73,7 @@ function BasicSentences() {
                         </Toolbar>
                     </AppBar>
                 </div>
-                <div className={classes.content} style={{}}>
+                <div className={classes.content}>
                     <TextField className={classes.textFiled} id="outlined-basic" variant="outlined" defaultValue="Hello World" style={{ width: "80%", paddingTop: "10px", paddingLeft: "10px", borderRadius: "15px" }} />
                     <Button className={classes.button} variant="contained" color="primary" disableElevation> {t('search')}</Button>
                     <div style={{ border: "1px solid #6CAFED", width: "95%", height: "311px", margin: "26px" }}>
@@ -81,7 +87,7 @@ function BasicSentences() {
                         <div>
                             <div className={classes.div1}>
                                 <a href="https://www.weblio.jp/category/dialect/wkybj/aa">a</a>&nbsp;
-                            <a href="https://www.weblio.jp/category/dialect/wkybj/aa">a</a>&nbsp;
+                            <a href="https://www.weblio.jp/category/dialect/wkybj/aa">あ</a>&nbsp;
                             <a href="https://www.weblio.jp/category/dialect/wkybj/aa">a</a>&nbsp;
                             <a href="https://www.weblio.jp/category/dialect/wkybj/aa">a</a>&nbsp;
                             <a href="https://www.weblio.jp/category/dialect/wkybj/aa">a</a>&nbsp;&nbsp;
