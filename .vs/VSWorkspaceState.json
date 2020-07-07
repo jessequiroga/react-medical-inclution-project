@@ -5,11 +5,9 @@
     "\\api\\models",
     "\\api\\routes",
     "\\public",
-    "\\public\\locales",
-    "\\public\\locales\\ch",
     "\\src",
     "\\src\\components"
   ],
-  "SelectedNode": "\\src\\components\\dialect.js",
+  "SelectedNode": "\\api\\.env",
   "PreviewInSolutionExplorer": false
 }

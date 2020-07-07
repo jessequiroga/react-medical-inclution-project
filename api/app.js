@@ -19,9 +19,11 @@ app.use(function(req, res, next) {
 // Import Routes
 const internalmedRoute = require('./routes/internalMedcin');
 const userRoute = require('./routes/user');
+const dialectSentRoute = require('./routes/dialectSentence');
 
 app.use('/internaMedcine', internalmedRoute);
 app.use('/user', userRoute);
+app.use('/dialectSentences', dialectSentRoute);
 
 //Routes
 app.get('/', async(req,res) => {
