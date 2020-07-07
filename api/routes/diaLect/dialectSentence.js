@@ -7,6 +7,7 @@ router.get('/', async (req, res) => {
     try {
         const dialectSentences = await DialectSentences.find();
         res.json(dialectSentences);
+        console.log(dialectSentences)
     } catch (err) {
         res.json({ message: err });
     }
@@ -15,8 +16,9 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) =>{
     try {
         let dialectSentencesData = req.body
-        let dialectSentences = new dialectSentences(dialectSentencesData)
-        //res.send(internalMedcine);
+        let dialectSentences = new DialectSentences(dialectSentencesData)
+        //res.send(dialectSentences);
+        //sconsole.log(dialectSentencesData);
         dialectSentences.save((error, registeredInfo) =>{
             if(error){
                 console.log(error)
