@@ -6,4 +6,4 @@ var DialectSentences = new mongoose.Schema({
     remark: String
 
 });
-module.exports = mongoose.model("dialectSentences", DialectSentences)
+module.exports = mongoose.model("dialectSentence", DialectSentences)
