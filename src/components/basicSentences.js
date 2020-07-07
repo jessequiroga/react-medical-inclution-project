@@ -70,8 +70,8 @@ function Wakayama() {
                     </AppBar>
                     <div>
                         <div className={classes.div1}>
-                            <Link href="#" onClick={alert("§¢")}>
-                                §¢
+                            <Link href="#" onClick={alert("ÔøΩÔøΩ")}>
+                                ÔøΩÔøΩ„ÅÇ„ÄÄ
                             </Link>
                             <a href="https://www.weblio.jp/category/dialect/wkybj/aa">b</a>&nbsp;<br></br>
                             <a href="https://www.weblio.jp/category/dialect/wkybj/aa">c</a>&nbsp;
