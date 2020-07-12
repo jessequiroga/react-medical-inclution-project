@@ -1,10 +1,16 @@
 {
   "ExpandedNodes": [
     "",
+    "\\api",
     "\\api\\models",
+    "\\api\\models\\diaLect",
     "\\api\\routes",
-    "\\src\\components"
+    "\\api\\routes\\diaLect",
+    "\\src",
+    "\\src\\components",
+    "\\src\\components\\diaLect",
+    "\\src\\components\\inteviewForms"
   ],
-  "SelectedNode": "\\api",
+  "SelectedNode": "\\src\\components\\Obstetricgynecology.js",
   "PreviewInSolutionExplorer": false
 }

@@ -20,10 +20,14 @@ app.use(function(req, res, next) {
 const internalmedRoute = require('./routes/internalMedcin');
 const userRoute = require('./routes/user');
 const dialectSentRoute = require('./routes/diaLect/dialectSentence');
+const wakayamaPhRoute = require('./routes/diaLect/wakayamaPhrase');
+
 
 app.use('/internaMedcine', internalmedRoute);
 app.use('/user', userRoute);
-app.use('/dialectSentences', dialectSentRoute);
+app.use('/dialectSentence', dialectSentRoute);
+app.use('/wakayamaPhrase', wakayamaPhRoute);
+
 
 //Routes
 app.get('/', async(req,res) => {
