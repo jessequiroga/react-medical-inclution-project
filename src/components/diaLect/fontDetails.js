@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: "10px",
     },
     content: {
-        paddingBottom: "10%",
+        //paddingBottom: "10%",
         //paddingTop: "15%",
     },
     div1: {
@@ -46,10 +46,12 @@ const useStyles = makeStyles((theme) => ({
     },
 
     p1: {
-        marginLeft:"-800px"
+        textAlign: "left",
+        marginLeft:"10px"
     },
     p2: {
-        marginLeft: "-800px",
+        textAlign: "left",
+        marginLeft: "10px",
         color:"#6CAFED"
     }
 
@@ -66,9 +68,23 @@ function getQueryVariable(variable) {
 }
 
 function BasicSentences() {
+    const letter = (decodeURI(getQueryVariable("letter")));
+    const request = { letter : letter }
+    //console.log(request);
 
-    axios.get('http://localhost:3001/wakayamaPhrase').then((response) => {
+    axios.post('http://localhost:3001/wakayamaPhrase/find', request).then((response) => {
         console.log(response.data);
+        const list = response.data.length;
+        const data = response.data;
+        const phrase = document.getElementById('phrase');
+        var code = ' <div class="makeStyles-content-2">';
+        for (var i = 0; i < list; i++) {
+            code += '<div class="makeStyles-div1-3">'+
+                    '<p class="makeStyles-p1-5" >' + data[i].phraseOri+'</p >'+
+                    '<p class="makeStyles-p2-6" >' + data[i].phraseAft +'</p>'+
+                    '</div >';
+        }
+        phrase.innerHTML = code + '</div >';
 }) .catch((error) => {
         console.log(error);
 });
@@ -80,7 +96,7 @@ function BasicSentences() {
         count: '',
         remark: ''
     });
-    const letter=(decodeURI(getQueryVariable("letter")));
+    
         return (
             <div className="container">
                 <Nav />
@@ -93,7 +109,7 @@ function BasicSentences() {
                         </Toolbar>
                     </AppBar>
                 </div>
-                <div className={classes.content}>
+                <div className={classes.content} id="phrase">
                     <div className={classes.div1}>
                         <p className={classes.p1}>我爱中华</p>
                         <p className={classes.p2}>我爱成都</p>
@@ -110,9 +126,9 @@ function BasicSentences() {
                         <p className={classes.p1}>我爱中华</p>
                         <p className={classes.p2}>我爱成都</p>
                     </div>
+                </div>
                     <Button className={classes.button} variant="contained" color="primary" disableElevation style={{ float: "right", backgroundColor: "#6CAFED", marginRight: "20px" }} > {t('次に')}</Button>
                     <Link to="/basicSentences"><Button className={classes.button} variant="contained" color="primary" disableElevation style={{ float: "right", backgroundColor: "#B4C0CB", marginRight: "20px" }} > {t('戻る')}</Button></Link>
-                </div>
                 <Footer />
 
             </div>
