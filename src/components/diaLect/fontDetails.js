@@ -10,7 +10,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import axios from "axios"
+import axios from "axios";
 import zIndex from '@material-ui/core/styles/zIndex';
 
 const useStyles = makeStyles((theme) => ({
@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
 function getQueryVariable(variable) {
     const query = window.location.search.substring(1);
     const vars = query.split("&");
-    for (const i = 0; i < vars.length; i++) {
+    for (var i = 0; i < vars.length; i++) {
         const pair = vars[i].split("=");
         if (pair[0] == variable) { return pair[1]; }
     }
@@ -69,34 +69,79 @@ function getQueryVariable(variable) {
 
 function BasicSentences() {
     const letter = (decodeURI(getQueryVariable("letter")));
-    const request = { letter : letter }
-    //console.log(request);
+    const page = Number(getQueryVariable("page")) || 1;
+    console.log(page);
+    var pageNext = page + 1;
+    var pagePre = page - 1;
+    const h1 = "http://localhost:3000/fontDetails?letter=" + letter + "&page=" + pageNext;
+    const h2 = "http://localhost:3000/fontDetails?letter=" + letter + "&page=" + pagePre;
+    const request = {
+        letter: letter,
+        page: page
+    }
+
+    //const test = (a) => {
+    //    const b = a;
+    //    const data = {
+    //        letter: letter,
+    //        page: b
+    //    }
+    //    console.log(data);
+    //    if (a > 1) {
+    //        axios.post('http://localhost:3001/wakayamaPhrase/find', data).then((response) => {
+    //            console.log(response.data);
+    //            const list = response.data.length;
+    //            const data = response.data;
+    //            const phrase = document.getElementById('phrase');
+    //            var code = ' <div class="makeStyles-content-2">';              
+    //            for (var i = 0; i < list; i++) {
+    //                code += '<div class="makeStyles-div1-3">' +
+    //                    '<p class="makeStyles-p1-5" >' + data[i].phraseOri + '</p >' +
+    //                    '<p class="makeStyles-p2-6" >' + data[i].phraseAft + '</p>' +
+    //                    '</div >';
+    //            }
+    //            phrase.innerHTML = code + '<div>';
+    //        }).catch((error) => {
+    //            console.log(error);
+    //        });
+    //    };
+    //}
+    axios.post('http://localhost:3001/wakayamaPhrase/findpage', request).then((response) => {
+        const list = response.data.length;
+        const totalpage = Math.ceil(list / 4);
+        const span = document.getElementById('span');
+        const a1 = document.getElementById('a1');
+        const a2 = document.getElementById('a2');
+        if (page == 1) {
+            a1.style = "color: #B4C0CB; text-decoration: none;pointer-events: none; padding-right: 20px";
+        } if (page >= totalpage) {
+            a2.style = "color: #B4C0CB; text-decoration: none;pointer-events: none; padding-left: 20px";
+        }
+        span.innerText = page + "ページ/" + totalpage + "ページ";
+    }).catch((error) => {
+        console.log(error);
+    });
+
 
     axios.post('http://localhost:3001/wakayamaPhrase/find', request).then((response) => {
-        console.log(response.data);
+        //console.log(response.data);
         const list = response.data.length;
         const data = response.data;
         const phrase = document.getElementById('phrase');
         var code = ' <div class="makeStyles-content-2">';
         for (var i = 0; i < list; i++) {
-            code += '<div class="makeStyles-div1-3">'+
-                    '<p class="makeStyles-p1-5" >' + data[i].phraseOri+'</p >'+
-                    '<p class="makeStyles-p2-6" >' + data[i].phraseAft +'</p>'+
-                    '</div >';
+            code += '<div class="makeStyles-div1-3">' +
+                '<p class="makeStyles-p1-5" >' + data[i].phraseOri + '</p >' +
+                '<p class="makeStyles-p2-6" >' + data[i].phraseAft + '</p>' +
+                '</div >';
         }
-        phrase.innerHTML = code + '</div >';
-}) .catch((error) => {
+        phrase.innerHTML = code + '<div>';
+    }).catch((error) => {
         console.log(error);
-});
+    });
 
     const classes = useStyles();
     const { t, i18n } = useTranslation();
-    const [values, setValues] = useState({
-        letter: '',
-        count: '',
-        remark: ''
-    });
-    
         return (
             <div className="container">
                 <Nav />
@@ -127,8 +172,12 @@ function BasicSentences() {
                         <p className={classes.p2}>我爱成都</p>
                     </div>
                 </div>
-                    <Button className={classes.button} variant="contained" color="primary" disableElevation style={{ float: "right", backgroundColor: "#6CAFED", marginRight: "20px" }} > {t('次に')}</Button>
-                    <Link to="/basicSentences"><Button className={classes.button} variant="contained" color="primary" disableElevation style={{ float: "right", backgroundColor: "#B4C0CB", marginRight: "20px" }} > {t('戻る')}</Button></Link>
+                <div>
+                    <a id="a1" href={h2} title="前のページ" style={{ paddingRight: "20px" }}>前のページ</a>
+                    <span id="span">0ページ/0ページ</span>  
+                    <a id="a2" href={h1} title="次のページ" style={{ paddingLeft: "20px" }}> 次のページ</a>
+                </div>
+                <Link to="/basicSentences"><Button className={classes.button} variant="contained" color="primary" disableElevation style={{ float: "left", backgroundColor: "#B4C0CB", marginRight: "20px" }} > {t('戻る')}</Button></Link>
                 <Footer />
 
             </div>
