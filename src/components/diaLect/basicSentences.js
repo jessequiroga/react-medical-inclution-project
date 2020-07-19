@@ -52,6 +52,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
+function find() {
+    var findVal = document.getElementById("text1").value;
+    //alert(findVal);
+    window.location.href = "/findDetails?find=" + findVal;
+}
+
 function BasicSentences() {
 
     const classes = useStyles();
@@ -92,8 +98,8 @@ function BasicSentences() {
                     </AppBar>
                 </div>
                 <div className={classes.content}>
-                    <TextField className={classes.textFiled} id="outlined-basic" variant="outlined" label="Input your sentences" style={{ width: "82%", paddingTop: "20px", paddingLeft: "10px", borderRadius: "15px" }} />
-                    <Button className={classes.button} variant="contained" color="primary" disableElevation> {t('search')}</Button>
+                    <TextField className={classes.textFiled} id="text1" variant="outlined" label="Input your sentences" style={{ width: "82%", paddingTop: "20px", paddingLeft: "10px", borderRadius: "15px" }} />
+                    <Button className={classes.button} variant="contained" color="primary" disableElevation onClick={find}> {t('search')}</Button>
                     <div style={{ border: "1px solid #6CAFED", width: "100%", height: "280px", margin: "10px" }}>
                         <AppBar position="static" style={{ backgroundColor: "#6CAFED", height: "50px", }}>
                             <Toolbar>

@@ -11,6 +11,7 @@ import InternalMedcine from "./components/InternalMedcine";
 import Dialect from "./components/diaLect/dialect";
 import Wakayama from "./components/diaLect/wakayama";
 import FontDetails from "./components/diaLect/fontDetails";
+import FindDetails from "./components/diaLect/findDetails";
 import BasicSentences from "./components/diaLect/basicSentences";
 import Obstetricgynecology from "./components/Obstetricgynecology";
 import {BrowserRouter as Router, Route} from 'react-router-dom';
@@ -36,6 +37,7 @@ function App() {
       <Route path="/wakayama" component={Wakayama} />
       <Route path="/basicSentences" component={BasicSentences} />
       <Route path="/fontDetails" component={FontDetails} />
+      <Route path="/findDetails" component={FindDetails} />
       
     </div>
     </Router>

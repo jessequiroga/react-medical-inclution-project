@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Nav from "../nav.js";
 import Footer from "../footer";
@@ -67,72 +67,56 @@ function getQueryVariable(variable) {
     return (false);
 }
 
-function BasicSentences() {
-    const letter = (decodeURI(getQueryVariable("letter")));
+function FindDetails() {
+    const classes = useStyles();
+    const { t, i18n } = useTranslation();
+
+    const find = (decodeURI(getQueryVariable("find")));
     const page = Number(getQueryVariable("page")) || 1;
     console.log(page);
     var pageNext = page + 1;
     var pagePre = page - 1;
-    const h1 = "http://localhost:3000/fontDetails?letter=" + letter + "&page=" + pageNext;
-    const h2 = "http://localhost:3000/fontDetails?letter=" + letter + "&page=" + pagePre;
+    const h1 = "http://localhost:3000/findDetails?find=" + find + "&page=" + pageNext;
+    const h2 = "http://localhost:3000/findDetails?find=" + find + "&page=" + pagePre;
     const request = {
-        letter: letter,
+        find: find,
         page: page
     }
 
-    //const test = (a) => {
-    //    const b = a;
-    //    const data = {
-    //        letter: letter,
-    //        page: b
-    //    }
-    //    console.log(data);
-    //    if (a > 1) {
-    //        axios.post('http://localhost:3001/wakayamaPhrase/find', data).then((response) => {
-    //            console.log(response.data);
-    //            const list = response.data.length;
-    //            const data = response.data;
-    //            const phrase = document.getElementById('phrase');
-    //            var code = ' <div class="makeStyles-content-2">';              
-    //            for (var i = 0; i < list; i++) {
-    //                code += '<div class="makeStyles-div1-3">' +
-    //                    '<p class="makeStyles-p1-5" >' + data[i].phraseOri + '</p >' +
-    //                    '<p class="makeStyles-p2-6" >' + data[i].phraseAft + '</p>' +
-    //                    '</div >';
-    //            }
-    //            phrase.innerHTML = code + '<div>';
-    //        }).catch((error) => {
-    //            console.log(error);
-    //        });
-    //    };
-    //}
-    axios.post('http://localhost:3001/wakayamaPhrase/findpage', request).then((response) => {
+    axios.post('http://localhost:3001/wakayamaPhrase/findpage2', request).then((response) => {
         const list = response.data.length;
         const totalpage = Math.ceil(list / 4);
         const span = document.getElementById('span');
         const a1 = document.getElementById('a1');
         const a2 = document.getElementById('a2');
+        const phrase = document.getElementById('phrase');
         if (page == 1) {
             a1.style = "color: #B4C0CB; text-decoration: none;pointer-events: none; padding-right: 20px";
         } if (page >= totalpage) {
             a2.style = "color: #B4C0CB; text-decoration: none;pointer-events: none; padding-left: 20px";
-        }
+        } 
         span.innerText = page + "ページ/" + totalpage + "ページ";
     }).catch((error) => {
         console.log(error);
     });
 
 
-    axios.post('http://localhost:3001/wakayamaPhrase/find', request).then((response) => {
+    axios.post('http://localhost:3001/wakayamaPhrase/findphrase', request).then((response) => {
         //console.log(response.data);
         const list = response.data.length;
         const data = response.data;
         const phrase = document.getElementById('phrase');
         var code = ' <div class="makeStyles-content-2">';
-        for (var i = 0; i < list; i++) {
-            code += '<div class="makeStyles-div1-3">' +
-                '<p class="makeStyles-p1-5" >' + data[i].phraseOri + '</p >' +
-                '<p class="makeStyles-p2-6" >' + data[i].phraseAft + '</p>' +
+        if (list > 0) {
+            for (var i = 0; i < list; i++) {
+                code += '<div class="makeStyles-div1-3">' +
+                    '<p class="makeStyles-p1-5" >' + data[i].phraseOri + '</p >' +
+                    '<p class="makeStyles-p2-6" >' + data[i].phraseAft + '</p>' +
+                    '</div >';
+            }
+        } else {
+            code += '<div class="makeStyles-div1-3">' +          
+                '<p>Sorry, we can\'t find the result</p>' +
                 '</div >';
         }
         phrase.innerHTML = code + '<div>';
@@ -140,8 +124,6 @@ function BasicSentences() {
         console.log(error);
     });
 
-    const classes = useStyles();
-    const { t, i18n } = useTranslation();
         return (
             <div className="container">
                 <Nav />
@@ -149,7 +131,7 @@ function BasicSentences() {
                     <AppBar position="static" style={{ backgroundColor: "#F9B1B1", }}>
                         <Toolbar>
                             <Typography className={classes.title} variant="h6" noWrap style={{ paddingLeft: "10px", color: "white", fontSize: "30px", fontWeight: "bold" }}>
-                                {letter}
+                             The results of "{find}" are :
                          </Typography>
                         </Toolbar>
                     </AppBar>
@@ -169,4 +151,4 @@ function BasicSentences() {
         );
    }
 
-export default BasicSentences;
+export default FindDetails;

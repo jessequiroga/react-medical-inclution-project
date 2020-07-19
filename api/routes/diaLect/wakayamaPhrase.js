@@ -115,4 +115,43 @@ router.post('/find', async (req, res) => {
     }
 })
 
+router.post('/findpage2', async (req, res) => {
+    try {
+        //console.log(req.body);
+        var find = req.body.find;
+        var _filter = {
+            $or: [  // 多字段同时匹配
+                { phraseOri: { $regex: find } },
+                { phraseAft: { $regex: find } }
+            ]
+        }
+        const wakayamaPhrases = await WakayamaPhrases.find(_filter);
+        res.json(wakayamaPhrases);
+    } catch (error) {
+        res.json({ message: err });
+    }
+})
+
+router.post('/findphrase', async (req, res) => {
+    try {
+        //console.log(req.body);
+        var find = req.body.find // 获取查询的字段
+
+        var _filter = {
+            $or: [  // 多字段同时匹配
+                { phraseOri: { $regex: find } },
+                { phraseAft: { $regex: find } }
+            ]
+        }
+        var page = Number(req.body.page) || 1;
+        var limit = 4;
+        page = Math.max(page, 1);
+        var skip = (page - 1) * limit;
+        const wakayamaPhrases = await WakayamaPhrases.find(_filter).limit(limit).skip(skip);
+        res.json(wakayamaPhrases);
+    } catch (err) {
+        res.json({ message: err });
+    }
+})
+
 module.exports = router;
