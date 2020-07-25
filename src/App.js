@@ -16,7 +16,9 @@ import BasicSentences from "./components/diaLect/basicSentences";
 import Obstetricgynecology from "./components/Obstetricgynecology";
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import { InternalMedContext } from './components/internalMedContext';
-import {ObstetricgynecologyContext} from "./components/ObstetricgynecologyContext"
+import { ObstetricgynecologyContext } from "./components/ObstetricgynecologyContext"
+import WordDetails from "./components/diaLect/wordDetails";
+import Dictionary from "./components/diaLect/dictionary";
 
 function App() {
   return (
@@ -38,6 +40,8 @@ function App() {
       <Route path="/basicSentences" component={BasicSentences} />
       <Route path="/fontDetails" component={FontDetails} />
       <Route path="/findDetails" component={FindDetails} />
+      <Route path="/dictionary" component={Dictionary} />
+      <Route path="/wordDetails" component={WordDetails} />
       
     </div>
     </Router>
