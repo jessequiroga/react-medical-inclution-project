@@ -11,6 +11,12 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import { ObstetricContext } from '../ObstetricgynecologyContext'
+import FormLabel from '@material-ui/core/FormLabel';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+    MuiPickersUtilsProvider,
+    KeyboardDatePicker,
+} from '@material-ui/pickers';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -58,8 +64,12 @@ const CenteredGrid = () => {
        }
 
        const handleChange = (event) => {
-        setValues({...values, menstrualPeriod :{...values.menstrualPeriod, usualFlow:event.target.value}})
+        setValues({...values, menstrualPeriod :{...values.menstrualPeriod, [event.target.name]:event.target.value}})
     };
+
+    const updateDate = (date) => {
+        setValues({...values, menstrualPeriod :{...values.menstrualPeriod, dateLastPeriod:date}})
+    }
 
     return (
         <div className={classes.root}>
@@ -153,16 +163,74 @@ const CenteredGrid = () => {
                 <Grid className={classes.labelAligne} item xs={12}>
                     <h5>{t('obstetricGynecology.Whatisyourusualflow')} /月経の量はどのぐらいですか。</h5>
                 </Grid>
-                <Grid item xs={12}>
-                    <FormControl component="fieldset" >
+                <Grid item xs={12} style={{textAlign: "left", paddingLeft: 48, marginLeft: -18, marginTop: -19}}>
+                    <FormControl component="fieldset">
 
-                        <RadioGroup style={{textAlign: "left", paddingLeft: 29, marginLeft: -18}} row aria-label="gender" name="gender1" value={values.menstrualPeriod.usualFlow} onChange={handleChange}>
+                        <RadioGroup row aria-label="gender" name="usualFlow" value={values.menstrualPeriod.usualFlow} onChange={handleChange}>
                             <FormControlLabel value="Light" control={<Radio />} label={t('obstetricGynecology.Light')+" /少ない"}/>
                             <FormControlLabel value="Normal" control={<Radio />} label={t('obstetricGynecology.Normal')+" /普通"} />
                             <FormControlLabel value="Heavy" control={<Radio />} label={t('obstetricGynecology.Heavy')+"/多い"} />
                         </RadioGroup>
                     </FormControl>
                 </Grid>
+
+                <Grid className={classes.labelAligne} item xs={12}>
+                    <h5>{t('obstetricGynecology.painduringyourperiods')} /月経痛はありますか。</h5>
+                </Grid>
+                <Grid item xs={12} style={{textAlign: "left", paddingLeft: 48, marginLeft: -18, marginTop: -19}}>
+                    <FormControl component="fieldset">
+
+                        <RadioGroup row aria-label="gender" name="painduringyourperiods" value={values.menstrualPeriod.painduringyourperiods} onChange={handleChange}>
+                            <FormControlLabel value="No" control={<Radio />} label={t('internalMedcine.No')+" /いいえ"}/>
+                            <FormControlLabel value="Yes" control={<Radio />} label={t('internalMedcine.yes')+" /はい"} />
+                        </RadioGroup>
+                    </FormControl>
+                </Grid>
+
+                <div>
+                    {values.menstrualPeriod.painduringyourperiods === 'Yes' ? (
+                        <div>
+                        <FormLabel style={{marginTop: -15, marginLeft:65, fontSize:18}}><strong style={{lineHeight: 2}}>{t('obstetricGynecology.answeredYesandtakeapainkiller')} <br/> /「はい」と答えた方で鎮痛剤を使用されている方は、鎮痛剤も書いてください。</strong></FormLabel>
+                        <Grid item xs={10}>
+                        <FormControl fullWidth className='' style={{marginLeft: 86, marginBottom: 17, marginTop: -20}}>
+                        <InputLabel htmlFor="name">{t('obstetricGynecology.Painkiller')} /鎮痛剤：</InputLabel>
+                        <Input
+                            id="name"
+                            type="text"
+                            name="painkiller"
+                            values={values.menstrualPeriod.painkiller}
+                            defaultValue={values.menstrualPeriod.painkiller}
+                            onChange={handleChange}
+                        />
+                    </FormControl>
+                    </Grid>
+                        </div>
+                    ) : (
+                            <nav> &apos; </nav>
+                        )}
+                </div>
+                        <Grid item xs={12} style={{marginTop: -29}}>
+                <MuiPickersUtilsProvider utils={DateFnsUtils} >
+                        <Grid container justify="space-around" item xs={6} className={classes.labelAligne} >
+
+                            <KeyboardDatePicker
+                                fullWidth
+                                margin="normal"
+                                id="date-picker-dialog"
+                                label={t('obstetricGynecology.dateLastPeriod')+" /最終月経はいつですか。"}
+                                format="yyyy/MM/dd"
+                                value={values.menstrualPeriod.dateLastPeriod}
+                                onChange={updateDate}
+                                KeyboardButtonProps={{
+                                    'aria-label': 'change date',
+                                }}
+                            />
+
+                        </Grid>
+
+                    </MuiPickersUtilsProvider>
+                    </Grid>
+
             </Grid>
 
         </div>

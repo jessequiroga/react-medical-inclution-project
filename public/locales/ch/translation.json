@@ -110,5 +110,33 @@
     "specialrequestconcerningconsultation": "如在就诊时有以下的要求，请划勾。",
     "informedonestimatedexpenses": "请事先告诉医疗费的大概金额",
     "interpreterinterpreterservice": "如有翻译时，请派翻译"
-  }
+  },
+  "disclaimerCopyright":{
+  "disclaimer": "免责声明",
+  "disclaimerText": "关于本软件，使用者自己负担使用责任，在使用和利用中随即而来的问题，开发者不负担任何法律责任",
+  "disclaimerText2": "特别是通关过使用本系统，当医护人员对病人的信息的准确性，兼容性提供信息的用途，对于利用结果（包括病人能准确理解），开发者不做任何保证，请注意",
+  "disclaimerText1": "此外，预先没有经过开发者明确书面许可，以已盈利目的使用和利用本系统不可以",
+  "copyright": "著作权",
+    "copyrightText": "这个应用程序是「上智大学理工学部情报理工学科高冈研究室」研究和开发",
+    "copyrightText1": "这个应用程序的著作权属于高冈实验室成员"
+  },
+  "covid-19": {
+    "COVI-19Question": "Questionnaire on New Coronavirus Infection (Cover-19)",
+    "checkBoxApplicable":"A Please check the box that is applicable to you (yes or no).",
+    "checkBoxApplicable1":"Have you or a family member living with you ever been in the same room with a person infected with a new type of coronavirus within the past two weeks?",
+    "checkBoxApplicable2":"Have you visited outside the province (including overseas) within  the past two weeks?",
+    "checkBoxApplicable3":"Have you been to a poorly ventilated, enclosed place (karaoke, snack bar, etc.) with a large number of people within the past two weeks? ",
+    "haveSymptoms":"B Do you have any of the symptoms that apply to you?",
+    "haveSymptoms1":"Fever of 37.5 degrees or higher",
+    "Cough":"Cough",
+    "Phlegm":"Phlegm",
+    "Shortnessofbreath":"Shortness of breath",
+    "Senseoffatigue":"Sense of fatigue",
+    "Abnormalityinthesenseofsmell":"Abnormality in the sense of smell",
+    "Unabletoappreciatetaste":"Unable to appreciate the taste of food and drinks",
+    "VomitingNausea":"Vomiting・Nausea",
+    "Diarrhea":"Diarrhea",
+    "Noappetite":"No appetite"
+}
+
 }

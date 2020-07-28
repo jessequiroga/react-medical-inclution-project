@@ -119,7 +119,7 @@ const CenteredGrid = () => {
                 <Grid container spacing={3} style={{ padding: 20 }}>
 
                     <Grid item xs={12}>
-                        <Paper className={classes.paper}><strong><h5>{t('internalMedcine.symptomoccur')}? <br />/症状はどのような性質を持っていますか</h5></strong></Paper>
+                        <Paper className={classes.paper}><strong><h5>{t('internalMedcine.symptomoccur')}? <br />/症状はいつ頃起こりますか？</h5></strong></Paper>
                     </Grid>
 
                     <GridList style={{ height: 120, padding: 20 }} cellHeight={10} className={classes.gridList} cols={3}>
@@ -171,7 +171,7 @@ const CenteredGrid = () => {
                     </GridList>
 
                     <Grid item xs={12}>
-                        <Paper className={classes.paper}><strong><h5>{t('internalMedcine.scale1to10')}<br />/その症状の程度を数字で表すと、どのぐらいですか？下の数字のところに〇を付けてください</h5></strong></Paper>
+                        <Paper className={classes.paper}><strong><h5>{t('internalMedcine.scale1to10')}<br />/その症状の程度を数字で表すと、どのぐらいですか？下の数字から選びなさい。</h5></strong></Paper>
                     </Grid>
 
                     <Grid item xs={6}>

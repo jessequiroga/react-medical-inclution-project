@@ -12,19 +12,26 @@ import Dialect from "./components/diaLect/dialect";
 import Wakayama from "./components/diaLect/wakayama";
 import BasicSentences from "./components/diaLect/basicSentences";
 import Obstetricgynecology from "./components/Obstetricgynecology";
+import Disclaimer from "./components/disclaimer";
+import Covid19 from "./components/covid-19";
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import { InternalMedContext } from './components/internalMedContext';
 //import { BasicSentContext } from './components/diaLect/basicSentContext';
 import {ObstetricgynecologyContext} from "./components/ObstetricgynecologyContext"
+import {Covid19Context} from "./components/context/covid19Context"
 
 function App() {
   return (
     <Router>
     <div className="App">
-      <Route exact path="/" component={Login} />
+      <Covid19Context>
+      <Route exact path="/" component={Covid19} />
+      </Covid19Context>
+      <Route exact path="/login" component={Login} />
       <Route path="/homepage" component={Hompage} />
       <Route path="/inteview" component={Inteview} />
       <Route path="/welcome" component={Welcome} />
+      <Route path="/disclaimer" component={Disclaimer} />
       <InternalMedContext>
       <Route path="/internalMedcine" component={InternalMedcine} />
       </InternalMedContext>

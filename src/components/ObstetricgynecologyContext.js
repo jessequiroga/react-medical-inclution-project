@@ -21,7 +21,26 @@ export const ObstetricgynecologyContext = props => {
             irregular: false,
             periodsLast: '',
             usualFlow: '',
-        }
+            painduringyourperiods: false,
+            painkiller: '',
+            dateLastPeriod: new Date,
+        },
+        haveSexualIntercourse: false,
+        hadUterineCancerTest: false,
+        dateHadUterineCancerTest: new Date,
+        takenBirthControlPills: false,
+        pregnantOrPossiblyPregnant: false,
+        noWeeks: '',
+        doNotKnow: false,
+        Areyoubreastfeeding: false,
+        PregnantHistory:'',
+        YesPregnancyHistory: [{
+            date: new Date(),
+            delivery: "",
+            hadMiscarriage: "",
+            hadAbnomalPregnancy: "",
+            weeksPregnanncy : ""  
+              }]
  
       
     });

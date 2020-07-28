@@ -162,7 +162,7 @@ const CenteredGrid = () => {
         <div className={classes.root}>
             <Grid container spacing={3} style={{ padding: 20 }}>
                 <Grid item xs={12}>
-                    <Paper className={classes.paper}><strong><h5>{t('internalMedcine.symptomoccur')}? <br />/症状はどのような性質を持っていますか</h5></strong></Paper>
+                    <Paper className={classes.paper}><strong><h5>{t('internalMedcine.currentlyonmedication')} <br />/現在何か薬を飲んでいますか</h5></strong></Paper>
                 </Grid>
 
                 <Grid item xs={12}>
