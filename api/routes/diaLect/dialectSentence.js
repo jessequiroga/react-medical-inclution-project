@@ -1,13 +1,13 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
-const DialectSentences = require('../models/dialectSentences');
+const DialectSentences = require('../../models/diaLect/dialectSentences');
 
 router.get('/', async (req, res) => {
     try {
         const dialectSentences = await DialectSentences.find();
         res.json(dialectSentences);
-        console.log(dialectSentences)
+        //console.log(dialectSentences)
     } catch (err) {
         res.json({ message: err });
     }

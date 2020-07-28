@@ -10,15 +10,22 @@ import Welcome from "./components/welcom";
 import InternalMedcine from "./components/InternalMedcine";
 import Dialect from "./components/diaLect/dialect";
 import Wakayama from "./components/diaLect/wakayama";
+import FontDetails from "./components/diaLect/fontDetails";
+import FindDetails from "./components/diaLect/findDetails";
 import BasicSentences from "./components/diaLect/basicSentences";
 import Obstetricgynecology from "./components/Obstetricgynecology";
 import Disclaimer from "./components/disclaimer";
 import Covid19 from "./components/covid-19";
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import { InternalMedContext } from './components/internalMedContext';
+
 //import { BasicSentContext } from './components/diaLect/basicSentContext';
 import {ObstetricgynecologyContext} from "./components/ObstetricgynecologyContext"
 import {Covid19Context} from "./components/context/covid19Context"
+
+import WordDetails from "./components/diaLect/wordDetails";
+import Dictionary from "./components/diaLect/dictionary";
+
 
 function App() {
   return (
@@ -42,6 +49,10 @@ function App() {
       <Route path="/dialect" component={Dialect} />
       <Route path="/wakayama" component={Wakayama} />
       <Route path="/basicSentences" component={BasicSentences} />
+      <Route path="/fontDetails" component={FontDetails} />
+      <Route path="/findDetails" component={FindDetails} />
+      <Route path="/dictionary" component={Dictionary} />
+      <Route path="/wordDetails" component={WordDetails} />
       
     </div>
     </Router>

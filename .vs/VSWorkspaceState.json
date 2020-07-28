@@ -3,11 +3,13 @@
     "",
     "\\api",
     "\\api\\models",
+    "\\api\\models\\diaLect",
     "\\api\\routes",
-    "\\public",
+    "\\api\\routes\\diaLect",
     "\\src",
-    "\\src\\components"
+    "\\src\\components",
+    "\\src\\components\\diaLect"
   ],
-  "SelectedNode": "\\api\\.env",
+  "SelectedNode": "\\api\\app.js",
   "PreviewInSolutionExplorer": false
 }

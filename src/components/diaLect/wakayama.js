@@ -48,7 +48,7 @@ function Wakayama() {
             <div className={classes.content} style={{}}>
 
                 <Link to="/basicSentences"><Button className={classes.button} variant="contained" color="primary" disableElevation > {t('Basic sentences')}</Button></Link>
-                <Button className={classes.button} variant="contained" color="primary" disableElevation> {t('dictionary')}</Button>
+                <Link to="/dictionary"><Button className={classes.button} variant="contained" color="primary" disableElevation> {t('dictionary')}</Button></Link>
                 <Button className={classes.button} variant="contained" color="primary" disableElevation> {t('translate')}</Button>
 
             </div>
