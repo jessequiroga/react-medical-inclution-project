@@ -40,8 +40,43 @@ export const ObstetricgynecologyContext = props => {
             hadMiscarriage: "",
             hadAbnomalPregnancy: "",
             weeksPregnanncy : ""  
-              }]
- 
+              }],
+        problemDuringDelivery: false,
+        problemDelivery: [],
+        haveBabyAtThisHuspital: false,
+        symptomLike: false,
+        symptomLikeValue:[],
+        symptomstartDate: new Date(),
+        symptomStartTime: "",
+
+        onMedication : '',
+        onmedications: [],
+        
+        doctorcare: '',
+        doctorCare : [],
+
+        hadsurgerys: [],
+        hadsurgery: '',
+              
+        smokeregularly : '',
+        smokeday : {
+            amount : '',
+            duration : '',
+            yearStop : '',
+        },
+        drinkregularly: '',
+        drinkeday: {
+            beer : false,
+            nobeer : '',
+            japsake : false,
+            nojapsake : '',
+            wisky : false,
+            nowisky : '',
+            wine : false,
+            nowine : '',
+            other : false,
+            noOther : '',
+        },
       
     });
    

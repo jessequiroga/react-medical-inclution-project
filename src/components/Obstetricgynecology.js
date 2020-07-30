@@ -14,6 +14,7 @@ import Form4 from './ObstetricgynecologyForms/form4'
 import Form5 from './ObstetricgynecologyForms/form5'
 import Form6 from './ObstetricgynecologyForms/form6'
 import Form7 from './ObstetricgynecologyForms/form7'
+import Form8 from './ObstetricgynecologyForms/form8'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { ObstetricgynecologyContext, ObstetricContext } from './ObstetricgynecologyContext';
@@ -40,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-    return ['', '', '', '', '', '', ''];
+    return ['', '', '', '', '', '', '', ''];
 }
 
 function GetStepContent({ activeStep, name, setValues }) {
@@ -60,7 +61,9 @@ function GetStepContent({ activeStep, name, setValues }) {
         case 5:
             return <Form6 />;
         case 6:
-            return <Form7 />;;
+            return <Form7 />;
+        case 7:
+            return <Form8 />;
         default:
             return 'Unknown step';
     }

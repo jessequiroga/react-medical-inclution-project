@@ -122,11 +122,11 @@
   },
   "covid-19": {
     "COVI-19Question": "Questionnaire on New Coronavirus Infection (Cover-19)",
-    "checkBoxApplicable":"A Please check the box that is applicable to you (yes or no).",
+    "checkBoxApplicable":"A) Please check the box that is applicable to you (yes or no).",
     "checkBoxApplicable1":"Have you or a family member living with you ever been in the same room with a person infected with a new type of coronavirus within the past two weeks?",
     "checkBoxApplicable2":"Have you visited outside the province (including overseas) within  the past two weeks?",
     "checkBoxApplicable3":"Have you been to a poorly ventilated, enclosed place (karaoke, snack bar, etc.) with a large number of people within the past two weeks? ",
-    "haveSymptoms":"B Do you have any of the symptoms that apply to you?",
+    "haveSymptoms":"B) Do you have any of the symptoms that apply to you?",
     "haveSymptoms1":"Fever of 37.5 degrees or higher",
     "Cough":"Cough",
     "Phlegm":"Phlegm",

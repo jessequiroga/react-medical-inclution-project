@@ -56,45 +56,79 @@ const CenteredGrid = () => {
     const { t, i18n } = useTranslation();
     const classes = useStyles();
     const [values, setValues] = useContext(ObstetricContext);
-    const blankPregnancyInformation = { date: new Date(), delivery: '', hadMiscarriage: '', hadAbnomalPregnancy: '', weeksPregnancy: '' };
-    
-    const [indexes, setIndexes] = React.useState([
-        { ...blankPregnancyInformation }
-    ]);
-    const [counter, setCounter] = React.useState(0);
-    const { register, handleSubmit } = useForm();
+    const [fields, setFields] = useState([{
+        date: new Date(),
+        delivery: "",
+        hadMiscarriage: null,
+        hadAbnomalPregnancy: null,
+        weeksPregnanncy: null
+    }]);
 
-    const addFriend = () => {
-        setIndexes(prevIndexes => [...prevIndexes, counter]);
-        setCounter(prevCounter => prevCounter + 1);
-    };
+    function handleChangeweeksPregnanncy(i, event) {
+        const values1 = [...fields];
+        values1[i].weeksPregnanncy = event.target.value;
+        setFields(values1);
+        setValues({...values, YesPregnancyHistory :values1})
+    }
+    function handleChangeDate(i, date) {
+        const values1 = [...fields];
+        values1[i].date = date;
+        setFields(values1);
+        setValues({...values, YesPregnancyHistory :values1})
+    }
 
-    const removeFriend = index => () => {
-        setIndexes(prevIndexes => [...prevIndexes.filter(item => item !== index)]);
-        setCounter(prevCounter => prevCounter - 1);
-    };
+    function handleChangeRadio(i, event) {
+        const values1 = [...fields];
+        values1[i].delivery = event.target.value;
+        setFields(values1);
+        setValues({...values, YesPregnancyHistory :values1})
+    }
 
-    const clearFriends = () => {
-        setIndexes([]);
-    };
+    function handleChangehadMiscarriage(i, event) {
+        const values1 = [...fields];
+        values1[i].hadMiscarriage = event.target.value;
+        setFields(values1);
+        setValues({...values, YesPregnancyHistory :values1})
+    }
 
-    const [pregnancyInfo, setPregnancyInfo] = useState([
-        { ...blankPregnancyInformation }
-    ]);
+    function handleChangehadMiscarriage(i, event) {
+        const values1 = [...fields];
+        values1[i].hadMiscarriage = event.target.value;
+        setFields(values1);
+        setValues({...values, YesPregnancyHistory :values1})
+    }
 
-    const onSubmit = data => {
-        console.log(data);
-      };
+    function handleChangehadAbnomalPregnancy(i, event) {
+        const values1 = [...fields];
+        values1[i].hadAbnomalPregnancy = event.target.value;
+        setFields(values1);
+        setValues({...values, YesPregnancyHistory :values1})
+    }
 
-    const AddPregnancyInformation = () => {
-        setPregnancyInfo([...pregnancyInfo, { ...blankPregnancyInformation }]);
-    };
-    
+    function handleAdd() {
+        const values1 = [...fields];
+        values1.push({ 
+            date: new Date(),
+        delivery: "",
+        hadMiscarriage: null,
+        hadAbnomalPregnancy: null,
+        weeksPregnanncy: null
+         });
+        setFields(values1);
+        setValues({...values, YesPregnancyHistory :values1})
+    }
 
+    function handleRemove(i) {
+        const values1 = [...fields];
+        values1.splice(i, 1);
+        setFields(values1);
+        setValues({...values, YesPregnancyHistory :values1})
+    }
+   
     const handleChange = (event) => {
         setValues({ ...values, [event.target.name]: event.target.value })
     };
-
+    //console.log(values.YesPregnancyHistory);
     return (
         <div className={classes.root}>
             <Grid container spacing={3} style={{ padding: 20 }}>
@@ -113,138 +147,115 @@ const CenteredGrid = () => {
                 <div>
                     {values.PregnantHistory === 'Have a history of pregnancy' ? (
                         <div>
-                            <FormLabel style={{ marginTop: -15, marginLeft: 65, fontSize: 14 }}><strong style={{ lineHeight: 2 }}>{t('obstetricGynecology.pregnancyHistory')} /「妊娠したことがある」に☑された方は下の妊娠歴をお書きください。</strong></FormLabel>
-                            <Grid item xs={12} style={{ backgroundColor: "#ffff0047", paddingTop: 26, paddingLeft: 26, paddingBottom: 26, paddingRight: 26 }}>
-                                <form onSubmit={handleSubmit(onSubmit)}>
-                                    {indexes.map(index => {
-                                        index = counter;
-                                        const fieldName = `friends[${index}]`;
-                                        //const dateId = `date-${idx}`;
-                                        //const deliveryId = `delivery-${idx}`;
-                                        //const hadMiscarriageId = `hadMiscarriage-${idx}`;
-                                        //const hadAbnomalPregnancyId = `hadAbnomalPregnancy-${idx}`;
-                                        //const weekpregnancyId = `weekpregnancy-${idx}`;
-                                        return (
-                                            <fieldset name={fieldName} key={fieldName}>
-                                                <FormLabel style={{ marginTop: -15, marginLeft: 60, fontSize: 18 }}><strong style={{ lineHeight: 2 }}>{`friends[${index+1}]`} </strong></FormLabel>
-                                                <Grid container spacing={3} style={{ padding: 20 }}>
-                                                    <Grid item xs={6}>
-                                                        <Grid >
-                                                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                                                <Grid container justify="space-around">
+                             <FormLabel style={{ marginTop: -15, marginLeft: 65, fontSize: 14 }}><strong style={{ lineHeight: 2 }}>{t('obstetricGynecology.pregnancyHistory')} /「妊娠したことがある」に☑された方は下の妊娠歴をお書きください。</strong></FormLabel>
+            <Grid item xs={12} style={{ backgroundColor: "#ffff0047", paddingTop: 26, paddingLeft: 26, paddingBottom: 26, paddingRight: 26 }}>
 
-                                                                    <KeyboardDatePicker
-                                                                        fullWidth
-                                                                        margin="normal"
-                                                                        name={`${fieldName}.date`}
-                                                                        ref={register}
-                                                                        label={t('obstetricGynecology.YearMonthDay')}
-                                                                        format="yyyy/MM/dd"
-                                                                        //value={values.DateOfBirth}
-                                                                        //onChange={updateDate}
-                                                                        KeyboardButtonProps={{
-                                                                            'aria-label': 'change date',
-                                                                        }}
-                                                                    />
+                {values.YesPregnancyHistory.map((field, idx) => {
+                    return (
+                        <div key={`${field}-${idx}`}>
+                            <hr style={{ height: 2, borderWidth: 0, color: "gray", backgroundColor: "gray" }} />
+                            <FormLabel style={{ marginTop: -15, marginLeft: 60, fontSize: 20, color:"balck" }}><strong style={{ lineHeight: 2 }}>{"Baby No: "+idx} </strong></FormLabel>
+                            <hr style={{ height: 2, borderWidth: 0, color: "gray", backgroundColor: "gray", marginTop: -6 }} />
+                            <Grid container spacing={3} style={{ padding: 20 }}>
+                                <Grid item xs={6}>
+                                    <Grid >
+                                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                            <Grid container justify="space-around">
 
-                                                                </Grid>
+                                                <KeyboardDatePicker
+                                                    fullWidth
+                                                    margin="normal"
+                                                    name="date"
+                                                    label={t('obstetricGynecology.YearMonthDay')}
+                                                    format="yyyy/MM/dd"
+                                                    value={field.date}
+                                                    onChange={e => handleChangeDate(idx, e)}
+                                                    KeyboardButtonProps={{
+                                                        'aria-label': 'change date',
+                                                    }}
+                                                />
 
-                                                            </MuiPickersUtilsProvider>
-                                                        </Grid>
+                                            </Grid>
 
-                                                        <Grid >
-                                                            <strong><h4 style={{ fontSize: 19 }}>{t('obstetricGynecology.Delivery')} / 分娩</h4></strong>
-                                                        </Grid>
-                                                        <Grid style={{ textAlign: "left", marginLeft: 5, marginTop: -15 }}>
-                                                            <FormControl component="fieldset">
+                                        </MuiPickersUtilsProvider>
+                                        <Grid >
+                                            <strong><h4 style={{ fontSize: 19 }}>{t('obstetricGynecology.Delivery')} / 分娩</h4></strong>
+                                        </Grid>
+                                        <Grid style={{ textAlign: "left", marginLeft: 5, marginTop: -15 }}>
+                                            <FormControl component="fieldset">
 
-                                                                <RadioGroup row aria-label="gender" name={`${fieldName}.delivery`}  ref={register}>
-                                                                    <FormControlLabel value={true} control={<Radio />} label={t('obstetricGynecology.Vaginaldelivery') + " /経腟分娩"} />
-                                                                    <FormControlLabel value={false} control={<Radio />} label={t('obstetricGynecology.Caesareansection') + " /帝王切開 "} />
-                                                                </RadioGroup>
-                                                            </FormControl>
-                                                        </Grid>
+                                                <RadioGroup row aria-label="gender" name="delivery" value={field.delivery} onChange={e => handleChangeRadio(idx, e)}>
+                                                    <FormControlLabel value="Vaginal delivery" control={<Radio />} label={t('obstetricGynecology.Vaginaldelivery') + " /経腟分娩"} />
+                                                    <FormControlLabel value="Caesarean section" control={<Radio />} label={t('obstetricGynecology.Caesareansection') + " /帝王切開 "} />
+                                                </RadioGroup>
+                                            </FormControl>
+                                        </Grid>
 
-                                                        <Grid >
-                                                            <strong><h4 style={{ fontSize: 19 }}>{t('obstetricGynecology.Hadmiscarriageornot')} /流産の有無</h4></strong>
-                                                        </Grid>
-                                                        <Grid style={{ textAlign: "left", marginLeft: 5, marginTop: -15 }}>
-                                                            <FormControl component="fieldset">
+                                        <Grid >
+                                            <strong><h4 style={{ fontSize: 19 }}>{t('obstetricGynecology.Hadmiscarriageornot')} /流産の有無</h4></strong>
+                                        </Grid>
+                                        <Grid style={{ textAlign: "left", marginLeft: 5, marginTop: -15 }}>
+                                            <FormControl component="fieldset">
 
-                                                                <RadioGroup row aria-label="gender" name={`${fieldName}.hadMiscarriage`} ref={register}>
-                                                                    <FormControlLabel value={true} control={<Radio />} label={t('obstetricGynecology.Miscarriage') + " /自然流産"} />
-                                                                    <FormControlLabel value={false} control={<Radio />} label={t('obstetricGynecology.Abortion') + " /人工流産 "} />
-                                                                </RadioGroup>
-                                                            </FormControl>
-                                                        </Grid>
-                                                    </Grid>
+                                                <RadioGroup row aria-label="gender" name="hadMiscarriage" value={field.hadMiscarriage} onChange={e => handleChangehadMiscarriage(idx, e)}>
+                                                    <FormControlLabel value="Miscarriage" control={<Radio />} label={t('obstetricGynecology.Miscarriage') + " /自然流産"} />
+                                                    <FormControlLabel value="Abortion" control={<Radio />} label={t('obstetricGynecology.Abortion') + " /人工流産 "} />
+                                                </RadioGroup>
+                                            </FormControl>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Grid>
+                                        <strong><h4 style={{ fontSize: 19 }}>{t('obstetricGynecology.Hadabnormalpregnancyornot')} /異常妊娠の有無</h4></strong>
+                                    </Grid>
+                                    <Grid style={{ textAlign: "left", marginLeft: 5, marginTop: -15 }}>
+                                        <FormControl component="fieldset">
 
-                                                    <Grid item xs={6}>
-                                                        <Grid>
-                                                            <strong><h4 style={{ fontSize: 19 }}>{t('obstetricGynecology.Hadabnormalpregnancyornot')} /異常妊娠の有無</h4></strong>
-                                                        </Grid>
-                                                        <Grid style={{ textAlign: "left", marginLeft: 5, marginTop: -15 }}>
-                                                            <FormControl component="fieldset">
-
-                                                                <RadioGroup row aria-label="gender" name={`${fieldName}.hadAbnomalPregnancy`} ref={register}>
-                                                                    <FormControlLabel value={true} control={<Radio />} label={t('internalMedcine.yes') + " /自然流産"} />
-                                                                    <FormControlLabel value={false} control={<Radio />} label={t('internalMedcine.No') + " /人工流産 "} />
-                                                                </RadioGroup>
-                                                            </FormControl>
-                                                        </Grid>
+                                            <RadioGroup row aria-label="gender" name="hadAbnomalPregnancy" value={field.hadAbnomalPregnancy} onChange={e => handleChangehadAbnomalPregnancy(idx, e)}>
+                                                <FormControlLabel value="true" control={<Radio />} label={t('internalMedcine.yes') + " /自然流産"} />
+                                                <FormControlLabel value="false" control={<Radio />} label={t('internalMedcine.No') + " /人工流産 "} />
+                                            </RadioGroup>
+                                        </FormControl>
+                                    </Grid>
 
 
 
-                                                        <FormControl fullWidth className='' >
-                                                            <InputLabel htmlFor="weeksPregnanncy">{t('obstetricGynecology.weekpregnancy')} /週数</InputLabel>
-                                                            <Input
-                                                                type="text"
-                                                                name={`${fieldName}.weeksPregnanncy`}
-                                                                ref={register}
-                                                                id="weeksPregnanncy"
-                                                                className="age"
-                                                            />
-                                                        </FormControl>
+                                    <FormControl fullWidth className='' >
+                                        <InputLabel htmlFor="weeksPregnanncy">{t('obstetricGynecology.weekpregnancy')} /週数</InputLabel>
+                                        <Input
+                                            type="text"
+                                            name="weeksPregnanncy"
+                                            id={field.weeksPregnanncy}
+                                            className="age"
+                                            value={field.weeksPregnanncy}
+                                            onChange={e => handleChangeweeksPregnanncy(idx, e)}
+                                        />
+                                    </FormControl>
 
-                                                    </Grid>
-
-
-                                                </Grid>
-                                                <Button
-                                                    variant="contained"
-                                                    color="primary"
-                                                    onClick={removeFriend(index)}
-                                                    className={classes.button}
-                                                >
-                                                    Remove
+                                </Grid>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={() => handleRemove(idx)}
+                                    className={classes.button}
+                                >
+                                    Remove
                                              </Button>
-                                            </fieldset>
 
-                                        );
-                                    })
-
-                                    }
-                                    <br/>
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        onClick={addFriend}
-                                        className={classes.button}
-                                    >
-                                        ADD friend
-                                             </Button>
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        onClick={clearFriends}
-                                        className={classes.button}
-                                    >
-                                        Clear friends
-                                             </Button>
-                                            
-                                             <input type="submit" />   
-                                </form>
                             </Grid>
+                        </div>
+                    );
+                })}
+                <Button
+                style={{fontSize: 20, backgroundColor: '#eb57577a', color:"white"}}
+                    variant="contained"
+                    onClick={() => handleAdd()}
+                    className={classes.button}
+                >
+                    +
+                                             </Button>
+            </Grid>
                         </div>
                     ) : (
                             <nav> &apos; </nav>
