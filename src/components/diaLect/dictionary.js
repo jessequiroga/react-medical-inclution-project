@@ -26,8 +26,8 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: "10px"
     },
     content: {
-        paddingBottom: "10%",
-        //paddingTop: "15%",
+        paddingBottom: "14%",
+        paddingTop: "10%"
     },
     div1: {
         width: "40%",
@@ -103,15 +103,18 @@ function Dictionary() {
                     </AppBar>
                 </div>
                 <div className={classes.content}>
-                    <TextField className={classes.textFiled} id="text1" variant="outlined" label="Input your word" style={{ width: "82%", marginTop: "120px", paddingLeft: "10px", borderRadius: "15px" }} />
-                    <Button className={classes.button} variant="contained" color="primary" disableElevation style={{ marginTop: "120px" }} onClick={find}> {t('search')}</Button>
-                </div>
+                    <TextField className={classes.textFiled} id="text1" variant="outlined" label="Input your word" style={{ width: "82%", marginTop: "80px", paddingLeft: "10px", borderRadius: "15px" }} />
+                    <Button className={classes.button} variant="contained" color="primary" disableElevation style={{ marginTop: "80px" }} onClick={find}> {t('search')}</Button>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
                 <p className={classes.p}>No words you want? Try:</p>
                 <Button className={classes.button} variant="contained" color="primary" disableElevation> {t('translate')}</Button>
                 <p className={classes.p}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or &nbsp;&nbsp;</p>
                 <Link to="/wakayama"><Button className={classes.button} variant="contained" color="primary" disableElevation style={{ backgroundColor: "#B4C0CB", marginRight: "20px" }} > {t('back')}</Button></Link>
+                </div>
                 <Footer />
-
             </div>
         );
    }
