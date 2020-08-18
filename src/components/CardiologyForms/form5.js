@@ -13,7 +13,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
-import { ObstetricContext } from '../ObstetricgynecologyContext';
+import { CardiologyContext } from '../context/cardiologyContext';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -42,25 +42,10 @@ const useStyles = makeStyles((theme) => ({
 
 const CenteredGrid = () => {
     const { t, i18n } = useTranslation();
-    const [values, setValues] = useContext(ObstetricContext);
+    const [values, setValues] = useContext(CardiologyContext);
     const [year, setYear] = useState('')
     const classes = useStyles();
-    const [smokeregularly, setSmokeregularly] = React.useState('No');
-    const [drinkregularly, setDrinkregularly] = React.useState('No');
-    const [frequency, setFrequency] = React.useState('');
-    const [frequencyDuration, setFrequencyDuration] = React.useState('');
-    const [CheckDrink, setCheckDrink] = React.useState({
-        beer: false,
-        wisky: false,
-        japsake: false,
-        wine: false,
-        others: false
-    });
-    const [beerfrequency, setBeerFrequency] = React.useState('');
-    const [wiskyfrequency, setWiskyFrequency] = React.useState('');
-    const [japsakefrequency, setJapsakeFrequency] = React.useState('');
-    const [winefrequency, setWineFrequency] = React.useState('');
-    const [othersfrequency, setOthersFrequency] = React.useState('');
+   
 
     const handleChangeCheckDrink = (event) => {
         const variable = event.target.name;
@@ -70,58 +55,43 @@ const CenteredGrid = () => {
     };
 
     const updateBeerFrequency = (event) => {
-        setBeerFrequency(event.target.value);
         setValues({...values, drinkeday:{...values.drinkeday, nobeer:event.target.value}})
     };
 
     const updateWiskyFrequency = (event) => {
-        setWiskyFrequency(event.target.value);
-        setValues({...values, drinkeday:{...values.drinkeday, nowisky:event.target.value}})
+       setValues({...values, drinkeday:{...values.drinkeday, nowisky:event.target.value}})
     };
 
     const updateJapsakeFrequency = (event) => {
-        setJapsakeFrequency(event.target.value);
         setValues({...values, drinkeday:{...values.drinkeday, nojapsake:event.target.value}})
     };
 
     const updateWineFrequency = (event) => {
-        setWineFrequency(event.target.value);
-        setValues({...values, drinkeday:{...values.drinkeday, nowine:event.target.value}})
+       setValues({...values, drinkeday:{...values.drinkeday, nowine:event.target.value}})
     };
 
     const updateOthersFrequency = (event) => {
-        setOthersFrequency(event.target.value);
-        setValues({...values, drinkeday:{...values.drinkeday, noOther:event.target.value}})
+       setValues({...values, drinkeday:{...values.drinkeday, noOther:event.target.value}})
     };
 
     const handleChange = (event) => {
-        setSmokeregularly(event.target.value);
-        setValues({...values, smokeregularly:event.target.value})
+       setValues({...values, smokeregularly:event.target.value})
     };
 
     const handleChangeDrink = (event) => {
-        setDrinkregularly(event.target.value);
         setValues({...values, drinkregularly:event.target.value})
     };
 
     const updateFrequency = (event) => {
-        setFrequency(event.target.value);
         setValues({...values, smokeday:{...values.smokeday, amount:event.target.value}})
     };
 
     const updateFrequencyDuration = (event) => {
-        setFrequencyDuration(event.target.value);
         setValues({...values, smokeday:{...values.smokeday, duration:event.target.value}})
     };
     const updateYear = (event) => {
-        setYear(event.target.value);
         setValues({...values, smokeday:{...values.smokeday, yearStop:event.target.value}})
     }
-
-    const handleChangeCheckSpecialRequest = (event) => {
-        //setSpecialRequest({ ...SpecialRequest, [event.target.name]: event.target.checked });
-        setValues({...values, [event.target.name]:event.target.checked})
-    };
 console.log(values)
 
     return (
@@ -388,48 +358,6 @@ console.log(values)
 
                 </Grid>
 
-                <Grid item xs={12}>
-                    <Paper className={classes.paper}><strong><h5>{t('internalMedcine.specialrequestconcerningconsultation')}? <br />/診察でのご希望がある場合は、☑をしてください。</h5></strong></Paper>
-                </Grid>
-
-                <Grid container item xs={12}>
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                checked={values.medicalexpenses}
-                                onChange={handleChangeCheckSpecialRequest}
-                                name="medicalexpenses"
-                            />
-                        }
-                        label={t('internalMedcine.informedonestimatedexpenses')}
-                    />
-                </Grid>
-
-                <Grid container item xs={12}>
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                checked={values.haveinterpreter}
-                                onChange={handleChangeCheckSpecialRequest}
-                                name="haveinterpreter"
-                            />
-                        }
-                        label={t('internalMedcine.interpreterinterpreterservice')}
-                    />
-                </Grid>
-
-                <Grid container item xs={12}>
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                checked={values.otherssss}
-                                onChange={handleChangeCheckSpecialRequest}
-                                name="otherssss"
-                            />
-                        }
-                        label={t('internalMedcine.Other')+'(s)/その他'}
-                    />
-                </Grid>
             </Grid>
         </div>
     )

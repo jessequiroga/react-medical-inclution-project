@@ -14,6 +14,8 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@material-ui/core';
 import { Link } from 'react-router-dom'
+import AuthOptions from './auth/AuthOptions';
+
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -150,7 +152,7 @@ export default function PrimarySearchAppBar() {
           
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            
+            <AuthOptions />
             <IconButton
               edge="end"
               aria-label="account of current user"

@@ -243,5 +243,12 @@
         "VomitingNausea":"Vomiting・Nausea",
         "Diarrhea":"Diarrhea",
         "Noappetite":"No appetite"
+    },
+    "registration": {
+        "userRegistration": "User Registration",
+        "email": "Email",
+        "password": "Password",
+        "verifypassword": "Verify password",
+        "login": "Login"
     }
 }

@@ -77,6 +77,9 @@ export const ObstetricgynecologyContext = props => {
             other : false,
             noOther : '',
         },
+        medicalexpenses : false,
+        haveinterpreter : false,
+        otherssss : false
       
     });
    

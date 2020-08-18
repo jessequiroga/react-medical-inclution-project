@@ -19,6 +19,7 @@ app.use(function(req, res, next) {
 // Import Routes
 const internalmedRoute = require('./routes/internalMedcin');
 const userRoute = require('./routes/user');
+const logfile = require('./routes/logRouter');
 const dialectSentRoute = require('./routes/diaLect/dialectSentence');
 const wakayamaPhRoute = require('./routes/diaLect/wakayamaPhrase');
 const wakayamaWdRoute = require('./routes/diaLect/wakayamaWord');
@@ -26,6 +27,7 @@ const wakayamaWdRoute = require('./routes/diaLect/wakayamaWord');
 
 app.use('/internaMedcine', internalmedRoute);
 app.use('/user', userRoute);
+app.use('/logfile', logfile);
 app.use('/dialectSentence', dialectSentRoute);
 app.use('/wakayamaPhrase', wakayamaPhRoute);
 app.use('/wakayamaWord', wakayamaWdRoute);
