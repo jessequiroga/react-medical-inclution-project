@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import { useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import Nav from "./nav.js";
 import Footer from "./footer";

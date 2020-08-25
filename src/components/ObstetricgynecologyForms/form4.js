@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -17,6 +17,9 @@ import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
+import UserContext from '../context/UserContext';
+import Axios from "axios";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -52,27 +55,75 @@ const CenteredGrid = () => {
     const { t, i18n } = useTranslation();
     const [values, setValues] = useContext(ObstetricContext);
     const classes = useStyles();
+    const { userData } = useContext(UserContext);
+    const history = useHistory();
+
+    useEffect(() => {
+        if (!userData.user) history.push("/login1");
+    });
+
+    const authAxios = Axios.create({
+        baseURL: "http://localhost:3001",
+        headers: {
+          'x-auth-token': userData.token,
+        },
+      });
+
+      const logFunction = async (question) =>{
+        const loginfo = {
+            inteviewName: "Obstetric and Gynecology form 4",
+            //userName: userData.user.userName,
+            language: i18n.language,
+            contentSentence: question,
+            date: new Date,
+            userId: userData.user.id,
+          };
+          const loginInput = await authAxios.post(
+            "/logfile/insert",
+            loginfo
+          );
+    } 
 
     const handleChange = (event) => {
         setValues({ ...values, [event.target.name]: event.target.value })
+        if ( [event.target.name] == "haveSexualIntercourse"){
+            logFunction(t('obstetricGynecology.haveSexualIntercourse')); 
+        }
+        if ( [event.target.name] == "hadUterineCancerTest"){
+            logFunction(t('obstetricGynecology.hadUterineCancerTest')); 
+        }
+        if ( [event.target.name] == "takenBirthControlPills"){
+            logFunction(t('obstetricGynecology.takenBirthControlPills')); 
+        }
+        if ( [event.target.name] == "pregnantOrPossiblyPregnant"){
+            logFunction(t('obstetricGynecology.pregnantOrPossiblyPregnant')); 
+        }
+        if ( [event.target.name] == "Areyoubreastfeeding"){
+            logFunction(t('obstetricGynecology.Areyoubreastfeeding')); 
+        }
+        
     };
 
     const updateDate = (date) => {
-        setValues({ ...values, dateHadUterineCancerTest: date })
+        setValues({ ...values, dateHadUterineCancerTest: date });
+        logFunction(t('obstetricGynecology.dateLastPeriod'));
     }
 
     const update = (e) => {
-        setValues({ ...values.menstrualPeriod, [e.target.name]: e.target.value })
+        setValues({ ...values.menstrualPeriod, [e.target.name]: e.target.value });
+        logFunction(t('obstetricGynecology.noWeeks'));
     }
+
     const handleChangeCheckSpecialRequest = (event) => {
-        setValues({ ...values, [event.target.name]: event.target.checked })
+        setValues({ ...values, [event.target.name]: event.target.checked });
+        logFunction(t('obstetricGynecology.doNotKnow'));
     };
 
     return (
         <div className={classes.root}>
             <Grid container spacing={3} style={{ padding: 20 }}>
                 <Grid item xs={12}>
-                    <Paper className={classes.paper}><strong><h4 style={{ fontSize: 19 }}>{t('obstetricGynecology.menstrualperiods')}<br />/月経についてお伺いします。</h4></strong></Paper>
+                    <Paper className={classes.paper}><strong><h4 style={{ fontSize: 19 }}>{t('obstetricGynecology.haveSexualIntercourse')}<br />/今までに性交渉の経験がありますか。</h4></strong></Paper>
                 </Grid>
                 <Grid item xs={12} style={{ textAlign: "center", paddingLeft: 48, marginLeft: -18, marginTop: -19 }}>
                     <FormControl component="fieldset">

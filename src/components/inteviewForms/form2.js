@@ -1,4 +1,5 @@
-import React, { useState, useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -20,6 +21,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import GridList from '@material-ui/core/GridList';
+import UserContext from '../context/UserContext';
+import Axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -82,6 +85,34 @@ const CenteredGrid = () => {
 
     const [checkedFood, setCheckedFood] = React.useState([]);
     const [checkedMedecine, setCheckedMedecine] = React.useState([]);
+    const { userData } = useContext(UserContext);
+    const history = useHistory();
+
+    useEffect(() => {
+        if (!userData.user) history.push("/login1");
+    });
+
+    const authAxios = Axios.create({
+        baseURL: "http://localhost:3001",
+        headers: {
+          'x-auth-token': userData.token,
+        },
+      });
+
+    const logFunction = async (question) =>{
+        const loginfo = {
+            inteviewName: "Internal Medcine form1",
+            //userName: userData.user.userName,
+            language: i18n.language,
+            contentSentence: question,
+            date: new Date,
+            userId: userData.user.id,
+          };
+          const loginInput = await authAxios.post(
+            "/logfile/insert",
+            loginfo
+          );
+    }  
 
     const handleToggleFood = (value) => () => {
         const currentIndex = values.allergis.foods.indexOf(value.value);
@@ -93,8 +124,9 @@ const CenteredGrid = () => {
             newChecked.splice(currentIndex, 1);
         }
 
-        setCheckedFood({allergis:{...values.allergis, foods:newChecked}});
+        //setCheckedFood({allergis:{...values.allergis, foods:newChecked}});
         setValues({...values, allergis:{...values.allergis, foods:newChecked}})
+        logFunction("Food Allergie")
     };
 
     
@@ -108,36 +140,42 @@ const CenteredGrid = () => {
             newChecked.splice(currentIndex, 1);
         }
 
-        setCheckedMedecine({allergis:{...values.allergis, medcine:newChecked}});
-        setValues({...values, allergis:{...values.allergis, medcine:newChecked}})
+        //setCheckedMedecine({allergis:{...values.allergis, medcine:newChecked}});
+        setValues({...values, allergis:{...values.allergis, medcine:newChecked}});
+        logFunction("Medicine Allergie");
     };
     //console.log(checkedFood)
    // console.log(checkedMedecine)
 
     const updateName = (e) => {
-        setName(e.target.value);
+       // setName(e.target.value);
         setValues({...values, name:e.target.value})
+        logFunction("Patient name")
        }
 console.log(values)
 
     const updateHeight = (e) => {
-        setHeight(e.target.value);
+       // setHeight(e.target.value);
         setValues({...values, height:e.target.value})
+        logFunction("Patient height")
     }
 
     const updateWeight = (e) => {
-        setWeight(e.target.value);
+        //setWeight(e.target.value);
         setValues({...values, weight:e.target.value})
+        logFunction("Patient Weight")
     }
 
     const updateDate = (date) => {
         setDate(date)
-        setValues({...values, DateOfBirth:date})
+        setValues({...values, DateOfBirth:date});
+        logFunction("Date of birth")
     }
 
     const updateSex = (event) => {
-        setSex(event.target.value);
-        setValues({...values, sex:event.target.value})
+       //setSex(event.target.value);
+        setValues({...values, sex:event.target.value});
+        logFunction("Patient sex")
     };
 
 
@@ -154,7 +192,7 @@ console.log(values)
                         <Input
                             id="name"
                             type="text"
-                            values={name}
+                            //values={name}
                             defaultValue={values.name}
                             onChange={updateName}
                         />
@@ -184,7 +222,7 @@ console.log(values)
                             <Input
                                 id="height"
                                 type="number"
-                                values={height}
+                                //values={height}
                                 defaultValue={values.height}
                                 onChange={updateHeight}
                             />
@@ -199,7 +237,7 @@ console.log(values)
                             <Input
                                 id="weight"
                                 type="number"
-                                values={weight}
+                                //values={weight}
                                 defaultValue={values.weight}
                                 onChange={updateWeight}
                             />

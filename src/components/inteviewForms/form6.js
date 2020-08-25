@@ -1,4 +1,5 @@
-import React, { useState, useContext } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
+import { useHistory } from "react-router-dom"
 import { makeStyles } from '@material-ui/core/styles';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -13,7 +14,9 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
-import { MedContext } from '../internalMedContext'
+import { MedContext } from '../internalMedContext';
+import UserContext from '../context/UserContext';
+import Axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -61,61 +64,100 @@ const CenteredGrid = () => {
     const [japsakefrequency, setJapsakeFrequency] = React.useState('');
     const [winefrequency, setWineFrequency] = React.useState('');
     const [othersfrequency, setOthersFrequency] = React.useState('');
+    const { userData } = useContext(UserContext);
+    const history = useHistory();
+
+    useEffect(() => {
+        if (!userData.user) history.push("/login1");
+    });
+
+    const authAxios = Axios.create({
+        baseURL: "http://localhost:3001",
+        headers: {
+          'x-auth-token': userData.token,
+        },
+      });
+
+    const logFunction = async (question) =>{
+        const loginfo = {
+            inteviewName: "Internal Medcine form 6",
+            //userName: userData.user.userName,
+            language: i18n.language,
+            contentSentence: question,
+            date: new Date,
+            userId: userData.user.id,
+          };
+          const loginInput = await authAxios.post(
+            "/logfile/insert",
+            loginfo
+          );
+    }
 
     const handleChangeCheckDrink = (event) => {
         const variable = event.target.name;
         //setCheckDrink({ ...CheckDrink, [event.target.name]: event.target.checked });
         setValues({...values, drinkeday:{...values.drinkeday, [event.target.name]:event.target.checked}})
-        console.log([event.target.name])
+        console.log([event.target.name]);
+        logFunction("Do you drink regularly");
     };
 
     const updateBeerFrequency = (event) => {
         setBeerFrequency(event.target.value);
-        setValues({...values, drinkeday:{...values.drinkeday, nobeer:event.target.value}})
+        setValues({...values, drinkeday:{...values.drinkeday, nobeer:event.target.value}});
+        logFunction("Beer frequency");
     };
 
     const updateWiskyFrequency = (event) => {
         setWiskyFrequency(event.target.value);
-        setValues({...values, drinkeday:{...values.drinkeday, nowisky:event.target.value}})
+        setValues({...values, drinkeday:{...values.drinkeday, nowisky:event.target.value}});
+        logFunction("wisky frequency");
     };
 
     const updateJapsakeFrequency = (event) => {
         setJapsakeFrequency(event.target.value);
-        setValues({...values, drinkeday:{...values.drinkeday, nojapsake:event.target.value}})
+        setValues({...values, drinkeday:{...values.drinkeday, nojapsake:event.target.value}});
+        logFunction("Japanes sake frequency");
     };
 
     const updateWineFrequency = (event) => {
         setWineFrequency(event.target.value);
-        setValues({...values, drinkeday:{...values.drinkeday, nowine:event.target.value}})
+        setValues({...values, drinkeday:{...values.drinkeday, nowine:event.target.value}});
+        logFunction("wine frequency");
     };
 
     const updateOthersFrequency = (event) => {
         setOthersFrequency(event.target.value);
         setValues({...values, drinkeday:{...values.drinkeday, noOther:event.target.value}})
+        logFunction("Others frequency");
     };
 
     const handleChange = (event) => {
         setSmokeregularly(event.target.value);
-        setValues({...values, smokeregularly:event.target.value})
+        setValues({...values, smokeregularly:event.target.value});
+        logFunction("Do you smoke regularly or use to smoke");
     };
 
     const handleChangeDrink = (event) => {
         setDrinkregularly(event.target.value);
-        setValues({...values, drinkregularly:event.target.value})
+        setValues({...values, drinkregularly:event.target.value});
+        logFunction("Do you drink regularly");
     };
 
     const updateFrequency = (event) => {
         setFrequency(event.target.value);
-        setValues({...values, smokeday:{...values.smokeday, amount:event.target.value}})
+        setValues({...values, smokeday:{...values.smokeday, amount:event.target.value}});
+        logFunction("Sigarette consumption per day");
     };
 
     const updateFrequencyDuration = (event) => {
         setFrequencyDuration(event.target.value);
-        setValues({...values, smokeday:{...values.smokeday, duration:event.target.value}})
+        setValues({...values, smokeday:{...values.smokeday, duration:event.target.value}});
+        logFunction("Duration of smoking");
     };
     const updateYear = (event) => {
         setYear(event.target.value);
-        setValues({...values, smokeday:{...values.smokeday, yearStop:event.target.value}})
+        setValues({...values, smokeday:{...values.smokeday, yearStop:event.target.value}});
+        logFunction("the year you stop smoking");
     }
 console.log(values)
 

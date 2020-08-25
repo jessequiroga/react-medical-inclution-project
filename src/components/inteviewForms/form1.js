@@ -1,4 +1,5 @@
-import React, { useState, useContext }  from 'react'
+import React, { useEffect, useState, useContext }  from 'react';
+import { useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -13,7 +14,9 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import { MedContext } from '../internalMedContext'
+import { MedContext } from '../internalMedContext';
+import UserContext from '../context/UserContext';
+import Axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -93,6 +96,34 @@ const CenteredGrid = () => {
     const [checkedProblemtoday, setCheckedProblemtoday] = React.useState([]);
     const [checkedStool, setCheckedStool] = React.useState([]);
     const [frequency, setFrequency] = React.useState('');
+    const { userData } = useContext(UserContext);
+    const history = useHistory();
+
+    useEffect(() => {
+        if (!userData.user) history.push("/login1");
+    });
+
+    const authAxios = Axios.create({
+        baseURL: "http://localhost:3001",
+        headers: {
+          'x-auth-token': userData.token,
+        },
+      });
+
+    const logFunction = async (question) =>{
+        const loginfo = {
+            inteviewName: "Internal Medcine form 2",
+            //userName: userData.user.userName,
+            language: i18n.language,
+            contentSentence: question,
+            date: new Date,
+            userId: userData.user.id,
+          };
+          const loginInput = await authAxios.post(
+            "/logfile/insert",
+            loginfo
+          );
+    }  
 
     const handleToggleProblemtoday = (object) => () => {
         const currentIndex = values.problemtoday.indexOf(object.value);
@@ -105,7 +136,8 @@ const CenteredGrid = () => {
         }
 
         setCheckedProblemtoday(newChecked);
-        setValues({...values, problemtoday:newChecked})
+        setValues({...values, problemtoday:newChecked});
+        logFunction("What is the problem today");
     };
 
     const handleToggleStool = (object) => () => {
@@ -119,12 +151,14 @@ const CenteredGrid = () => {
         }
 
         setCheckedStool(newChecked);
-        setValues({...values, stools:newChecked})
+        setValues({...values, stools:newChecked});
+        logFunction("How is your stool like");
     };
 
     const updateFrequency = (event) => {
         setFrequency(event.target.value);
         setValues({...values, stoolfrequency:event.target.value});
+        logFunction("How is your stool frequency");
     };
 
     return (

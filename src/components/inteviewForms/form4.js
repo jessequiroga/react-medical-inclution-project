@@ -1,4 +1,5 @@
-import React, { useState, useContext } from 'react'
+import React, { useEffect, useState, useContext } from 'react';
+import { useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -12,6 +13,7 @@ import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
+import Axios from "axios";
 import {
     MuiPickersUtilsProvider,
     KeyboardTimePicker,
@@ -19,6 +21,7 @@ import {
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { MedContext } from '../internalMedContext'
+import UserContext from '../context/UserContext.js';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -69,8 +72,36 @@ const CenteredGrid = () => {
     const [checkedSymptomoccurs, setCheckedSymptomoccurs] = React.useState([]);
     const [checkedSymptomlikes, setCheckedSymptomlikes] = React.useState([]);
     const [frequency, setFrequency] = React.useState('');
-    const [date, setDate] = useState(new Date())
-    const [time, setTime] = useState(new Date())
+    const [date, setDate] = useState(new Date());
+    const [time, setTime] = useState(new Date());
+    const { userData } = useContext(UserContext);
+    const history = useHistory();
+
+    useEffect(() => {
+        if (!userData.user) history.push("/login1");
+    });
+
+    const authAxios = Axios.create({
+        baseURL: "http://localhost:3001",
+        headers: {
+          'x-auth-token': userData.token,
+        },
+      });
+
+      const logFunction = async (question) =>{
+        const loginfo = {
+            inteviewName: "Internal Medcine form1",
+            //userName: userData.user.userName,
+            language: i18n.language,
+            contentSentence: question,
+            date: new Date,
+            userId: userData.user.id,
+          };
+          const loginInput = await authAxios.post(
+            "/logfile/insert",
+            loginfo
+          );
+    }  
 
     const handleToggleSymptomlikes = (object) => () => {
         const currentIndex = values.symptomlike.indexOf(object.value);
@@ -83,7 +114,8 @@ const CenteredGrid = () => {
         }
 
         setCheckedSymptomlikes(newChecked);
-        setValues({...values, symptomlike:newChecked})
+        setValues({...values, symptomlike:newChecked});
+        logFunction("How is the symptom like");
     };
 
     const handleToggleSymptomoccurs = (object) => () => {
@@ -97,20 +129,24 @@ const CenteredGrid = () => {
         }
 
         setCheckedSymptomoccurs(newChecked);
-        setValues({...values, symptomoccur:newChecked})
+        setValues({...values, symptomoccur:newChecked});
+        logFunction("When does the symptoms occur");
     };
     const updateFrequency = (event) => {
         setFrequency(event.target.value);
         setValues({...values, scale1to10:event.target.value});
+        logFunction("If you describe the symptom on a scale of 1 - 10, how severe is it? Select the number below.");
     };
 
     const updateDate = (date) => {
         setDate(date)
         setValues({...values, symptomstart:date})
+        logFunction("When did the symptom start Date");
     }
     const updateTime = (time) => {
         setTime(time)
         setValues({...values, symtomstarttime:time})
+        logFunction("When did the symptom start Time");
     }
 
     return (

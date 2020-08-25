@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -17,6 +17,9 @@ import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
+import UserContext from '../context/UserContext';
+import Axios from "axios";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -54,21 +57,69 @@ const CenteredGrid = () => {
     const { t, i18n } = useTranslation();
     const [values, setValues] = useContext(ObstetricContext);
     const classes = useStyles();
+    const { userData } = useContext(UserContext);
+    const history = useHistory();
+
+    useEffect(() => {
+        if (!userData.user) history.push("/login1");
+    });
+
+    const authAxios = Axios.create({
+        baseURL: "http://localhost:3001",
+        headers: {
+          'x-auth-token': userData.token,
+        },
+      });
+
+    const logFunction = async (question) =>{
+        const loginfo = {
+            inteviewName: "Obstetric and Gynecology form 3",
+            //userName: userData.user.userName,
+            language: i18n.language,
+            contentSentence: question,
+            date: new Date,
+            userId: userData.user.id,
+          };
+          const loginInput = await authAxios.post(
+            "/logfile/insert",
+            loginfo
+          );
+    } 
 
     const handleChangeCheckSpecialRequest = (event) => {
-        setValues({...values, menstrualPeriod:{...values.menstrualPeriod, [event.target.name]:event.target.checked} })
+        setValues({...values, menstrualPeriod:{...values.menstrualPeriod, [event.target.name]:event.target.checked} });
+        logFunction("irregular period");
     };
 
     const update = (e) => {
-        setValues({...values, menstrualPeriod:{...values.menstrualPeriod, [e.target.name]:e.target.value} })
+        setValues({...values, menstrualPeriod:{...values.menstrualPeriod, [e.target.name]:e.target.value} });
+        if ( [e.target.name] == "ageStart"){
+            logFunction(t('obstetricGynecology.Howoldwereyouwhenyoustartedhavingyourperiod')); 
+        }
+        if ( [e.target.name] == "ageLast"){
+            logFunction(t('obstetricGynecology.Howoldwereyouwhenyouhadyourlastperiod')); 
+        }
+        if ( [e.target.name] == "daysCycle"){
+            logFunction(t('obstetricGynecology.Howmanydayslongisyourmenstrualcycle')); 
+        }
+        if ( [e.target.name] == "painkiller"){
+            logFunction(t('obstetricGynecology.painduringyourperiods')); 
+        }
        }
 
        const handleChange = (event) => {
         setValues({...values, menstrualPeriod :{...values.menstrualPeriod, [event.target.name]:event.target.value}})
+        if ([event.target.name] == "usualFlow")
+            logFunction(t('obstetricGynecology.Whatisyourusualflow'));
+        if ([event.target.name] == "painduringyourperiods")
+            logFunction(t('obstetricGynecology.painduringyourperiods'));
+        if ([event.target.name] == "Painkiller")
+            logFunction(t('obstetricGynecology.Painkiller'));
     };
 
     const updateDate = (date) => {
         setValues({...values, menstrualPeriod :{...values.menstrualPeriod, dateLastPeriod:date}})
+        logFunction(t('obstetricGynecology.dateLastPeriod'));
     }
 
     return (

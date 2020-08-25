@@ -1,4 +1,5 @@
-import React, { useState, useContext } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
+import { useHistory } from "react-router-dom"
 import { makeStyles } from '@material-ui/core/styles';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -13,7 +14,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import GridList from '@material-ui/core/GridList';
 import FormLabel from '@material-ui/core/FormLabel';
-import { MedContext } from '../internalMedContext'
+import { MedContext } from '../internalMedContext';
+import UserContext from '../context/UserContext';
+import Axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -97,7 +100,34 @@ const CenteredGrid = () => {
     const [doctorcaresType, setDoctorcaresType] = React.useState([]);
     const [hadsurgery, setHadsurgerys] = React.useState('');
     const [hadsurgerysType, setHadsurgerysType] = React.useState([]);
+    const { userData } = useContext(UserContext);
+    const history = useHistory();
+
+    useEffect(() => {
+        if (!userData.user) history.push("/login1");
+    });
     
+    const authAxios = Axios.create({
+        baseURL: "http://localhost:3001",
+        headers: {
+          'x-auth-token': userData.token,
+        },
+      });
+
+    const logFunction = async (question) =>{
+        const loginfo = {
+            inteviewName: "Internal Medcine form 5",
+            //userName: userData.user.userName,
+            language: i18n.language,
+            contentSentence: question,
+            date: new Date,
+            userId: userData.user.id,
+          };
+          const loginInput = await authAxios.post(
+            "/logfile/insert",
+            loginfo
+          );
+    } 
 
     const handleToggleHadsurgerysType = (object) => () => {
         const currentIndex = values.hadsurgerys.indexOf(object.value);
@@ -110,12 +140,14 @@ const CenteredGrid = () => {
         }
 
         setHadsurgerysType(newChecked);
-        setValues({...values, hadsurgerys:newChecked})
+        setValues({...values, hadsurgerys:newChecked});
+        logFunction("Have had surgery option");
     };
 
     const handleChangeHadsurgerys = (event) => {
         setHadsurgerys(event.target.value);
-        setValues({...values, hadsurgery:event.target.value})
+        setValues({...values, hadsurgery:event.target.value});
+        logFunction("Have had surgery");
     };
 
 
@@ -130,12 +162,14 @@ const CenteredGrid = () => {
         }
 
         setMedicationType(newChecked);
-        setValues({...values, onmedications:newChecked})
+        setValues({...values, onmedications:newChecked});
+        logFunction("Are you curently on any medication option");
     };
 
     const handleChange = (event) => {
         setMedication(event.target.value);
         setValues({...values, onMedication:event.target.value})
+        logFunction("Are you curently on any medication");
     };
 
     const handleToggleDoctorcaresType = (object) => () => {
@@ -149,12 +183,14 @@ const CenteredGrid = () => {
         }
 
         setDoctorcaresType(newChecked);
-        setValues({...values, doctorCare:newChecked})
+        setValues({...values, doctorCare:newChecked});
+        logFunction("Are you curently on doctor care option");
     };
 
     const handleChangeDoctorcare = (event) => {
         setDoctorcares(event.target.value);
-        setValues({...values, doctorcare:event.target.value})
+        setValues({...values, doctorcare:event.target.value});
+        logFunction("Are you curently on doctor care");
     };
 
 

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { useForm } from "react-hook-form";
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -19,6 +19,9 @@ import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
+import UserContext from '../context/UserContext';
+import Axios from "axios";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -63,46 +66,80 @@ const CenteredGrid = () => {
         hadAbnomalPregnancy: null,
         weeksPregnanncy: null
     }]);
+    const { userData } = useContext(UserContext);
+    const history = useHistory();
+
+    useEffect(() => {
+        if (!userData.user) history.push("/login1");
+    });
+
+    const authAxios = Axios.create({
+        baseURL: "http://localhost:3001",
+        headers: {
+          'x-auth-token': userData.token,
+        },
+      });
+
+    const logFunction = async (question) =>{
+        const loginfo = {
+            inteviewName: "Obstetric and Gynecology form 5",
+            //userName: userData.user.userName,
+            language: i18n.language,
+            contentSentence: question,
+            date: new Date,
+            userId: userData.user.id,
+          };
+          const loginInput = await authAxios.post(
+            "/logfile/insert",
+            loginfo
+          );
+    } 
 
     function handleChangeweeksPregnanncy(i, event) {
         const values1 = [...fields];
         values1[i].weeksPregnanncy = event.target.value;
         setFields(values1);
         setValues({...values, YesPregnancyHistory :values1})
+        logFunction(t('obstetricGynecology.weekpregnancy'));
     }
+
     function handleChangeDate(i, date) {
         const values1 = [...fields];
         values1[i].date = date;
         setFields(values1);
-        setValues({...values, YesPregnancyHistory :values1})
+        setValues({...values, YesPregnancyHistory :values1});
+        logFunction(t('obstetricGynecology.YearMonthDay'));
     }
 
     function handleChangeRadio(i, event) {
         const values1 = [...fields];
         values1[i].delivery = event.target.value;
         setFields(values1);
-        setValues({...values, YesPregnancyHistory :values1})
+        setValues({...values, YesPregnancyHistory :values1});
+        logFunction(t('obstetricGynecology.Delivery'));
     }
 
     function handleChangehadMiscarriage(i, event) {
         const values1 = [...fields];
         values1[i].hadMiscarriage = event.target.value;
         setFields(values1);
-        setValues({...values, YesPregnancyHistory :values1})
+        setValues({...values, YesPregnancyHistory :values1});
+        logFunction(t('obstetricGynecology.Hadmiscarriageornot'));
     }
 
-    function handleChangehadMiscarriage(i, event) {
+    /*function handleChangehadMiscarriage(i, event) {
         const values1 = [...fields];
         values1[i].hadMiscarriage = event.target.value;
         setFields(values1);
         setValues({...values, YesPregnancyHistory :values1})
-    }
+    }*/
 
     function handleChangehadAbnomalPregnancy(i, event) {
         const values1 = [...fields];
         values1[i].hadAbnomalPregnancy = event.target.value;
         setFields(values1);
-        setValues({...values, YesPregnancyHistory :values1})
+        setValues({...values, YesPregnancyHistory :values1});
+        logFunction(t('obstetricGynecology.Hadabnormalpregnancyornot'));
     }
 
     function handleAdd() {
@@ -115,7 +152,8 @@ const CenteredGrid = () => {
         weeksPregnanncy: null
          });
         setFields(values1);
-        setValues({...values, YesPregnancyHistory :values1})
+        setValues({...values, YesPregnancyHistory :values1});
+        
     }
 
     function handleRemove(i) {
@@ -126,7 +164,8 @@ const CenteredGrid = () => {
     }
    
     const handleChange = (event) => {
-        setValues({ ...values, [event.target.name]: event.target.value })
+        setValues({ ...values, [event.target.name]: event.target.value });
+        logFunction(t('obstetricGynecology.PregnantHistory'));
     };
     //console.log(values.YesPregnancyHistory);
     return (

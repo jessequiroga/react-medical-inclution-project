@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -20,6 +20,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import GridList from '@material-ui/core/GridList';
+import UserContext from '../context/UserContext';
+import Axios from "axios";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -76,6 +79,34 @@ const CenteredGrid = () => {
 
     const [checkedFood, setCheckedFood] = React.useState([]);
     const [checkedMedecine, setCheckedMedecine] = React.useState([]);
+    const { userData } = useContext(UserContext);
+    const history = useHistory();
+
+    useEffect(() => {
+        if (!userData.user) history.push("/login1");
+    });
+
+    const authAxios = Axios.create({
+        baseURL: "http://localhost:3001",
+        headers: {
+          'x-auth-token': userData.token,
+        },
+      });
+
+    const logFunction = async (question) =>{
+        const loginfo = {
+            inteviewName: "Obstetric and Gynecology form 1",
+            //userName: userData.user.userName,
+            language: i18n.language,
+            contentSentence: question,
+            date: new Date,
+            userId: userData.user.id,
+          };
+          const loginInput = await authAxios.post(
+            "/logfile/insert",
+            loginfo
+          );
+    } 
 
     const handleToggleFood = (value) => () => {
         const currentIndex = values.allergis.foods.indexOf(value.value);
@@ -88,7 +119,8 @@ const CenteredGrid = () => {
         }
 
         setCheckedFood({allergis:{...values.allergis, foods:newChecked}});
-        setValues({...values, allergis:{...values.allergis, foods:newChecked}})
+        setValues({...values, allergis:{...values.allergis, foods:newChecked}});
+        logFunction("Food Allergie")
     };
 
     
@@ -103,15 +135,18 @@ const CenteredGrid = () => {
         }
 
         setCheckedMedecine({allergis:{...values.allergis, medcine:newChecked}});
-        setValues({...values, allergis:{...values.allergis, medcine:newChecked}})
+        setValues({...values, allergis:{...values.allergis, medcine:newChecked}});
+        logFunction("Medicine Allergie");
     };
 
    const update = (e) => {
-    setValues({...values, [e.target.name]:e.target.value})
+    setValues({...values, [e.target.name]:e.target.value});
+    logFunction("Patient "+[e.target.name])
    }
 
     const updateDate = (date) => {
         setValues({...values, DateOfBirth:date})
+        logFunction("Date of birth")
     }
 
     console.log(values)

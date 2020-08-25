@@ -1,4 +1,4 @@
-import React, { useState, useContext }  from 'react'
+import React, { useEffect, useContext }  from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -8,7 +8,10 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import GridList from '@material-ui/core/GridList';
-import { ObstetricContext } from '../ObstetricgynecologyContext'
+import { ObstetricContext } from '../ObstetricgynecologyContext';
+import UserContext from '../context/UserContext';
+import Axios from "axios";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -69,6 +72,34 @@ const CenteredGrid = () => {
 
     const [values, setValues] = useContext(ObstetricContext);
     const classes = useStyles();
+    const { userData } = useContext(UserContext);
+    const history = useHistory();
+
+    useEffect(() => {
+        if (!userData.user) history.push("/login1");
+    });
+
+    const authAxios = Axios.create({
+        baseURL: "http://localhost:3001",
+        headers: {
+          'x-auth-token': userData.token,
+        },
+      });
+
+    const logFunction = async (question) =>{
+        const loginfo = {
+            inteviewName: "Obstetric and Gynecology form 2",
+            //userName: userData.user.userName,
+            language: i18n.language,
+            contentSentence: question,
+            date: new Date,
+            userId: userData.user.id,
+          };
+          const loginInput = await authAxios.post(
+            "/logfile/insert",
+            loginfo
+          );
+    } 
 
     const handleToggleProblemtoday = (object) => () => {
         const currentIndex = values.problemtoday.indexOf(object.value);
@@ -80,7 +111,8 @@ const CenteredGrid = () => {
             newChecked.splice(currentIndex, 1);
         }
         
-         setValues({...values, problemtoday:newChecked})
+         setValues({...values, problemtoday:newChecked});
+         logFunction("What is the problem today");
     };
 
    
