@@ -54,11 +54,11 @@ export default function Login1() {
         try{
         const loginUser = {email, password};
         const loginRes = await Axios.post(
-           `${BACK_SERVER_URL}/user/login`,
-           //'http://localhost:5000/user/login',
+          // `${BACK_SERVER_URL}/user/login`,
+           'http://18.221.74.51:5000/user/login',
             loginUser
             );
-           console.log(`${BACK_SERVER_URL}`)
+           
         setUserData({
             token: loginRes.data.token,
             user: loginRes.data.user,
