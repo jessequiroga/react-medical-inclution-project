@@ -21,11 +21,14 @@ const AuthOptions = () => {
         <div>
             {
                 userData.user ? (
-                    <IconButton onClick={logout} color="inherit" className="button-border"><span>Log out</span></IconButton>
+                    <IconButton onClick={logout} color="inherit" className="button-border"><span style={{fontSize:18}}>Sign out</span></IconButton>
                 ) : (
                         <>
-                            <IconButton onClick={register} color="inherit" className="button-border"><span >Reguster</span></IconButton>
-                            <IconButton onClick={Login1} color="inherit" className="button-border"><span>Log in</span></IconButton>
+                            <IconButton onClick={register} color="inherit" className="button-border" 
+                            
+                            
+                            ><span style={{fontSize:18}}>Register</span></IconButton>
+                            <IconButton onClick={Login1} color="inherit" className="button-border"><span style={{fontSize:18}}>Sign in</span></IconButton>
                         </>
                     )}
         </div>

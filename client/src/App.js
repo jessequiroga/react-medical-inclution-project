@@ -11,6 +11,7 @@ import Hompage from "./components/homepage";
 import Nav from "./components/nav";
 import Inteview from "./components/inteview";
 import InternalMedcine from "./components/InternalMedcine";
+import ViewInternalMed from "./components/inteviewForms/viewInternalMed";
 import Dialect from "./components/diaLect/dialect";
 import Wakayama from "./components/diaLect/wakayama";
 import FontDetails from "./components/diaLect/fontDetails";
@@ -86,6 +87,7 @@ function App() {
 
         <InternalMedContext>
           <Route path="/internalMedcine" component={InternalMedcine} />
+         
         </InternalMedContext>
 
         <ObstetricgynecologyContext>

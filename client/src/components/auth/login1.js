@@ -4,39 +4,55 @@ import { makeStyles } from '@material-ui/core/styles';
 import Axios from 'axios';
 import UserContext from '../context/UserContext';
 import { useTranslation } from 'react-i18next';
+import Container from '@material-ui/core/Container';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Avatar from '@material-ui/core/Avatar';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
+import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import Errormsg from './errormsg';
 import Nav from "../nav";
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
-    button: {
-        margin: "14px",
-        color: "black",
-        fontSize: "16px",
-        backgroundColor: "#57EBEB",
-        minHeight: "75px",
-        minWidth: "200px !important",
-        borderRadius: "46px"
-    },
-    labelAligne: {
-        textAlign: "left",
-        marginLeft: 16
-    },
     paper: {
-        padding: theme.spacing(2),
-        textAlign: 'center',
-        color: 'white',
-        backgroundColor: '#eb57577a',
+        marginTop: theme.spacing(8),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
     },
-    content: {
-        paddingBottom: "600px",
-        paddingTop: "39px",
+    avatar: {
+        margin: theme.spacing(1),
+        backgroundColor: theme.palette.secondary.main,
+    },
+    form: {
+        width: '100%', // Fix IE 11 issue.
+        marginTop: theme.spacing(1),
+    },
+    submit: {
+        margin: theme.spacing(3, 0, 2),
+    },
 
-    }
+
 }));
+
+function Copyright() {
+    return (
+        <Typography variant="body2" color="textSecondary" align="center">
+            {'Copyright © '}
+            <Link color="inherit" href="https://material-ui.com/">
+                MIP
+        </Link>{' '}
+            {new Date().getFullYear()}
+            {'.'}
+        </Typography>
+    );
+}
 
 export default function Login1() {
     const { t, i18n } = useTranslation();
@@ -48,61 +64,91 @@ export default function Login1() {
     const { setUserData } = useContext(UserContext);
     const history = useHistory();
 
-    const BACK_SERVER_URL = "";
-    const submit = async (e) =>{
+    const submit = async (e) => {
         e.preventDefault();
-        try{
-        const loginUser = {email, password};
-        const loginRes = await Axios.post(
-          // `${BACK_SERVER_URL}/user/login`,
-           'http://18.221.74.51:5000/user/login',
-            loginUser
+        try {
+            const loginUser = { email, password };
+            const loginRes = await Axios.post(
+                'http://localhost:5000/user/login',
+                //  'http://18.221.74.51:5000/user/login',
+                loginUser
             );
-           
-        setUserData({
-            token: loginRes.data.token,
-            user: loginRes.data.user,
-        });
-        localStorage.setItem("auth-token", loginRes.data.token);
-        history.push("/homepage");
-        //window.location = '/homepage';
-    } catch (err) {
-        err.response.data.msg && setError(err.response.data.msg);
-    }
-        
+
+            setUserData({
+                token: loginRes.data.token,
+                user: loginRes.data.user,
+            });
+            localStorage.setItem("auth-token", loginRes.data.token);
+            history.push("/homepage");
+            //window.location = '/homepage';
+        } catch (err) {
+            err.response.data.msg && setError(err.response.data.msg);
+        }
+
     }
     return (
-        <div className="container">
+        <div>
             <Nav />
-      <br/>
-           <Grid className={classes.labelAligne} item xs={12}>
-               <h3 className="form" style={{ textAlign: "center", width:700, backgroundColor:"#f18888", color:"white", borderRadius:5, height:53 }}>{t('registration.login')}</h3>
-               {error && (
-                <Errormsg message={error} clearError={() => setError(undefined)} />
-                )}
-              <form className="form" onSubmit={submit}>
-               <FormControl  className=''>
-                   <InputLabel htmlFor="login-email">{t('registration.email')}</InputLabel>
-                   <Input
-                       id="login-email"
-                       type="email"
-                       onChange={(e) => setEmail(e.target.value)}
-                   />
-               </FormControl>
-                <br/>
-               <FormControl  className=''>
-                   <InputLabel htmlFor="login-password">{t('registration.password')}</InputLabel>
-                   <Input
-                       id="login-password"
-                       type="password"
-                       onChange={(e) => setPassword(e.target.value)}
-                   />
-               </FormControl>
-                <br/>
-       <input type="submit" value="Submit" />
-               </form>
-           </Grid>
-   </div>
+            <Container component="main" maxWidth="xs">
+
+                <CssBaseline />
+                <div className={classes.paper}>
+                    <Avatar className={classes.avatar}>
+                        <LockOutlinedIcon />
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        Sign in
+                    </Typography>
+                    {error && (
+                        <Errormsg message={error} clearError={() => setError(undefined)} />
+                    )}
+                    <form className={classes.form} noValidate onSubmit={submit}>
+                        <FormControl fullWidth className=''>
+                            <InputLabel htmlFor="login-email">{t('registration.email')}</InputLabel>
+                            <Input
+                               fullWidth
+                               required
+                                id="login-email"
+                                type="email"
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                        </FormControl>
+                        <br />
+                        <FormControl fullWidth className=''>
+                            <InputLabel htmlFor="login-password">{t('registration.password')}</InputLabel>
+                            <Input
+                               fullWidth
+                               required
+                                id="login-password"
+                                type="password"
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </FormControl>
+                        <br />
+                        <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
+                            Sign In
+       </Button>
+                        <Grid container>
+                            <Grid item xs>
+                                <Link href="#" variant="body2">
+                                    Forgot password?
+              </Link>
+                            </Grid>
+                            <Grid item>
+                                <Link href="#" variant="body2">
+                                    {"Don't have an account? Sign Up"}
+                                </Link>
+                            </Grid>
+                        </Grid>
+                    </form>
+
+                </div>
+
+            </Container>
+            <Box mt={8}>
+                <Copyright />
+            </Box>
+        </div>
     )
 }
 

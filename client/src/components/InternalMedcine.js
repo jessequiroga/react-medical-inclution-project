@@ -6,6 +6,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Nav from './nav';
+import Footer from "./footer";
 import { useTranslation } from 'react-i18next';
 import Form2 from './inteviewForms/form2'
 import Form1 from './inteviewForms/form1'
@@ -14,6 +15,7 @@ import Form4 from './inteviewForms/form4'
 import Form5 from './inteviewForms/form5'
 import Form6 from './inteviewForms/form6'
 import Form7 from './inteviewForms/form7'
+import ViewInternalMed from './inteviewForms/viewInternalMed'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { InternalMedContext, MedContext } from './internalMedContext';
@@ -22,8 +24,9 @@ import axios from "axios"
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        //width: '100%',
+        width: '100%',
         flexGrow: 1,
+        textAlign:"center"
     },
     button: {
         marginRight: theme.spacing(1),
@@ -40,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-    return ['', '', '', '', '', '', ''];
+    return ['', '', '', '', '', '', '', ''];
 }
 
 function GetStepContent({ activeStep, name, setValues }) {
@@ -66,7 +69,9 @@ function GetStepContent({ activeStep, name, setValues }) {
         case 5:
             return <Form6 />;
         case 6:
-            return <Form7 />;;
+            return <Form7 />;
+        case 7:
+            return <ViewInternalMed />;
         default:
             return 'Unknown step';
     }
@@ -140,7 +145,7 @@ export default function HorizontalLinearStepper() {
     return (
         <React.Fragment>
             <CssBaseline />
-            <Container fixed>
+            <Container >
                 <div className={classes.root}>
                     <Nav />
                     <Stepper activeStep={activeStep}>
@@ -208,6 +213,7 @@ export default function HorizontalLinearStepper() {
                     </div>
                 </div>
             </Container>
+            <Footer />
         </React.Fragment>
     );
 }

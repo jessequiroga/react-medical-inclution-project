@@ -3,6 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import Link from '@material-ui/core/Link';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 
@@ -49,6 +51,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function Copyright() {
+  return (
+      <Typography variant="body2" color="textSecondary" align="center">
+          {'Copyright © '}
+          <Link color="inherit" href="https://material-ui.com/">
+              MIP
+      </Link>{' '}
+          {new Date().getFullYear()}
+          {'.'}
+      </Typography>
+  );
+}
+
 export default function PrimaryFooter() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -94,21 +109,13 @@ export default function PrimaryFooter() {
  
 
   return (
-    <div className={classes.grow}>
-      <AppBar position="static" style={{backgroundColor:"#eb5757b5",}}>
-        <Toolbar>
-          
-          <Typography className={classes.title} variant="h6" noWrap style={{paddingLeft: "133px"}}>
-           Copyright 2019 ETL (Eiko Takaoka Laboratory, Sophia University)
-          </Typography>
-          
-          <div className={classes.grow} />
+    <div position="static">
+       
+        <Box mt={8}>
+                <Copyright />
+       </Box>
          
-         
-        </Toolbar>
-      </AppBar>
-    
-      {renderMenu}
-    </div>
-  );
+       <br />
+      </div>
+    );
 }

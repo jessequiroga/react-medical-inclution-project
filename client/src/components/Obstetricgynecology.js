@@ -23,8 +23,9 @@ import axios from "axios"
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        //width: '100%',
+        width: '100%',
         flexGrow: 1,
+        textAlign:"center"
     },
     button: {
         marginRight: theme.spacing(1),

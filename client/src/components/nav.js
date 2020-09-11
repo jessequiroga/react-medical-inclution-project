@@ -26,12 +26,18 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     display: 'none',
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('xs')]: {
       display: 'block',
     },
   },
-  
-  
+  link: {
+    "&:hover": {
+    textDecoration: "none",
+    background: "#f37878", 
+
+    }
+  },
+
   inputRoot: {
     color: 'inherit',
   },
@@ -86,7 +92,7 @@ export default function PrimarySearchAppBar() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
-  const changelanguage = (lang) => () =>{
+  const changelanguage = (lang) => () => {
     i18n.changeLanguage(lang);
   }
 
@@ -120,7 +126,7 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      
+
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           aria-label="account of current user"
@@ -130,7 +136,8 @@ export default function PrimarySearchAppBar() {
         >
           <GTranslateIcon />
         </IconButton>
-        <p>Profile</p>
+        <AuthOptions />
+
       </MenuItem>
     </Menu>
   );
@@ -143,17 +150,17 @@ export default function PrimarySearchAppBar() {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static" style={{backgroundColor:"#eb5757b5",}}>
+      <AppBar position="static" style={{ backgroundColor: "#eb5757b5", }}>
         <Toolbar>
-          
-          <Typography className={classes.title} variant="h4" noWrap>
-          <Link to="/homepage" ><Button style={{fontSize:32, color: "white"}}>MIP</Button></Link> 
+        <Typography className={classes.title} variant="h4" noWrap>
+            <Link className={classes.link} to="/homepage" ><Button style={{ fontSize: 22, color: "white" }}>MIP</Button></Link>
           </Typography>
-          
+         
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <AuthOptions />
             <IconButton
+              style={{ fontSize: 22 }}
               edge="end"
               aria-label="account of current user"
               aria-controls={menuId}
@@ -161,8 +168,8 @@ export default function PrimarySearchAppBar() {
               onClick={handleProfileMenuOpen}
               color="inherit"
             ><span>
-              <span><GTranslateIcon /></span>
-              <span>Language</span>
+                <span style={{fontSize:-1}}><GTranslateIcon /></span>
+                <span style={{fontSize:18}}>Language</span>
               </span>
             </IconButton>
           </div>

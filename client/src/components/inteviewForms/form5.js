@@ -41,6 +41,10 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'center',
         color: 'black',
     },
+    label: {
+        width:"100%",
+        textAlign:"center"
+    }
 }));
 const CenteredGrid = () => {
     const { t, i18n } = useTranslation();
@@ -215,8 +219,8 @@ const CenteredGrid = () => {
                 <div>
                     {values.onMedication === 'Yes' ? (
                         <div>
-                        <FormLabel style={{marginLeft:-148, fontSize:18}}><strong>{t('internalMedcine.currentlyonmedicationyesno')}</strong></FormLabel>
-                        <GridList style={{ height: 120, padding: 20 }} cellHeight={10} className={classes.gridList} cols={3}>
+                        <FormLabel className={classes.label}><strong>{t('internalMedcine.currentlyonmedicationyesno')}</strong></FormLabel>
+                        <GridList item xs={6} style={{ height: 120, padding: 20, width:"100%"}} cellHeight={10} className={classes.gridList} cols={3}>
                         {onmedications.map((value) => {
                             const labelId = `checkbox-list-label-${value.name}`;
 
@@ -260,13 +264,13 @@ const CenteredGrid = () => {
                 <div>
                     {values.doctorcare === 'Yes' ? (
                         <Grid container item xs={12}>
-                        <FormLabel container style={{marginTop:-25, lineHeight:2, fontSize:18}}><strong>{t('internalMedcine.currentlyonmedicationyesno')} <br/>/「はい」に☑した人は、疾患名リストから選択し、治療していた医療機関名を書いてください。</strong></FormLabel>
-                        <GridList style={{ height: 200, padding: 20 }} cellHeight={10} className={classes.gridList} cols={3}>
+                        <FormLabel container className={classes.label}><strong style={{lineHeight:2}}>{t('internalMedcine.currentlyonmedicationyesno')} <br/>/「はい」に☑した人は、疾患名リストから選択し、治療していた医療機関名を書いてください。</strong></FormLabel>
+                        <GridList style={{ height: 200, padding: 20, width:"100% " }} cellHeight={10} className={classes.gridList} cols={3}>
                         {ondoctorcares.map((value) => {
                             const labelId = `checkbox-list-label-${value.name}`;
 
                             return (
-                                <ListItem key={value.name} role={undefined} dense button onClick={handleToggleDoctorcaresType(value)}>
+                                <ListItem item xs={6} key={value.name} role={undefined} dense button onClick={handleToggleDoctorcaresType(value)}>
                                     <ListItemIcon>
                                         <Checkbox
                                             edge="start"
@@ -290,7 +294,7 @@ const CenteredGrid = () => {
                 </Grid>
 
                 <Grid item xs={12}>
-                    <Paper className={classes.paper}><strong><h5>{t('internalMedcine.hadsurgery')}? <br />/現在治療している病気、または過去に治療していたことはありますか？</h5></strong></Paper>
+                    <Paper className={classes.paper}><strong><h5>{t('internalMedcine.hadsurgery')} <br />/現在治療している病気、または過去に治療していたことはありますか？</h5></strong></Paper>
                 </Grid>
                 <Grid item xs={12}>
                 <FormControl component="fieldset">
@@ -305,12 +309,12 @@ const CenteredGrid = () => {
                 <div>
                     {values.hadsurgery === 'Yes' ? (
                         <div>
-                            <FormLabel style={{marginLeft:-148, fontSize:18}}><strong>{t('internalMedcine.currentlyonmedicationyesno')}</strong></FormLabel>
-                        <GridList style={{ height: 233, padding: 20 }} cellHeight={10} className={classes.gridList} cols={3}>
+                            <FormLabel className={classes.label}><strong>{t('internalMedcine.currentlyonmedicationyesno')}</strong></FormLabel>
+                        <GridList style={{ height: 233, padding: 20 , width:"100% "}} cellHeight={10} className={classes.gridList} cols={3}>
                         {hadsurgerys.map((value) => {
                             const labelId = `checkbox-list-label-${value.name}`;
                            return (
-                                <ListItem key={value.name} role={undefined} dense button onClick={handleToggleHadsurgerysType(value)}>
+                                <ListItem item xs={6} key={value.name} role={undefined} dense button onClick={handleToggleHadsurgerysType(value)}>
                                     <ListItemIcon>
                                         <Checkbox
                                             edge="start"
