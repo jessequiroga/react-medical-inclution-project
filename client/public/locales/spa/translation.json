@@ -1,0 +1,24 @@
+{
+    "covid-19": {
+        "COVI-19Question": "Cuestionario médico (Covid-19)",
+        "checkBoxApplicable":"A) Por favor, marque la casilla sí o no de acuerdo con su condición médica.",
+        "checkBoxApplicable1":"En las últimas dos semanas, ¿usted o algún miembro de su familia que vive con usted ha estado con una persona infectada por Covid-19",
+        "checkBoxApplicable2":"En las últimas dos semanas, ¿ha ido fuera de la prefectura o ha estado en el extranjero?",
+        "checkBoxApplicable3":"En las últimas dos semanas, ¿ha estado en un lugar cerrado y mal ventilado (p. ej. karaoke, snack bar) con muchas personas?",
+        "haveSymptoms":"B) ¿Tiene usted alguno o algunos de los siguientes síntomas? En caso afirmativo, marca “sí”",
+        "haveSymptoms1":"Fiebre (37.5ºC o más)",
+        "Cough":"Tos",
+        "Phlegm":"Esputo/Flema",
+        "Shortnessofbreath":"Dificultad para respirar o sensación de falta de aire",
+        "Senseoffatigue":"Fatiga",
+        "Abnormalityinthesenseofsmell":"Pérdida del sentido del olfato",
+        "Unabletoappreciatetaste":"Pérdida del sentido del gusto",
+        "VomitingNausea":"Náuseas・Vómito/Emesis",
+        "Diarrhea":"Diarrea",
+        "Noappetite":"Falta de apetito"
+    },
+    "internalMedcine": {
+        "yes": "Si",
+        "No": "No"
+    }
+}

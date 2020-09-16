@@ -43,11 +43,15 @@ const CenteredGrid = () => {
     const [values, setValues] = useContext(MedContext);
 
     const rows = [
-        createData('name', values.name),
+        createData('Name', values.name),
         createData('Date Of Birth', values.DateOfBirth.toLocaleDateString()),
         createData('Height', values.height),
         createData('Weight', values.weight),
         createData('Sex', values.sex),
+    ];
+
+    const rows0 = [
+        createData('Problem today', values.problemtoday),
     ];
 
     const rows1 = [
@@ -55,15 +59,21 @@ const CenteredGrid = () => {
         createData('Medcine allergis', values.allergis.medcine),
     ];
 
-    const rows2 = [
+    const rows22 = [
         createData('stools', values.stools),
+    ]
+
+    const rows2 = [
         createData('stoolfrequency', values.stoolfrequency),
     ]
 
-    const rows3 = [
-        createData('Place where you experience symptom', values.symptomoccur),
-        createData('When does the symptoms occur', values.bodyPart),
+    const rows33 = [
+        createData('Place where you experience symptom', values.bodyPart),
+        createData('When does the symptoms occur', values.symptomoccur),
         createData('What is the symptoms like', values.symptomlike),
+    ]
+
+    const rows3 = [
         createData('Symptoms on a scale of 1 to 10', values.scale1to10),
         createData('Symptoms start time', values.symptomstart.toLocaleDateString()),
         createData('Symptoms start date', values.symtomstarttime.toLocaleDateString()),
@@ -122,9 +132,40 @@ const CenteredGrid = () => {
                             {rows.map((row) => (
                                 <TableRow key={row.name}>
                                     <TableCell component="th" scope="row">
-                                        {row.name}
+                                        <strong>{row.name}</strong>
                                     </TableCell>
-                                    <TableCell align="right">{row.calories}</TableCell>
+                                    <TableCell align="left">{row.calories}</TableCell>
+
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+
+                <Grid item xs={12}>
+                       <strong className={classes.h4}><h4 className={classes.paper}>{t('internalMedcine.problemtoday1')}<br/>/今日はどのような症状がありますか。（複数ある方は複数☑してください.)</h4></strong>
+                </Grid>
+
+                <TableContainer component={Paper} >
+                    <Table className={classes.table} aria-label="simple table">
+
+                        <TableBody>
+                            {rows0.map((row) => (
+                                <TableRow key={row.name}>
+                                    <TableCell component="th" scope="row">
+                                    <strong>{row.name}</strong>
+                                    </TableCell>
+                                    {values.problemtoday !== "" ?(
+                                        
+                                        row.calories.map((item, i) =>(
+                                    <TableCell key={i}>
+                                        {item}
+                                        </TableCell>
+                                        ))
+                                        
+                                        ) : (
+                                            <TableCell align="left">{row.calories}</TableCell>
+                                        )}
 
                                 </TableRow>
                             ))}
@@ -142,35 +183,75 @@ const CenteredGrid = () => {
                             {rows1.map((row) => (
                                 <TableRow key={row.name}>
                                     <TableCell component="th" scope="row">
-                                        {row.name}
+                                    <strong>{row.name}</strong>
                                     </TableCell>
-                                    <TableCell align="right">{row.calories}</TableCell>
-
+                                    {values.allergis.foods !== "" || values.allergis.medcine !== "" ?(
+                                        
+                                        row.calories.map((item, i) =>(
+                                    <TableCell key={i}>
+                                        {item}
+                                        </TableCell>
+                                        ))
+                                        
+                                        ) : (
+                                            <TableCell align="left">{row.calories}</TableCell>
+                                        )}
                                 </TableRow>
                             ))}
                         </TableBody>
                     </Table>
                 </TableContainer>
 
+                
+
                 <Grid item xs={12}>
                     <strong className={classes.h4}><h4 className={classes.paper}>All that apply to your stool</h4></strong>
                 </Grid>
-                <TableContainer component={Paper}>
+                    
+                <TableContainer component={Paper} >
                     <Table className={classes.table} aria-label="simple table">
 
                         <TableBody>
                             {rows2.map((row) => (
                                 <TableRow key={row.name}>
                                     <TableCell component="th" scope="row">
-                                        {row.name}
+                                        <strong>{row.name}</strong>
                                     </TableCell>
-                                    <TableCell align="right">{row.calories}</TableCell>
+                                    <TableCell align="left">{row.calories}</TableCell>
 
                                 </TableRow>
                             ))}
                         </TableBody>
                     </Table>
                 </TableContainer>
+
+                <TableContainer component={Paper}>
+                    <Table className={classes.table} aria-label="simple table">
+
+                        <TableBody>
+                            {rows22.map((row) => (
+                                <TableRow key={row.name}>
+                                    <TableCell component="th" scope="row">
+                                    <strong>{row.name}</strong>
+                                    </TableCell>
+                                    {values.stools !== "" ?(
+                                        
+                                        row.calories.map((item, i) =>(
+                                    <TableCell key={i}>
+                                        {item}
+                                        </TableCell>
+                                        ))
+                                        
+                                        ) : (
+                                            <TableCell align="left">{row.calories}</TableCell>
+                                        )}
+
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                
 
                 <Grid item xs={12}>
                     <strong className={classes.h4}><h4 className={classes.paper}>Symptoms</h4></strong>
@@ -179,18 +260,46 @@ const CenteredGrid = () => {
                     <Table className={classes.table} aria-label="simple table">
 
                         <TableBody>
-                            {rows3.map((row) => (
+                            {rows33.map((row) => (
                                 <TableRow key={row.name}>
                                     <TableCell component="th" scope="row">
-                                        {row.name}
+                                    <strong>{row.name}</strong>
                                     </TableCell>
-                                    <TableCell align="right">{row.calories}</TableCell>
+                                    {values.bodyPart !== "" ?(
+                                        
+                                        row.calories.map((item, i) =>(
+                                    <TableCell key={i}>
+                                        {t('internalMedcine.'+item )}
+                                        </TableCell>
+                                        ))
+                                        
+                                        ) : (
+                                            <TableCell align="left">{row.calories}</TableCell>
+                                        )}
 
                                 </TableRow>
                             ))}
                         </TableBody>
                     </Table>
                 </TableContainer>
+                <TableContainer component={Paper} >
+                    <Table className={classes.table} aria-label="simple table">
+
+                        <TableBody>
+                            {rows3.map((row) => (
+                                <TableRow key={row.name}>
+                                    <TableCell component="th" scope="row">
+                                        <strong>{row.name}</strong>
+                                    </TableCell>
+                                    <TableCell align="left">{row.calories}</TableCell>
+
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+
+                
                 <Grid item xs={12}>
                     <strong className={classes.h4}><h4 className={classes.paper}>{t('internalMedcine.currentlyonmedication')} </h4></strong>
                 </Grid>
@@ -201,9 +310,9 @@ const CenteredGrid = () => {
                             {rows4.map((row) => (
                                 <TableRow key={row.name}>
                                     <TableCell component="th" scope="row">
-                                        {row.name}
+                                    <strong>{row.name}</strong>
                                     </TableCell>
-                                    <TableCell align="right">{row.calories}</TableCell>
+                                    <TableCell align="left">{row.calories}</TableCell>
 
                                 </TableRow>
                             ))}
@@ -221,9 +330,9 @@ const CenteredGrid = () => {
                             {rows5.map((row) => (
                                 <TableRow key={row.name}>
                                     <TableCell component="th" scope="row">
-                                        {row.name}
+                                    <strong>{row.name}</strong>
                                     </TableCell>
-                                    <TableCell align="right">{row.calories}</TableCell>
+                                    <TableCell align="left">{row.calories}</TableCell>
 
                                 </TableRow>
                             ))}
@@ -241,9 +350,9 @@ const CenteredGrid = () => {
                             {rows6.map((row) => (
                                 <TableRow key={row.name}>
                                     <TableCell component="th" scope="row">
-                                        {row.name}
+                                    <strong>{row.name}</strong>
                                     </TableCell>
-                                    <TableCell align="right">{row.calories}</TableCell>
+                                    <TableCell align="left">{row.calories}</TableCell>
 
                                 </TableRow>
                             ))}
@@ -261,9 +370,9 @@ const CenteredGrid = () => {
                             {rows7.map((row) => (
                                 <TableRow key={row.name}>
                                     <TableCell component="th" scope="row">
-                                        {row.name}
+                                    <strong>{row.name}</strong>
                                     </TableCell>
-                                    <TableCell align="right">{row.calories}</TableCell>
+                                    <TableCell align="left">{row.calories}</TableCell>
 
                                 </TableRow>
                             ))}
@@ -280,17 +389,17 @@ const CenteredGrid = () => {
                             <TableRow>
                             <TableCell>Name</TableCell>
                                 <TableCell>yes/no</TableCell>
-                                <TableCell align="right">Quantity</TableCell>
+                                <TableCell align="left">Quantity</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {rows8.map((row) => (
                                 <TableRow key={row.name}>
                                     <TableCell component="th" scope="row">
-                                        {row.name}
+                                    <strong>{row.name}</strong>
                                     </TableCell>
-                                    <TableCell align="right">{row.calories}</TableCell>
-                                    <TableCell align="right">{row.fat}</TableCell>
+                                    <TableCell align="left">{row.calories}</TableCell>
+                                    <TableCell align="left">{row.fat}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
@@ -298,7 +407,7 @@ const CenteredGrid = () => {
                 </TableContainer>
 
                 <Grid item xs={12}>
-                    <Paper className={classes.paper}><strong><h5>{t('internalMedcine.Iffemale')}? <br />/女性の方のみお答えください。妊娠していますか、またその可能性はありますか。</h5></strong></Paper>
+                   <strong className={classes.h4}><h4 className={classes.paper}>{t('internalMedcine.Iffemale')}? <br />/女性の方のみお答えください。妊娠していますか、またその可能性はありますか。</h4></strong>
                 </Grid>
                 <TableContainer component={Paper}>
                     <Table className={classes.table} aria-label="simple table">
@@ -311,10 +420,10 @@ const CenteredGrid = () => {
                             {rows9.map((row) => (
                                 <TableRow key={row.name}>
                                     <TableCell component="th" scope="row">
-                                        {row.name}
+                                    <strong>{row.name}</strong>
                                     </TableCell>
-                                    <TableCell align="right">{row.calories}</TableCell>
-                                    <TableCell align="right">{row.fat}</TableCell>
+                                    <TableCell align="left">{row.calories}</TableCell>
+                                    <TableCell align="left">{row.fat}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>

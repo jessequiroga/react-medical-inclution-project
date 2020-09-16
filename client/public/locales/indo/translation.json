@@ -1,0 +1,24 @@
+{
+    "covid-19": {
+    "COVI-19Question": "Pertanyaan mengenai Gejala Virus COVID19",
+    "checkBoxApplicable":"A) Lingkarilah jawaban (iya / tidak) yang sesuai dengan kondisi Anda.",
+    "checkBoxApplicable1":"Dalam 2 minggu terakhir ini, apakah Anda atau orang serumah Anda pernah bertemu dengan penderita COVID19?",
+    "checkBoxApplicable2":"Dalam 2 minggu terakhir ini, apakah Anda pernah bepergian ke luar kota (atau ke luar negeri)?",
+    "checkBoxApplicable3":"Dalam 2 minggu terakhir ini, apakah Anda pernah mengunjungi tempat yang kurang berventilasi dan tertutup (misalnya karaoke, bar, dsm)? ",
+    "haveSymptoms":"B) Anda Anda mengalami gejala-gejala berikut ini: Lingkarilah yang sesuai",
+    "haveSymptoms1":"Demam (lebih dari 37,5℃)",
+    "Cough":"Batuk",
+    "Phlegm":"Berdahak",
+    "Shortnessofbreath":"Sulit bernafas ",
+    "Senseoffatigue":"Lemah lesu (kecapaian yang berlebihan)",
+    "Abnormalityinthesenseofsmell":"Gangguan indera penciuman (sulit mencium bau)",
+    "Unabletoappreciatetaste":"Gangguan indera pengecap (sulit merasakan makanan)",
+    "VomitingNausea":"Mual・Muntah",
+    "Diarrhea":"Diare",
+    "Noappetite":"Hilangnya nafsu makan"
+    },
+    "internalMedcine": {
+        "yes": "Iya",
+        "No": "Tidak"
+    }
+}

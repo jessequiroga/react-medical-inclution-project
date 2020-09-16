@@ -3,5 +3,9 @@
     "home" : "집",
     "Respiratory" : "호흡기",
     "InternalMedcine" : "내부 메드 신",
-    "Cardiology" : "심장학"
+    "Cardiology" : "심장학",
+    "internalMedcine": {
+        "yes": "예",
+        "No": "아니"
+    }
 }

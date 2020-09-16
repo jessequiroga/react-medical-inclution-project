@@ -110,7 +110,10 @@ export default function PrimarySearchAppBar() {
       <MenuItem onClick={changelanguage('en')}>En</MenuItem>
       <MenuItem onClick={changelanguage('ch')}>Ch</MenuItem>
       <MenuItem onClick={changelanguage('ko')}>ko</MenuItem>
-      <MenuItem onClick={changelanguage('po')}>po</MenuItem>
+      <MenuItem onClick={changelanguage('po')}>Po</MenuItem>
+      <MenuItem onClick={changelanguage('spa')}>Spa</MenuItem>
+      <MenuItem onClick={changelanguage('fili')}>Fili</MenuItem>
+      <MenuItem onClick={changelanguage('indo')}>Indo</MenuItem>
     </Menu>
   );
 

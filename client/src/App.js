@@ -20,6 +20,7 @@ import BasicSentences from "./components/diaLect/basicSentences";
 import Obstetricgynecology from "./components/Obstetricgynecology";
 import Disclaimer from "./components/disclaimer";
 import Covid19 from "./components/covid-19";
+import Covid19Result from "./components/covid-19Resuls";
 import Cardiology from "./components/CardiologyForms/cardiology";
 import Gastrology from "./components/GastrologyForm/gastrology";
 import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -75,6 +76,7 @@ function App() {
         <LogContext>
         <Covid19Context>
           <Route exact path="/" component={Covid19} />
+          <Route path="/covid19Result" component={Covid19Result} />
         </Covid19Context>
         
         <Route path="/login1" component={Login1} />
@@ -87,7 +89,7 @@ function App() {
 
         <InternalMedContext>
           <Route path="/internalMedcine" component={InternalMedcine} />
-         
+          <Route path="/viewInternalMed" component={ViewInternalMed} />
         </InternalMedContext>
 
         <ObstetricgynecologyContext>

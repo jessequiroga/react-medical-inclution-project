@@ -61,7 +61,7 @@
         "Itchiness" :"Coceira",
         "Pain" :"Dor",
         "advisedanotherclinic" :"Favor assinalar com ☑ o item",
-        "advisedanotherclinic1" :" que corresponde ao estado das fezes",
+        "advisedanotherclinic1" :" Que corresponde ao estado das fezes",
         "Other" :"Outros",
         "Grayishwhite" :"Cinza",
         "Brown" :"Marrom",
@@ -109,6 +109,24 @@
         "interpreterinterpreterservice" :"Caso tenha intérprete gostaria que me acompanhasse"
         
         
+    },
+    "covid-19": {
+        "COVI-19Question": "Questionário sobre a infecção pelo Novo Coronavírus",
+        "checkBoxApplicable":"A) Por favor, marque sim ou não, de acordo com a sua situação.",
+        "checkBoxApplicable1":"Alguma vez você ou um membro da sua família que mora  consigo esteve junto com uma pessoa infectada pelo Novo Coronavírus nas últimas duas semanas?",
+        "checkBoxApplicable2":"Saiu da província (incluindo o estrangeiro) nas últimas duas semanas?",
+        "checkBoxApplicable3":"Já esteve em um local mal ventilado e fechado (karaoke, snack bar, etc.) com um grande número de pessoas nas últimas duas semanas?",
+        "haveSymptoms":"B) Tem algum dos sintomas apresentados ? Por favor, faça um círculo à volta de um deles?",
+        "haveSymptoms1":"Febre (acima de 37,5°C)",
+        "Cough":"Tosse",
+        "Phlegm":"Catarro",
+        "Shortnessofbreath":"Falta de ar",
+        "Senseoffatigue":"Fadiga (cansaço extremo)",
+        "Abnormalityinthesenseofsmell":"Difícil de sentir o cheiro (perda de olfato)",
+        "Unabletoappreciatetaste":"Não sinto gosto de comida ou bebida.",
+        "VomitingNausea":"Náusea・Vômito",
+        "Diarrhea":"Diarreia",
+        "Noappetite":"Falta de apetite"
     }
     
 }

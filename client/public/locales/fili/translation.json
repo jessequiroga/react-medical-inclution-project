@@ -1,0 +1,24 @@
+{
+    "covid-19": {
+        "COVI-19Question": "Mga katanungan tungkol sa nakahahawang bagong sakit na coronavirus",
+        "checkBoxApplicable":"A) Piliin ang nararapat at bilugan 〇 ang (oo o hindi).",
+        "checkBoxApplicable1":"Nitong nakaraang 2 linggo, may nakasama ka ba (miyembro ng pamilya at kasama sa bahay) na taong maysakit ng nakahahawang coronavirus?",
+        "checkBoxApplicable2":"Nitong nakaraang 2 linggo, nagpunta ka ba sa ibang prefecture o sa ibang bansa?",
+        "checkBoxApplicable3":"Nitong nakaraang 2 linggo, nagpunta ka ba sa isang lugar na kulob at mahina ang bentilasyon (karaoke, snack bar, atbp.), kung saan maraming tao ang nagtitipon? ",
+        "haveSymptoms":"B) May nararamdaman ka bang sintomas? Bilugan ang naa-angkop.",
+        "haveSymptoms1":"Lagnat (37.5 ° C o mas mataas pa)",
+        "Cough":"Ubo",
+        "Phlegm":"Plema",
+        "Shortnessofbreath":"Hirap sa paghinga",
+        "Senseoffatigue":"Pagod (mabigat ang katawan)",
+        "Abnormalityinthesenseofsmell":"Mahina ang pang amoy o wala nito",
+        "Unabletoappreciatetaste":"Walang panlasa ng pagkain o inumin",
+        "VomitingNausea":"Pagsusuka・Pagsusuka",
+        "Diarrhea":"Pagtatae",
+        "Noappetite":"No appetite"
+    },
+    "internalMedcine": {
+        "yes": "Oo",
+        "No": "Hindi"
+    }
+}
