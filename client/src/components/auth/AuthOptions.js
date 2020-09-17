@@ -32,7 +32,7 @@ const AuthOptions = () => {
         <div>
             {
                 userData.user ? (
-                    <IconButton onClick={logout} color="inherit" className="button-border"><span style={{fontSize:18}}>Sign out</span></IconButton>
+                    <IconButton onClick={logout} color="inherit" className="button-border"><LockOutlinedIcon /><span style={{fontSize:18}}>Sign out</span></IconButton>
                 ) : (
                         <div className={classes.avata} >
                             <IconButton onClick={register} color="inherit" className="button-border"><PersonAddIcon /><span style={{fontSize:18}}>Register</span></IconButton>

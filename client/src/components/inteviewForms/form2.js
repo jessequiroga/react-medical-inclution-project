@@ -46,31 +46,37 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CenteredGrid = () => {
-    
+    const blue = (text) =>{
+        return(
+        <span style={{color:"blue"}}>{text}</span>
+        );
+      
+    }
+
     const foodAlergie = [
-        { name: 'Fish Roe/魚卵', value: 'Fish Roe' },
-        { name: 'Shellfish /貝類', value: 'Shellfish' },
-        { name: 'Milk /甲殻類（エビ、カニ等)', value: 'Milk' },
-        { name: 'Cheese /卵', value: 'Cheese' },
-        { name: 'Buckwheat /魚卵', value: 'Buckwheat' },
-        { name: 'Peanuts /貝類', value: 'Peanuts' },
-        { name: 'Almonds /卵', value: 'Almonds' },
-        { name: 'wheat /小麦', value: 'wheat' },
-        { name: 'soy /大豆', value: 'soy' },
-        { name: 'Kiwifruit /キウイ', value: 'Kiwifruit' },
-        { name: 'Peaches /桃', value: 'Peaches' },
-        { name: 'Yams /山芋', value: 'Yams' },
-        { name: "Blue-skin fish (Mackerel/ Salmon/ Whitebait/ Anchovies/ Sardines)/青魚", value: "Blue-skin fish (Mackerel/ Salmon/ Whitebait/ Anchovies/ Sardines)" },
-        { name: "Shrimp/Prawns/ Crabs/Lobsters/甲殻類（エビ、カニ等)/発熱", value: "Shrimp/Prawns/Crabs/Lobsters" },
+        { name: 'Fish Roe', text:'/魚卵', value: 'Fish Roe' },
+        { name: 'Shellfish', text:'/貝類', value: 'Shellfish' },
+        { name: 'Milk ', text:'/甲殻類（エビ、カニ等)',  value: 'Milk' },
+        { name: 'Cheese ', text:'/卵', value: 'Cheese' },
+        { name: 'Buckwheat ', text:'/魚卵', value: 'Buckwheat' },
+        { name: 'Peanuts ', text:'/貝類',  value: 'Peanuts' },
+        { name: 'Almonds ', text:'/卵', value: 'Almonds' },
+        { name: 'Wheat ', text:'/小麦', value: 'wheat' },
+        { name: 'Soy ', text:'/大豆',  value: 'Soy' },
+        { name: 'Kiwifruit ', text:'/キウイ', value: 'Kiwifruit' },
+        { name: 'Peaches ', text:'/桃', value: 'Peaches' },
+        { name: 'Yams ', text:'/山芋', value: 'Yams' },
+        { name: "Blue-skin fish (Mackerel/ Salmon/ Whitebait/ Anchovies/ Sardines)", text:'/青魚', value: "Blue-skin fish (Mackerel/ Salmon/ Whitebait/ Anchovies/ Sardines)" },
+        { name: "Shrimp/Prawns/ Crabs/Lobsters", text:'/甲殻類（エビ、カニ等)/発熱', value: "Shrimp/Prawns/Crabs/Lobsters" },
     ];
 
     const medecinesAlergie = [
-        {name:"Alcohol /アルコール", value:"Alcohol"},
-        {name:"fever reducer /解熱剤", value:"fever reducer"},
-        {name:"pain killer /痛み止め", value:"pain killer"},
-        {name:"antibiotics /抗生物質", value:"antibiotics"},
-        {name:"medicine for stomach and bowels /胃腸薬", value:"medicine for stomach and bowels"},
-        {name:"anesthetic /麻酔薬", value:"antibiotics"}
+        {name:"Alcohol ", text:'/アルコール', value:"Alcohol"},
+        {name:"Fever reducer ", text:'/解熱剤', value:"Fever reducer"},
+        {name:"Pain killer ", text:'/痛み止め', value:"Pain killer"},
+        {name:"Antibiotics ", text:'/抗生物質', value:"Antibiotics"},
+        {name:"Medicine for stomach and bowels ", text:'/胃腸薬', value:"Medicine for stomach and bowels"},
+        {name:"Anesthetic ", text:'/麻酔薬', value:"Antibiotics"}
        ];
 
     const [values, setValues] = useContext(MedContext);
@@ -183,12 +189,12 @@ console.log(values)
         <div className={classes.root}>
             <Grid container spacing={3} style={{ padding: 20 }}>
                 <Grid item xs={12}>
-                    <Paper className={classes.paper}><strong><h4>{t('internalMedcine.PersonnalInformation')}</h4></strong></Paper>
+                    <Paper className={classes.paper}><strong><h4>{t('internalMedcine.PersonnalInformation')} <i style={{color:"blue"}}>/個人情報</i></h4></strong></Paper>
                 </Grid>
                 <Grid item xs={8}>
 
                     <FormControl fullWidth className=''>
-                        <InputLabel htmlFor="name">{t('internalMedcine.LastFirstname')} /医療機関記入欄/生年月日（西暦)</InputLabel>
+                        <InputLabel htmlFor="name">{t('internalMedcine.LastFirstname')} <i style={{color:"#0000ffbf"}}>/医療機関記入欄/生年月日（西暦)</i></InputLabel>
                         <Input
                             id="name"
                             type="text"
@@ -257,7 +263,7 @@ console.log(values)
                 </Grid>
             
             <Grid item xs={12}>
-                <Paper className={classes.paper}><strong><h4>{t('internalMedcine.Allergie')} /アレルギー</h4></strong></Paper>
+                <Paper className={classes.paper}><strong><h4>{t('internalMedcine.Allergie')} <span style={{color:"blue"}}>/アレルギー</span></h4></strong></Paper>
             </Grid>
             <br />
             <Grid container spacing={3} style={{ padding: 20 }}>
@@ -278,7 +284,11 @@ console.log(values)
                                             inputProps={{ 'aria-labelledby': labelId }}
                                         />
                                     </ListItemIcon>
-                                    <ListItemText id={labelId} primary={`${value.name}`} />
+                                    <ListItemText id={labelId} >
+                                        {value.name}
+                                        <span style={{color:"blue"}}>{value.text}</span>
+                                    </ListItemText>
+                                    
 
                                 </ListItem>
                             );
@@ -303,7 +313,10 @@ console.log(values)
                                             inputProps={{ 'aria-labelledby': labelId }}
                                         />
                                     </ListItemIcon>
-                                    <ListItemText id={labelId} primary={`${value.name}`} />
+                                    <ListItemText id={labelId} >
+                                        {value.name}
+                                        <span style={{color:"blue"}}>{value.text}</span>
+                                    </ListItemText>
 
                                 </ListItem>
                             );

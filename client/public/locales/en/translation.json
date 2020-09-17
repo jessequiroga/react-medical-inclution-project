@@ -17,6 +17,8 @@
     "Urology": "Urology",
     "Dermatology": "Dermatology",
     "Obstetricgynecology": "Obstetric and gynecology",
+    "cancel":"Cancel",
+    "Confirm":"Confirm",
     "internalMedcine": {
         "Head": "Head",
         "Eye(right)": "Eye(right)",

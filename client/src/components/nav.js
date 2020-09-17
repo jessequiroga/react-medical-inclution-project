@@ -5,7 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
-import Badge from '@material-ui/core/Badge';
+import SideDrawer from './sideDrawer';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import GTranslateIcon from '@material-ui/icons/GTranslate';
@@ -160,8 +160,12 @@ export default function PrimarySearchAppBar() {
     <div className={classes.grow}>
       <AppBar position="static" style={{ backgroundColor: "#eb5757b5", }}>
         <Toolbar>
+        <SideDrawer />
         <Typography className={classes.title} variant="h4" noWrap>
-            <Link className={classes.link} to="/homepage" ><Button style={{ fontSize: 22, color: "white" }}>MIP</Button></Link>
+          
+            <Link className={classes.link} to="/homepage" >
+              <Button style={{ fontSize: 22, color: "white" }}>MIP</Button>
+            </Link>
           </Typography>
          
           <div className={classes.grow} />
