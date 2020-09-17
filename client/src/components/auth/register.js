@@ -6,6 +6,7 @@ import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Footer from "../footer";
 import '../../App.css';
+import Avatar from '@material-ui/core/Avatar';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import Errormsg from './errormsg';
 import FormControl from '@material-ui/core/FormControl';
@@ -14,6 +15,7 @@ import { useTranslation } from 'react-i18next';
 import { Link, useHistory } from 'react-router-dom'
 import { Grid } from '@material-ui/core';
 import Axios from 'axios';
+import Typography from '@material-ui/core/Typography';
 import UserContext from '../context/UserContext';
 import { Button } from '@material-ui/core';
 
@@ -78,12 +80,18 @@ const Register = () => {
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <div className={classes.paper}>
-                <br />
-                <Grid className={classes.labelAligne} item xs={12}>
-                    <strong><h3 style={{ textAlign: "center" }}>{t('registration.userRegistration')}</h3></strong>
+                <Avatar className={classes.avatar}>
+                        <PersonAddIcon />
+                    </Avatar>
+                
+                <Typography component="h1" variant="h5">
+                {t('registration.userRegistration')}
+                    </Typography>
+                    
                     {error && (
                         <Errormsg message={error} clearError={() => setError(undefined)} />
                     )}
+                    <Grid className={classes.labelAligne} item xs={12}>
                     <form onSubmit={submit}>
                         <FormControl fullWidth className=''>
                             <InputLabel htmlFor="register-email">{t('registration.email')}</InputLabel>

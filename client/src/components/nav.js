@@ -37,6 +37,11 @@ const useStyles = makeStyles((theme) => ({
 
     }
   },
+  avata:{
+    margin: theme.spacing(1),
+    verticalAlign:"sub",
+    marginTop: 5
+},
 
   inputRoot: {
     color: 'inherit',
@@ -130,7 +135,7 @@ export default function PrimarySearchAppBar() {
       onClose={handleMobileMenuClose}
     >
 
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem onClick={handleProfileMenuOpen} className={classes.avata}>
         <IconButton
           aria-label="account of current user"
           aria-controls="primary-search-account-menu"
