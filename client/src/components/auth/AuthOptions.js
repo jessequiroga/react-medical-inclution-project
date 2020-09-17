@@ -24,10 +24,7 @@ const AuthOptions = () => {
                     <IconButton onClick={logout} color="inherit" className="button-border"><span style={{fontSize:18}}>Sign out</span></IconButton>
                 ) : (
                         <>
-                            <IconButton onClick={register} color="inherit" className="button-border" 
-                            
-                            
-                            ><span style={{fontSize:18}}>Register</span></IconButton>
+                            <IconButton onClick={register} color="inherit" className="button-border"><span style={{fontSize:18}}>Register</span></IconButton>
                             <IconButton onClick={Login1} color="inherit" className="button-border"><span style={{fontSize:18}}>Sign in</span></IconButton>
                         </>
                     )}

@@ -1,51 +1,45 @@
 import React, { useState, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Nav from "./nav.js";
-import Paper from '@material-ui/core/Paper';
-import Footer from "./footer";
-import '../App.css';
-import { CovidContext } from "./context/covid19Context"
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
+import Nav from "../nav.js";
+import InputLabel from '@material-ui/core/InputLabel';
+import Container from '@material-ui/core/Container';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Footer from "../footer";
+import '../../App.css';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import Errormsg from './errormsg';
 import FormControl from '@material-ui/core/FormControl';
-import Button from '@material-ui/core/Button';
+import Input from '@material-ui/core/Input';
 import { useTranslation } from 'react-i18next';
 import { Link, useHistory } from 'react-router-dom'
 import { Grid } from '@material-ui/core';
 import Axios from 'axios';
-import UserContext from '../context/UserContext.js';
+import UserContext from '../context/UserContext';
+import { Button } from '@material-ui/core';
 
 
 const useStyles = makeStyles((theme) => ({
-    button: {
-        margin: "14px",
-        color: "black",
-        fontSize: "16px",
-        backgroundColor: "#57EBEB",
-        minHeight: "75px",
-        minWidth: "200px !important",
-        borderRadius: "46px"
-    },
-    labelAligne: {
-        textAlign: "left",
-        marginLeft: 16
-    },
     paper: {
-        padding: theme.spacing(2),
-        textAlign: 'center',
-        color: 'white',
-        backgroundColor: '#eb57577a',
+        marginTop: theme.spacing(8),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
     },
-    content: {
-        paddingBottom: "600px",
-        paddingTop: "39px",
-
-    }
+    avatar: {
+        margin: theme.spacing(1),
+        backgroundColor: theme.palette.secondary.main,
+    },
+    form: {
+        width: '100%', // Fix IE 11 issue.
+        marginTop: theme.spacing(1),
+    },
+    submit: {
+        margin: theme.spacing(3, 0, 2),
+    },
 }));
 
-export default function register() {
+const Register = () => {
+    const { t, i18n } = useTranslation();
     const classes = useStyles();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
@@ -53,7 +47,7 @@ export default function register() {
     const [displayName, setDisplayName] = useState();
     const [error, setError] = useState("");
 
-    const { setUserData } = UserContext(UserContext);
+    const { setUserData } = useContext(UserContext);
     const history = useHistory();
 
     const submit = async (e) => {
@@ -79,54 +73,70 @@ export default function register() {
         }
     }
     return (
-        <div className="container" style={{ paddingRight: 30, paddingLeft: 30 }}>
-            <br />
-            <Grid className={classes.labelAligne} item xs={12}>
-                <strong><h3 style={{ textAlign: "center" }}>{t('registration.userRegistration')}</h3></strong>
-                {error && (
-                <ErrorNotice message={error} clearError={() => setError(undefined)} />
-                )}
-                <form onSubmit={submit}>
-                    <FormControl fullWidth className=''>
-                        <InputLabel htmlFor="register-email">{t('registration.email')}</InputLabel>
-                        <Input
-                            id="register-email"
-                            type="email"
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                    </FormControl>
+        <div style={{ paddingRight: 30, paddingLeft: 30 }}>
+            <Nav />
+            <Container component="main" maxWidth="xs">
+                <CssBaseline />
+                <div className={classes.paper}>
+                <br />
+                <Grid className={classes.labelAligne} item xs={12}>
+                    <strong><h3 style={{ textAlign: "center" }}>{t('registration.userRegistration')}</h3></strong>
+                    {error && (
+                        <Errormsg message={error} clearError={() => setError(undefined)} />
+                    )}
+                    <form onSubmit={submit}>
+                        <FormControl fullWidth className=''>
+                            <InputLabel htmlFor="register-email">{t('registration.email')}</InputLabel>
+                            <Input
+                                id="register-email"
+                                type="email"
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                        </FormControl>
 
-                    <FormControl fullWidth className=''>
-                        <InputLabel htmlFor="register-password">{t('registration.password')}</InputLabel>
-                        <Input
-                            id="register-password"
-                            type="password"
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                    </FormControl>
+                        <FormControl fullWidth className=''>
+                            <InputLabel htmlFor="register-password">{t('registration.password')}</InputLabel>
+                            <Input
+                                id="register-password"
+                                type="password"
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </FormControl>
 
-                    <FormControl fullWidth className=''>
+                        <FormControl fullWidth className=''>
+                            <InputLabel htmlFor="register-passwordCheck">{t('registration.verifypassword')}</InputLabel>
+                            <Input
+                                labelAligne={t('registration.verifypassword')}
+                                id="register-passwordCheck"
+                                type="password"
+                                onChange={(e) => setPasswordCheck(e.target.value)}
+                            />
+                        </FormControl>
 
-                        <Input
-                            labelAligne={t('registration.verifypassword')}
-                            id="register-passwordCheck"
-                            type="password"
-                            onChange={(e) => setPasswordCheck(e.target.value)}
-                        />
-                    </FormControl>
-
-                    <FormControl fullWidth className=''>
-                        <InputLabel htmlFor="register-displayName">{t('registration.email')}</InputLabel>
-                        <Input
-                            id="register-displayName"
-                            type="text"
-                            onChange={(e) => setDisplayName(e.target.value)}
-                        />
-                    </FormControl>
-
-                    <input type="submit" value="Register" />
-                </form>
-            </Grid>
+                        <FormControl fullWidth className=''>
+                            <InputLabel htmlFor="register-displayName">{t('registration.name')}</InputLabel>
+                            <Input
+                                id="register-displayName"
+                                type="text"
+                                onChange={(e) => setDisplayName(e.target.value)}
+                            />
+                        </FormControl>
+                        <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
+                            Register
+       </Button>
+                        <Grid container>
+                            <Grid item>
+                                <Link to="/login1" variant="body2">
+                                    {"Have an account? Sign In"}
+                                </Link>
+                            </Grid>
+                        </Grid>
+                    </form>
+                </Grid>
+                </div>
+            </Container>
+            <Footer />
         </div>
     )
 }
+export default Register;

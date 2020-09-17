@@ -274,6 +274,7 @@
         "email": "Email",
         "password": "Password",
         "verifypassword": "Verify password",
-        "login": "Login"
+        "login": "Login",
+        "name": "Name"
     }
 }

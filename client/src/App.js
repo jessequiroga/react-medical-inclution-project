@@ -21,6 +21,7 @@ import Obstetricgynecology from "./components/Obstetricgynecology";
 import Disclaimer from "./components/disclaimer";
 import Covid19 from "./components/covid-19";
 import Covid19Result from "./components/covid-19Resuls";
+import Register from "./components/auth/register";
 import Cardiology from "./components/CardiologyForms/cardiology";
 import Gastrology from "./components/GastrologyForm/gastrology";
 import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -35,6 +36,7 @@ import { Covid19Context } from "./components/context/covid19Context"
 
 import WordDetails from "./components/diaLect/wordDetails";
 import Dictionary from "./components/diaLect/dictionary";
+
 
 
 function App() {
@@ -102,6 +104,8 @@ function App() {
 
 
         <Route path="/gastrology" component={Gastrology} />
+
+        <Route path="/register" component={Register} />
 
 
         <Route path="/dialect" component={Dialect} />

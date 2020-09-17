@@ -64,6 +64,8 @@ export default function Login1() {
     const { setUserData } = useContext(UserContext);
     const history = useHistory();
 
+    const login =() => history.push("/register");
+
     const submit = async (e) => {
         e.preventDefault();
         try {
@@ -135,8 +137,8 @@ export default function Login1() {
               </Link>
                             </Grid>
                             <Grid item>
-                                <Link href="#" variant="body2">
-                                    {"Don't have an account? Sign Up"}
+                                <Link href="" variant="body1" onClick={login}>
+                                    Don't have an account? Sign Up
                                 </Link>
                             </Grid>
                         </Grid>
